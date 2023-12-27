@@ -1,3 +1,6 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
-  }
+  "rewrites": [
+    { "source": "/app/detail/:id", "destination": "/app/detail/[id]" },
+    { "source": "/(.*)", "destination": "/$1" }
+  ]
+}
