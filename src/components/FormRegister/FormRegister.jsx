@@ -46,7 +46,7 @@ export default function FormRegister() {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:8080/users",
+          "https://teza-shoes-api.vercel.app/users",
           inputForm
         );
 
