@@ -10,14 +10,11 @@ export default function Card({
   newProduct,
   id,
 }) {
-  const logClick = (id) => {
-    console.log(id);
-  };
   return (
     <div className=" w-[240px] h-[350px] rounded-md shadow-3xl">
       <section className="w-[100%]  h-[250px] relative">
         <Newlabel newProduct={newProduct} />
-        <Link href={`/detail/${id}`} onClick={logClick(id)}>
+        <Link href={`/detail/${id}`}>
           <img
             className="w-[240px] h-[250px] rounded-t-md rounded-b-none object-cover cursor-pointer z-0"
             src={images[0]}
