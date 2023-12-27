@@ -1,7 +1,14 @@
 "use client"
 function ItemsCart() {
-  const listCart = localStorage.getItem("cart");
-  const listCartArray = JSON.parse(listCart);
+  const [listCartArray, setListCartArray] = useState([]);
+
+  useEffect(() => {
+    const cartData = localStorage.getItem("cart");
+    if (cartData) {
+      const parsedCartData = JSON.parse(cartData);
+      setListCartArray(parsedCartData);
+    }
+  }, []);
 
   return (
     <div className="w-full h-96 py-6 px-2 overflow-y-auto">

@@ -4,7 +4,14 @@ import { CiUser, CiEdit, CiLogout } from "react-icons/ci";
 import { toast } from "sonner";
 
 function ModalUser({ isOpenUser, setIsOpenUser }) {
-  const userData = localStorage.getItem("userData");
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("userData");
+    if (data) {
+      setUserData(data);
+    }
+  }, []);
 
   const logOut = () => {
     window.localStorage.removeItem("userData");
