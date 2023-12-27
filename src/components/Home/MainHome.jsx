@@ -15,9 +15,9 @@ export default function MainHome({ product }) {
 
   return (
     <div>
-{/*       <MainImage />
+{/*       <MainImage /> */}
       <CarruselNewProdTwo />
-      <CardInfoSet /> */}
+  {/*     <CardInfoSet /> */}
       <VideoPlay />
       <div className="w-10/12 h-full mx-auto">
         <Categorias />
