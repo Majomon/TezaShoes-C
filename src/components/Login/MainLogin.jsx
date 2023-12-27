@@ -6,7 +6,7 @@ import FormLogin from "./FormLogin";
 function MainLogin({ url }) {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const userData = localStorage.getItem("userData");
+  const [userData, setUserData] = useState(null);
 
   const images = ["/login/Login1.jpg", "/login/Login2.jpg"];
 
@@ -15,6 +15,13 @@ function MainLogin({ url }) {
       router.push("/");
     }
   };
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("userData");
+    if (data) {
+      setUserData(data);
+    }
+  }, []);
 
   useEffect(() => {
     handleSuccessfulLogin();
