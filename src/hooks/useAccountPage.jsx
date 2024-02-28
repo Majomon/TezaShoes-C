@@ -16,6 +16,13 @@ export const useAccountPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSelect, setIsSelect] = useState(0);
 
+  useEffect(() => {
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    if (!userId) {
+      router.push("/");
+    }
+  }, [router]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "day" || name === "month" || name === "year") {
@@ -52,6 +59,7 @@ export const useAccountPage = () => {
     e.preventDefault();
 
     if (hasChanges) {
+      const userId = JSON.parse(localStorage.getItem("userId"));
       const requestData = {
         ...dataEditForm,
         address: dataShipping.address,
@@ -61,12 +69,6 @@ export const useAccountPage = () => {
       setHasChanges(false);
     }
   };
-
-  useEffect(() => {
-    if (!userId) {
-      router.push("/");
-    }
-  }, [userId, router]);
 
   useEffect(() => {
     setDataEditForm(userData);
@@ -180,7 +182,15 @@ export const useAccountPage = () => {
           <h2 className=" text-center uppercase">Pedidos</h2>
           <div className=" flex flex-col gap-y-5 overflow-auto h-full py-5 ">
             {userData.orders?.length === 0 ? (
-              <p className=" text-center text-base font-regular">No se hizo ningun pedido <Link href={"/"} className=" text-colorGoldSecundary-500 text-base font-semibold">Mira nuestros productos</Link></p>
+              <p className=" text-center text-base font-regular">
+                No se hizo ningun pedido{" "}
+                <Link
+                  href={"/"}
+                  className=" text-colorGoldSecundary-500 text-base font-semibold"
+                >
+                  Mira nuestros productos
+                </Link>
+              </p>
             ) : (
               userData.orders?.map((item, index) => {
                 const {
