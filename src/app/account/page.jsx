@@ -21,10 +21,12 @@ function Info() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userId = localStorage.getItem("userId");
-      if (!userId) {
-        router.push("/");
-      }
+      window.addEventListener("load", () => {
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+          router.push("/");
+        }
+      });
     }
   }, []);
 
