@@ -17,9 +17,12 @@ export const useAccountPage = () => {
   const [isSelect, setIsSelect] = useState(0);
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
-    if (!userId) {
-      router.push("/");
+    // Verificar si localStorage está definido antes de usarlo
+    if (typeof window !== "undefined") {
+      const userId = JSON.parse(localStorage.getItem("userId"));
+      if (!userId) {
+        router.push("/");
+      }
     }
   }, [router]);
 
