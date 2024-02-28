@@ -4,14 +4,21 @@ import mainImageHomeMaxSize from "../../../assets/image/mainIMageHomeMaxSize.png
 import mainImagePhone from "../../../assets/image/mainImagePhone.webp";
 
 export default function MainImage() {
-  const [activeWidth, setActiveWidth] = useState(window.innerWidth);
+  const [activeWidth, setActiveWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
+    const handleResize = () => {
       setActiveWidth(window.innerWidth);
-    });
-  }, [activeWidth]);
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className=" w-[100%] flex justify-center items-center">
       {activeWidth > 750 ? (

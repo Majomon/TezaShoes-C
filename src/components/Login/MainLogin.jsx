@@ -17,12 +17,14 @@ function MainLogin({ url }) {
   };
 
   useEffect(() => {
-    const data = window.localStorage.getItem("userData");
-    if (data) {
-      setUserData(data);
+    if (typeof window !== "undefined") {
+      const data = window.localStorage.getItem("userData");
+      if (data) {
+        setUserData(data);
+      }
     }
   }, []);
-
+  
   useEffect(() => {
     handleSuccessfulLogin();
 

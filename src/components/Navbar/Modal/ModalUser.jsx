@@ -10,13 +10,14 @@ import { toast } from "sonner";
 function ModalUser({ isOpenUser, setIsOpenUser }) {
   const { setIsOpenSearch } = useStoreOpenSearch();
   const { userId, setUserId } = useStoreUserId();
-
   const router = useRouter();
 
   useEffect(() => {
-    const userIdFromStorage = window.localStorage.getItem("userId");
-    if (userIdFromStorage) {
-      setUserId(userIdFromStorage);
+    if (typeof window !== "undefined") {
+      const userIdFromStorage = window.localStorage.getItem("userId");
+      if (userIdFromStorage) {
+        setUserId(userIdFromStorage);
+      }
     }
   }, [isOpenUser]);
 
@@ -24,7 +25,9 @@ function ModalUser({ isOpenUser, setIsOpenUser }) {
     if (Cookies.get("isAdmin")) {
       Cookies.remove("isAdmin");
     }
-    window.localStorage.removeItem("userId");
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem("userId");
+    }
     toast.success("Cerraste sesión");
     setUserId(null);
     setIsOpenUser(!isOpenUser);
