@@ -20,11 +20,11 @@ export default function CategoriesSearch({ isOpenSearch, setIsOpenSearch }) {
       autoplay={{ delay: 8000 }}
       spaceBetween={0}
       slidesPerView={1}
-      className=" w-11/12 h-[300px] mx-auto"
+      className=" w-full h-[300px] mx-auto"
       breakpoints={{
         slidesPerGroup: 1,
         slidesPerView: 1,
-        620: {
+        420: {
           slidesPerView: 2,
           spaceBetween: 0,
           slidesPerGroup: 2,
@@ -42,12 +42,12 @@ export default function CategoriesSearch({ isOpenSearch, setIsOpenSearch }) {
         },
       }}
     >
-      {categories.map((item) => {
+      {categories?.map((item) => {
         const { _id, image, name } = item;
 
         return (
           <SwiperSlide key={_id} className="">
-            <div className="h-[100%] w-[100%] flex items-center gap-x-2">
+            <div className="h-[100%] w-[100%] flex items-center justify-center gap-x-2">
               <CardCategoriesSearch
                 key={_id}
                 category={name}

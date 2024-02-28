@@ -1,10 +1,9 @@
 export default function Counter({count,decrementCount,incrementCount}) {
   return (
-    <div className="w-[70px] flex justify-between items-center border-1 border-colorGray-100">
-      <button className="flex items-center justify-center w-[20px] font-semibold" onClick={decrementCount}>-</button>
+    <div className=" sm:w-[80px] sm:h-10 w-[50px] h-[100px] flex flex-col-reverse sm:flex-row justify-between items-center sm:border-1 sm:border-colorGoldSecundary-500">
+      <button className="flex items-center justify-center sm:w-[20px] w-full font-semibold border-1 border-colorGoldSecundary-500 sm:border-0" onClick={decrementCount}>-</button>
       <div>{count}</div>
-      {/* {console.log(count)} */}
-      <button className="flex flex-col items-center justify-center w-[20px] font-semibold" onClick={incrementCount}>+</button>
+      <button className="flex flex-col items-center justify-center sm:w-[20px] w-full font-semibold border-1 border-colorGoldSecundary-500 sm:border-0" onClick={incrementCount}>+</button>
     </div>
   );
 }

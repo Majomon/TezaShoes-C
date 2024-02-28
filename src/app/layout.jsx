@@ -1,11 +1,15 @@
-import Footer from '@/components/Footer/Footer';
+import CartReminderChecker from "@/components/CartReminderChecker";
+import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Navbar/Nav";
 import { Cormorant_Garamond, Martel } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
 const martel = Martel({ weight: ["400", "700"], subsets: ["latin"] });
-const cormonrantGaramond = Cormorant_Garamond({ weight: ["300","500","700"], subsets: ["latin"] });
+const cormonrantGaramond = Cormorant_Garamond({
+  weight: ["300", "500", "700"],
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "TezaShoes - Inicio",
@@ -15,9 +19,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={martel.className}>
+      <body className={`${martel.className} scroll-smooth`}>
         <Providers>
-          <Nav/>
+          <CartReminderChecker />
+          <Nav />
           {children}
           <Footer />
         </Providers>

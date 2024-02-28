@@ -1,52 +1,136 @@
-"use client"
+"use client";
+import { useStoreCartLocalStorage } from "@/zustand/store";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { AllDeleteCart } from "../../../assets/Cart/IconsCart";
+import CartCards from "./CartCards";
+import TotalCart from "./TotalCart";
 
-import { useEffect, useState } from "react";
-
-function ItemsCart() {
-  const [listCartArray, setListCartArray] = useState([]);
+function ItemsCart({ setIsOpenCart, isOpenCart }) {
+  const { cartLocalStorage, setCartLocalStorage, totalCart, setTotalCart } =
+    useStoreCartLocalStorage();
 
   useEffect(() => {
-    const cartData = localStorage.getItem("cart");
-    if (cartData) {
-      const parsedCartData = JSON.parse(cartData);
-      setListCartArray(parsedCartData);
-    }
-  }, []);
+    const listCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const updateCart = async () => {
+      if (listCart) {
+        const updatedCart = await Promise.all(
+          listCart.map(async (item) => {
+            const updatedProduct = await axios.get(
+              `/products/${item.product_id}`
+            );
+
+            if (updatedProduct && updatedProduct.data.price !== item.price) {
+              const totalPrice = item.count * updatedProduct.data.price;
+              console.log(totalPrice);
+              const updatedItem = {
+                ...item,
+                price: updatedProduct.data.price,
+                totalPrice,
+              };
+              const updatedLocalStorageCart = listCart.map((cartItem) => {
+                if (cartItem.product_id === updatedItem.product_id) {
+                  return updatedItem;
+                }
+                return cartItem;
+              });
+              // Guarda el carrito actualizado en el local storage
+              localStorage.setItem(
+                "cart",
+                JSON.stringify(updatedLocalStorageCart)
+              );
+
+              console.log("Algo se modifico");
+
+              // Devuelve el elemento del carrito con el precio actualizado
+              return updatedItem;
+            }
+
+            console.log("Nada de modifico");
+
+            return item; // Retorna los datos actualizados del producto
+          })
+        );
+        setCartLocalStorage(updatedCart);
+      }
+    };
+
+    updateCart();
+  }, [isOpenCart, totalCart]);
+
+  useEffect(() => {
+    resultTotal();
+  }, [cartLocalStorage]);
+
+  const resultTotal = () => {
+    const result = cartLocalStorage?.reduce((acc, curr) => {
+      return acc + curr.totalPrice;
+    }, 0);
+    setTotalCart(result);
+    localStorage.setItem("TotalCart", result);
+  };
+
+  const handleClickAllDelete = () => {
+    console.log("Borrar")
+    Cookies.remove("cartAbandoned");
+    setCartLocalStorage([]);
+    localStorage.removeItem("cart");
+  };
 
   return (
-    <div className="w-full h-96 py-6 px-2 overflow-y-auto">
-      {/* <h2 className="text-lg  font-bold">Mi carrito</h2> */}
-      {!listCartArray ? (
-        <div>Carrito vacio :C</div>
+    <div className="w-full max-h-[750px] py-6 px-2 ">
+      {!cartLocalStorage || cartLocalStorage.length === 0 ? (
+        <p className=" text-center">Carrito vacio 😥</p>
       ) : (
         <div>
-          <div className="flex gap-2">
-            {/* <h2>Imagen</h2>
-            <h2>Nombre</h2>
-            <h2>Color</h2>
-            <h2>Precio</h2>
-            <h2>Cantidad</h2>
-            <h2>SubTotal</h2> */}
-          </div>
-          <ul className="w-full">
-            {listCartArray?.map((item, index) => (
-              <li key={index} className="w-full h-full flex items-center gap-2">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-16 h-16 mr-2"
+          <button
+            className="flex items-center justify-center w-fit px-2 py-3 text-[#F60909] font-semibold"
+            onClick={handleClickAllDelete}
+          >
+            <AllDeleteCart /> Borrar todo
+          </button>
+          <ul className="w-full overflow-auto max-h-[500px]">
+            {cartLocalStorage?.map((item, index) => {
+              const {
+                image,
+                name,
+                color,
+                nameColor,
+                price,
+                count,
+                totalPrice,
+                size,
+                stock,
+                offerActive,
+                offerPrice,
+                category,
+              } = item;
+
+              return (
+                <CartCards
+                  key={index}
+                  name={name}
+                  image={image}
+                  colorHex={color}
+                  nameColor={nameColor}
+                  price={price}
+                  count={count}
+                  totalPrice={totalPrice}
+                  offerPrice={offerPrice}
+                  offerActive={offerActive}
+                  size={size}
+                  stock={stock}
+                  listCartArray={cartLocalStorage}
+                  setListCartArray={setCartLocalStorage}
+                  resultTotal={resultTotal}
+                  category={category}
                 />
-                <h2>{item.name}</h2>
-                <div
-                  className={`w-8 h-8 border-gray-900 border-2 rounded-full`}
-                  style={{ backgroundColor: item.color }}
-                ></div>
-                <p>{item.price}</p>
-                <p>{item.count}</p>
-                <p>{item.totalPrice}</p>
-              </li>
-            ))}
+              );
+            })}
           </ul>
+          <TotalCart setIsOpenCart={setIsOpenCart} />
         </div>
       )}
       {/* RECORDATORIO - HACER UN TABLA EN LUGAR DE TODO ESTE CHOCLO */}

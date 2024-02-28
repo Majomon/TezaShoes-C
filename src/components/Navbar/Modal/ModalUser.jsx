@@ -1,38 +1,58 @@
 "use client";
+import { useStoreOpenSearch, useStoreUserId } from "@/zustand/store";
+import Cookies from "js-cookie";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { CiUser, CiEdit, CiLogout } from "react-icons/ci";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { CiEdit, CiLogout, CiUser } from "react-icons/ci";
 import { toast } from "sonner";
 
 function ModalUser({ isOpenUser, setIsOpenUser }) {
-  const [userData, setUserData] = useState(null);
+  const { setIsOpenSearch } = useStoreOpenSearch();
+  const { userId, setUserId } = useStoreUserId();
+
+  const router = useRouter();
 
   useEffect(() => {
-    const data = window.localStorage.getItem("userData");
-    if (data) {
-      setUserData(data);
+    const userIdFromStorage = window.localStorage.getItem("userId");
+    if (userIdFromStorage) {
+      setUserId(userIdFromStorage);
     }
-  }, []);
+  }, [isOpenUser]);
 
   const logOut = () => {
-    window.localStorage.removeItem("userData");
+    if (Cookies.get("isAdmin")) {
+      Cookies.remove("isAdmin");
+    }
+    window.localStorage.removeItem("userId");
     toast.success("Cerraste sesión");
+    setUserId(null);
     setIsOpenUser(!isOpenUser);
+    router.push("/");
   };
 
   return (
     <div>
       <button className="mx-1">
-        <CiUser size={25} onClick={() => setIsOpenUser(!isOpenUser)} />
+        <CiUser
+          size={25}
+          onClick={() => {
+            setIsOpenSearch(false);
+            setIsOpenUser(!isOpenUser);
+          }}
+        />
       </button>
 
       {isOpenUser ? (
-        !userData ? (
-          <div className="w-2/12 h-fit absolute top-16 right-0 px-6 flex flex-col justify-center bg-white rounded-bl-md border-l-1 border-b-1 z-10">
+        !userId ? (
+          <div className="w-[200px] h-fit absolute top-16 right-0 px-6 flex flex-col justify-center bg-white border-1 border-white rounded-bl shadow-lg z-10">
             <Link
               href={"/login"}
               className="w-full h-12 flex items-center gap-4"
-              onClick={() => setIsOpenUser(!isOpenUser)}
+              onClick={() => {
+                setIsOpenSearch(false);
+                setIsOpenUser(!isOpenUser);
+              }}
             >
               <CiUser size={25} />
               <h2>Iniciar sesión</h2>
@@ -40,17 +60,32 @@ function ModalUser({ isOpenUser, setIsOpenUser }) {
             <Link
               href={"/register"}
               className="w-full h-12 flex items-center gap-4"
-              onClick={() => setIsOpenUser(!isOpenUser)}
+              onClick={() => {
+                setIsOpenSearch(false);
+                setIsOpenUser(!isOpenUser);
+              }}
             >
               <CiEdit size={25} />
               <h2>Crear cuenta</h2>
             </Link>
           </div>
         ) : (
-          <div className="w-2/12 h-24 absolute top-16 right-0 flex flex-col justify-center items-center bg-white rounded-bl-md border-l-1 border-b-1 z-10 gap-2">
-            <Link href={"/account"} onClick={() => setIsOpenUser(!isOpenUser)}>
-              Ingresa a tu <strong>Cuenta!</strong>
-            </Link>
+          <div className="w-[200px] h-fit absolute top-16 right-0 py-2 flex flex-col justify-center items-center bg-white rounded-bl-md border-l-1 border-b-1 z-10 gap-2">
+            {userId.isAdmin ? (
+              <Link
+                href={"/dashboard/sale/salesList"}
+                onClick={() => setIsOpenUser(!isOpenUser)}
+              >
+                Ir al <strong>Dashboard!</strong>
+              </Link>
+            ) : (
+              <Link
+                href={"/account"}
+                onClick={() => setIsOpenUser(!isOpenUser)}
+              >
+                Ingresa a tu <strong>Cuenta!</strong>
+              </Link>
+            )}
             <div className="flex gap-2">
               <CiLogout size={20} />
               <button onClick={() => logOut()}>Cerrar sesión</button>
