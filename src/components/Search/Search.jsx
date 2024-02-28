@@ -1,4 +1,3 @@
-"use client";
 import { capitalize } from "@/utils/capitalize";
 import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
 import { Accordion, AccordionItem } from "@nextui-org/react";
@@ -39,25 +38,85 @@ export default function Search({ product }) {
 
   const [isActiveShow, setIsActiveShow] = useState(false);
 
-  /*variables*/
-  let listcolorsNorepite = [];
-  let listSizeNorepite = [];
-  let isHeightCount = 0;
   /*querys URL*/
-  const searchParamsCategory = useSearchParams().get("category");
-  const searchParamsName = useSearchParams().get("name");
-  const searchParamsColor = useSearchParams().get("color");
-  const searchParamsSize = useSearchParams().get("size");
+  const searchParamsCategory = async () => {
+    const searchParams = useSearchParams();
+    await searchParams.ready();
+    return searchParams.get("category");
+  };
 
-  /*mapeos*/
-  let listProductColors = productsFilter.map((item) =>
-    item.options.map((subItem) => subItem.color)
-  );
-  let ListProductSize = productsFilter.map((item) =>
-    item.options.map((subItem) => subItem.sizes)
-  );
+  const searchParamsName = async () => {
+    const searchParams = useSearchParams();
+    await searchParams.ready();
+    return searchParams.get("name");
+  };
 
-  /*funciones del filtro*/
+  const searchParamsColor = async () => {
+    const searchParams = useSearchParams();
+    await searchParams.ready();
+    return searchParams.get("color");
+  };
+
+  const searchParamsSize = async () => {
+    const searchParams = useSearchParams();
+    await searchParams.ready();
+    return searchParams.get("size");
+  };
+
+  /* useEffect */
+  useEffect(() => {
+    setProducts(product); //todos//
+  }, [product]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const category = await searchParamsCategory();
+      const name = await searchParamsName();
+      const color = await searchParamsColor();
+      const size = await searchParamsSize();
+
+      if (category) {
+        loadProductsFilterOne(product);
+        loadProductsFilterTwo(product);
+
+        const newProductsFilterTwo = product.filter(
+          (item) => item.category === category
+        );
+
+        if (color) {
+          loadProductsFilterTwoColor(newProductsFilterTwo);
+          if (size) {
+            loadProductsFilterTwoColorAndSize(newProductsFilterTwo);
+          }
+        } else if (size) {
+          loadProductsFilterTwoSize(newProductsFilterTwo);
+        }
+      } else if (name) {
+        loadProductsFilterParamsNameOne(product);
+        loadProductsFilterParamsNameTwo(product);
+
+        const newProductsFilterParamsNameTwo = product.filter((item) =>
+          item.name.toLowerCase().includes(name.toLowerCase())
+        );
+
+        if (color) {
+          loadProductsFilterTwoColor(newProductsFilterParamsNameTwo);
+          if (size) {
+            loadProductsFilterTwoColorAndSize(newProductsFilterParamsNameTwo);
+          }
+        } else if (size) {
+          loadProductsFilterTwoSize(newProductsFilterParamsNameTwo);
+        }
+      }
+
+      return () => {
+        setProductsFilterTwo(productsFilter);
+      };
+    };
+
+    fetchData();
+
+  }, []);
 
   const loadProductsFilterOne = (product) => {
     setProductsFilter(
@@ -124,6 +183,7 @@ export default function Search({ product }) {
   };
 
   const listNoRepitSize = () => {
+    let listSizeNorepite = [];
     ListProductSize.map((item) => {
       item.map((subItem) => {
         subItem.map((subSubItem) => {
@@ -137,6 +197,7 @@ export default function Search({ product }) {
   };
 
   const listNoRepitColor = () => {
+    let listcolorsNorepite = [];
     listProductColors.map((item) => {
       item.map((subItem) => {
         const { codHexadecimal, nameColor } = subItem;
@@ -151,8 +212,6 @@ export default function Search({ product }) {
     return listcolorsNorepite;
   };
 
-  /*handles*/
-
   const handleListOrder = (value) => {
     if (value === "mayor") {
       productsFilterTwo.sort((a, b) => b.price - a.price);
@@ -162,56 +221,6 @@ export default function Search({ product }) {
       productsFilterTwo(productsFilter);
     }
   };
-
-  /* useEffect */
-  useEffect(() => {
-    setProducts(product); //todos//
-  }, [product]);
-
-  useEffect(() => {
-    if (searchParamsCategory) {
-      loadProductsFilterOne(product);
-      loadProductsFilterTwo(product);
-
-      const newProductsFilterTwo = product.filter(
-        (item) => item.category === searchParamsCategory
-      );
-
-      if (searchParamsColor) {
-        loadProductsFilterTwoColor(newProductsFilterTwo);
-        if (searchParamsSize) {
-          loadProductsFilterTwoColorAndSize(newProductsFilterTwo);
-        }
-      } else if (searchParamsSize) {
-        loadProductsFilterTwoSize(newProductsFilterTwo);
-      }
-    } else if (searchParamsName) {
-      loadProductsFilterParamsNameOne(product);
-      loadProductsFilterParamsNameTwo(product);
-
-      const newProductsFilterParamsNameTwo = product.filter((item) =>
-        item.name.toLowerCase().includes(searchParamsName.toLowerCase())
-      );
-
-      if (searchParamsColor) {
-        loadProductsFilterTwoColor(newProductsFilterParamsNameTwo);
-        if (searchParamsSize) {
-          loadProductsFilterTwoColorAndSize(newProductsFilterParamsNameTwo);
-        }
-      } else if (searchParamsSize) {
-        loadProductsFilterTwoSize(newProductsFilterParamsNameTwo);
-      }
-    }
-    return () => {
-      setProductsFilterTwo(productsFilter);
-    };
-  }, [
-    searchParamsCategory,
-    searchParamsName,
-    searchParamsColor,
-    searchParamsSize,
-  ]);
-
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
