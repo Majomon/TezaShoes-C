@@ -4,30 +4,40 @@ import { useEffect } from "react";
 import Carousel from "./Carousel";
 import Description from "./Description";
 import DetailArticle from "./DetailArticle";
-import ShippingCalculator from "./ShippingCalculator";
-import InterestProduct from "./InterestProduct";
+import InterestProductsCarousel from "./InterestProductsCarousel/InterestProductsCarousel";
 
 export default function Main({ product, allproduct }) {
-  const { setDetail, setProducts } = useStoreProducts();
+  const { setDetail, setProducts, detail } = useStoreProducts();
 
   useEffect(() => {
     setDetail(product);
     setProducts(allproduct);
+    return () => {
+      setDetail({});
+    };
   }, [product]);
-  
+
+  const isProductActive = detail && detail.isActive;
+
   return (
-    <div className="w-full min-h-screen px-10">
-      <div className=" flex">
-        <div className="w-8/12 pt-4 px-6">
-          <Carousel />
-          <Description />
+    <div className="w-full min-h-screen px-3 py-3 md:px-10 md:pt-4 pb-16">
+      {isProductActive ? (
+        <div className="w-full h-full flex flex-col max-w-[1366px] mx-auto">
+          <div className="md:pt-4 flex flex-col gap-y-10 lg:flex-row gap-x-[5%]">
+            <Carousel />
+            <DetailArticle />
+          </div>
+          <div className="flex flex-row py-14">
+            <Description />
+            {/* <ShippingCalculator /> */}
+          </div>
         </div>
-        <div className="w-4/12 pt-4 px-6">
-          <DetailArticle />
-          <ShippingCalculator />
+      ) : (
+        <div className="w-full h-96 text-red-500 flex justify-center items-center">
+          <h1 className="text-xl font-bold ">El producto ya no está disponible.</h1>
         </div>
-      </div>
-      <InterestProduct />
+      )}
+      <InterestProductsCarousel />
     </div>
   );
 }

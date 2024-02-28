@@ -1,6 +1,11 @@
 "use client";
-import Link from "next/link";
+import { Image } from "@nextui-org/react";
 import Newlabel from "../Newlabel/Newlabel";
+import Link from "next/link";
+import { IconCart } from "../../../assets/Card/IconCard";
+import ItemCardCart from "./ItemCardCart";
+import { useState } from "react";
+import ItemOfferPrice from "./ItemOfferPrice";
 
 export default function Card({
   images,
@@ -9,28 +14,52 @@ export default function Card({
   cantDues,
   newProduct,
   id,
+  categori,
+  offer,
+  offerPrice,
 }) {
+  const [hoverAction, setHoverAction] = useState(true);
+
   return (
-    <div className=" w-[240px] h-[350px] rounded-md shadow-3xl">
-      <section className="w-[100%]  h-[250px] relative">
-        <Newlabel newProduct={newProduct} />
+    <div
+      className=" w-[280px] h-[400px] rounded-md shadow-shadowCardProd relative hover:shadow-gray-600 "
+      onMouseEnter={() => {
+        setHoverAction(false);
+      }}
+      onMouseLeave={() => {
+        setHoverAction(true);
+      }}
+    >
+      <section className="w-[280px] h-[280px] relative ">
+        <Newlabel newProduct={newProduct} offer={offer} />
         <Link href={`/detail/${id}`}>
-          <img
-            className="w-[240px] h-[250px] rounded-t-md rounded-b-none object-cover cursor-pointer z-0"
+          <Image
+            className="w-[280px] h-[280px] rounded-t-md rounded-b-none object-contain cursor-pointer z-0 "
             src={images[0]}
             alt="imageCard"
           />
         </Link>
       </section>
-      <section className="h-[100px] flex flex-col justify-between">
-        <div className="w-fullh-full p-4 flex flex-col justify-between bg-colorWhite-100">
-          <h2 className="font-semibold uppercase">{title}</h2>
-          <p className="font-normal ">${price}</p>
+      <section className="w-full h-[120px] flex flex-col justify-center items-start gap-[15px] px-5 bg-colorWhite-100 rounded-b-md">
+        <h2 className="font-bold uppercase">{title}</h2>
+        <div className="w-full h-[20px]  flex flex-row justify-between">
+          <h5 className="font-normal text-[12px]">{categori}</h5>
+          {offer ? (
+            <div className="flex flex-row gap-x-1">
+              <p className="font-normal line-through text-colorGray-100 text-[14px]">
+                ${price}
+              </p>
+              <ItemOfferPrice offerPrice={offerPrice} />
+            </div>
+          ) : (
+            <p className="font-bold text-[14px]">${price}</p>
+          )}
         </div>
-        <p className="py-2 rounded-b-lg bg-colorGold-800 text-center font-bold ">
+        {/* <p className="py-2 rounded-b-lg bg-colorGold-800 text-center font-bold ">
           {cantDues} Cuotas sin interés
-        </p>
+        </p> */}
       </section>
+      <ItemCardCart hoverAction={hoverAction} />
     </div>
   );
 }

@@ -4,8 +4,10 @@ import { Card, Skeleton } from "@nextui-org/react";
 export default function Description() {
   const { detail } = useStoreProducts();
 
+  /* console.log(detail) */
+
   return (
-    <div className="w-full py-14 px-20">
+    <div className="w-full">
       <h2 className="text-xl font-bold">Descripción</h2>
       {!detail.description ? (
         // Muestra el esqueleto mientras los datos están cargando
@@ -18,6 +20,12 @@ export default function Description() {
         // Muestra los datos reales una vez se han obtenido
         <p className="text-sm pt-4">{detail.description}</p>
       )}
+      {
+        detail.category === "Carteras" && <section className="py-5">
+          <h2 className="text-xl font-bold">Medidas</h2>
+          <p className="text-sm pt-4">{detail.measures}</p>
+        </section>
+      }
     </div>
   );
 }
