@@ -9,7 +9,7 @@ function InputForm({ inputForm, error, handlerChange, name, options }) {
             value={inputForm[name]}
             onChange={handlerChange}
             placeholder={options[name] ? options[name] : ""}
-            className={`w-full h-32 p-2 text-sm border-1 border-gray-400 border-b-2 border-b-gray-700 shadow-md shadow-gray-400 ${
+            className={`w-full h-28 p-2 text-sm border-b-1 border-b-colorGoldSecundary-500 outline-none ${
               error[name] ? "focus:outline-none" : ""
             }`}
           />
@@ -25,7 +25,7 @@ function InputForm({ inputForm, error, handlerChange, name, options }) {
             value={inputForm[name]}
             onChange={handlerChange}
             placeholder={options[name] ? options[name] : ""}
-            className={`w-full h-8 pl-2 text-sm border-1 border-gray-400 border-b-2 border-b-gray-700 shadow-md shadow-gray-400 ${
+            className={`w-full h-12 pl-2 text-sm border-b-1 border-b-colorGoldSecundary-500 outline-none ${
               error[name] ? "focus:outline-none" : ""
             }`}
           />

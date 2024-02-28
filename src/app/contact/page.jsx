@@ -84,6 +84,7 @@ const listSocialMediaOptions = [
     href: "https://api.whatsapp.com/send/?phone=541159728345",
   },
 ];
+
 export default function Contact() {
   return (
     <section className="w-full min-h-screen flex flex-col items-center">

@@ -9,10 +9,6 @@ import { toast } from "sonner";
 import InputForm from "../InputForm/InputForm";
 
 function FormContact() {
-  /*   const { users, fetchAllUsers } = useStoreUsers((state) => ({
-    users: state.users,
-    fetchAllUsers: state.fetchAllUsers,
-  })); */
   const [disabled, setDisabled] = useState(true);
   const options = {
     name: "Nombre",
@@ -36,10 +32,6 @@ function FormContact() {
     }
   }, [inputForm]);
 
-  /*   useEffect(() => {
-    fetchAllUsers();
-  }, []); */
-
   const handlerChange = (e) => {
     const { name, value } = e.target;
     setInputForm((prevInputForm) => ({
@@ -60,7 +52,7 @@ function FormContact() {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:8080/resendEmail",
+          "/resendEmail",
           inputForm
         );
 
@@ -83,8 +75,11 @@ function FormContact() {
   };
 
   return (
-    <form onSubmit={handlerSubmit} className="w-1/3 mt-10">
-      <div className="">
+    <form
+      onSubmit={handlerSubmit}
+      className=" md:w-[450px] w-2/3 mb-12 flex flex-col gap-y-[30px]"
+    >
+      <div className="flex flex-col gap-y-4 w-full">
         {Object.keys(inputForm).map((fieldName, index) => (
           <InputForm
             key={index}
@@ -96,8 +91,10 @@ function FormContact() {
           />
         ))}
       </div>
-      <div className="flex justify-center">
-        <button className="py-2 px-6 text-gray-100 bg-gray-950">Enviar</button>
+      <div className="flex justify-center w-full">
+        <button className="py-2 px-6 text-gray-100 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black w-full">
+          Enviar
+        </button>
       </div>
     </form>
   );
