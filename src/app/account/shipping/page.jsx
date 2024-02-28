@@ -12,13 +12,13 @@ function Edit() {
   const { userData, fetchPutUserId } = useStoreUsers();
   const [dataShipping, setDataShipping] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
-
+  
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
+    const userId = localStorage.getItem("userId");
     if (!userId) {
       router.push("/");
     }
-  }, [router]);
+  }, []);
 
 
   const handleChange = (e) => {

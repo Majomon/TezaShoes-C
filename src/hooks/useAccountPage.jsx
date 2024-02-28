@@ -1,3 +1,4 @@
+"use client"
 import ItemCardOrder from "@/components/Account/CardOrder/ItemCardOrder";
 import ContainerInputPersonalInformation from "@/components/Account/ContainerInputPersonalInformation";
 import ContainerInputShipping from "@/components/Account/ContainerInputShipping";
@@ -15,16 +16,12 @@ export const useAccountPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSelect, setIsSelect] = useState(0);
 
-  // Definir userId
-  const userId = JSON.parse(localStorage.getItem("userId"));
-
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (!userId) {
-        router.push("/");
-      }
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      router.push("/");
     }
-  }, [router, userId]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
