@@ -15,14 +15,16 @@ export const useAccountPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSelect, setIsSelect] = useState(0);
 
+  // Definir userId
+  const userId = JSON.parse(localStorage.getItem("userId"));
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userId = JSON.parse(localStorage.getItem("userId"));
       if (!userId) {
         router.push("/");
       }
     }
-  }, [router]);
+  }, [router, userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
