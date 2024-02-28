@@ -7,7 +7,16 @@ import { useEffect } from "react";
 import Banner from "../../../../public/Banner.png";
 
 function Orders() {
-  const userId = localStorage.getItem("userId");
+  const router = useRouter();
+  const { userData } = useStoreUsers();
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      router.push("/");
+    }
+  }, []);
+  /*   const userId = localStorage.getItem("userId");
   const { userData } = useStoreUsers();
   const router = useRouter();
 
@@ -15,8 +24,7 @@ function Orders() {
     if (!userId) {
       router.push("/");
     }
-  }, [userId]);
-
+  }, [userId]); */
   return (
     <>
       {!userData ? (
