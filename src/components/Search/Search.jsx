@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { capitalize } from "@/utils/capitalize";
 import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
 import { Accordion, AccordionItem } from "@nextui-org/react";
@@ -116,7 +116,6 @@ export default function Search({ product }) {
     };
 
     fetchData();
-
   }, []);
 
   const loadProductsFilterOne = (product) => {
@@ -182,6 +181,14 @@ export default function Search({ product }) {
       )
     );
   };
+
+  /*mapeos*/
+  let listProductColors = productsFilter.map((item) =>
+    item.options.map((subItem) => subItem.color)
+  );
+  let ListProductSize = productsFilter.map((item) =>
+    item.options.map((subItem) => subItem.sizes)
+  );
 
   const listNoRepitSize = () => {
     let listSizeNorepite = [];
