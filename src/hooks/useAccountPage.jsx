@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import ItemCardOrder from "@/components/Account/CardOrder/ItemCardOrder";
 import ContainerInputPersonalInformation from "@/components/Account/ContainerInputPersonalInformation";
 import ContainerInputShipping from "@/components/Account/ContainerInputShipping";
@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export const useAccountPage = () => {
+export const useAccountPage = (userId) => {
   const router = useRouter();
   const { userData, fetchPutUserId } = useStoreUsers();
   const [dataEditForm, setDataEditForm] = useState({});

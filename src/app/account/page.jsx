@@ -3,28 +3,20 @@ import ModalUpdatePassword from "@/components/Account/Modal/ModalUpdatePassword"
 import NavAccount from "@/components/Account/NavAccount";
 import { useAccountPage } from "@/hooks/useAccountPage";
 import { Card, Skeleton } from "@nextui-org/react";
-import { useEffect } from "react";
 
 function Info() {
-/*   const {
-    userId,
+  const userId = localStorage.getItem("userId");
+  const {
     userData,
     isSelect,
     setIsSelect,
     listForms,
     setIsOpenModal,
     isOpenModal,
-  } = useAccountPage();
-   */
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      router.push("/");
-    }
-  }, []);
+  } = useAccountPage(userId);
   return (
     <>
-  {/*     {!userId ? (
+      {!userId ? (
         <Card className=" w-11/12 mx-auto h-[80vh] p-2 mt-4" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="w-full h-[80vh] rounded-sm bg-default-300"></div>
@@ -54,7 +46,7 @@ function Info() {
             isOpenModal={isOpenModal}
           />
         </div>
-      )} */}
+      )}
     </>
   );
 }
