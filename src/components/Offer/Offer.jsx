@@ -1,5 +1,3 @@
-"use client";
-/*switer*/
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination, EffectCube } from "swiper/modules";
 import "swiper/css";
@@ -11,14 +9,11 @@ import "swiper/css/effect-cube";
 import Card from "../Card/Card";
 import { useStoreProducts } from "@/zustand/store";
 
-export default function CarruselNewProdTwo() {
+export default function Offer() {
   const { allProducts } = useStoreProducts();
-
+  
   let newsProducts = allProducts.filter(
-    (item) =>
-      item.newProduct !== false &&
-      item.offer.offerActive !== true &&
-      item.isActive === true
+    (item) => item.offer.offerActive !== false && item.isActive === true
   );
 
   return (
@@ -29,8 +24,7 @@ export default function CarruselNewProdTwo() {
       autoplay={{ delay: 8000 }}
       spaceBetween={0}
       slidesPerView={1}
-      className=" max-w-[1366px] h-[480px] mb-8"
-      /* style={{zIndex:"-1"}} */
+      className=" max-w-[1366px] h-[480px]"
       breakpoints={{
         slidesPerGroup: 1,
         slidesPerView: 1,
@@ -75,6 +69,7 @@ export default function CarruselNewProdTwo() {
                 images={images}
                 categori={category}
                 offer={offer.offerActive}
+                offerPrice={offer.offerPrice}
               />
             </div>
           </SwiperSlide>

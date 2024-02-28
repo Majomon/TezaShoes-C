@@ -1,24 +1,40 @@
 "use client";
-import { useStoreProducts } from "@/zustand/store";
+import { useStoreTimePurchase } from "@/zustand/store";
+import { useEffect } from "react";
+import { Toaster, toast } from "sonner";
 import CardInfoSet from "../CardInfoSet/CardInfoSet";
 import CarruselNewProdTwo from "../Carrusel/CarruselNewProdTwo";
-import MainImage from "../MainImage/MainImage";
-import VideoPlay from "../VideoPlay/VideoPlay";
-import { useEffect } from "react";
 import Categorias from "../Categorias/Categorias";
+import MainImage from "../MainImage/MainImage";
+import Offer from "../Offer/Offer";
+import Title from "../Title/Title";
 
-export default function MainHome({ product }) {
-  const { setProducts } = useStoreProducts();
+export default function MainHome() {
+  const { setTimePurchase, timePurchase, purchaseCancel, setPurchaseCancel } =
+    useStoreTimePurchase();
+
   useEffect(() => {
-    setProducts(product);
-  }, [product]);
+    if (timePurchase) {
+      toast.success("Se acabó el tiempo 😢. Por favor, vuelve a intentarlo ❤");
+      setTimePurchase(false);
+    }
+    if (purchaseCancel) {
+      toast.success("Cancelaste la compra 😢. No seas así 😫");
+      setPurchaseCancel(false);
+    }
+  }, [timePurchase, purchaseCancel]);
 
   return (
     <div>
-{/*       <MainImage /> */}
+      <Toaster position="top-center" />
+      <MainImage />
+      <Title text={"Nuevo ingreso"} />
       <CarruselNewProdTwo />
-  {/*     <CardInfoSet /> */}
-      <VideoPlay />
+      <CardInfoSet />
+      <Title text={"Ofertas"} />
+      <Offer />
+      {/*    <VideoPlay /> */}
+      <Title text={"Categorias"} />
       <div className="w-10/12 h-full mx-auto">
         <Categorias />
       </div>
