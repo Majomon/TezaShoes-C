@@ -212,7 +212,6 @@ export default function Search({ product }) {
     searchParamsSize,
   ]);
 
-  //const isInvalidData = !searchParamsCategory && !searchParamsName;
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
