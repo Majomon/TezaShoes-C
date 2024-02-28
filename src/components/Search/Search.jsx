@@ -239,7 +239,7 @@ export default function Search({ product }) {
           )}
           {searchParamsName && (
             <h1 className=" opacity-60 text-center text-white text-4xl font-normal font-['Martel'] tracking-[14.40px] uppercase">
-              {capitalize(searchParamsName)}
+              {searchParamsName}
             </h1>
           )}
           {searchParamsName ? (
