@@ -5,7 +5,7 @@ import { useAccountPage } from "@/hooks/useAccountPage";
 import { Card, Skeleton } from "@nextui-org/react";
 
 function Info() {
-  const {
+/*   const {
     userId,
     userData,
     isSelect,
@@ -14,10 +14,16 @@ function Info() {
     setIsOpenModal,
     isOpenModal,
   } = useAccountPage();
-  
+   */
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      router.push("/");
+    }
+  }, []);
   return (
     <>
-      {!userId ? (
+  {/*     {!userId ? (
         <Card className=" w-11/12 mx-auto h-[80vh] p-2 mt-4" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="w-full h-[80vh] rounded-sm bg-default-300"></div>
@@ -47,7 +53,7 @@ function Info() {
             isOpenModal={isOpenModal}
           />
         </div>
-      )}
+      )} */}
     </>
   );
 }
