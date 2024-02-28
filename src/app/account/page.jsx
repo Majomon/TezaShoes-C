@@ -3,6 +3,7 @@ import ModalUpdatePassword from "@/components/Account/Modal/ModalUpdatePassword"
 import NavAccount from "@/components/Account/NavAccount";
 import { useAccountPage } from "@/hooks/useAccountPage";
 import { Card, Skeleton } from "@nextui-org/react";
+import { useEffect } from "react";
 
 function Info() {
 /*   const {
