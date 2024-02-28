@@ -12,20 +12,19 @@ import { useEffect, useState } from "react";
 
 function Info() {
   const router = useRouter();
-  
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      router.push("/");
-    }
-  }, []);
-
   const { userData, fetchPutUserId } = useStoreUsers();
   const [dataEditForm, setDataEditForm] = useState({});
   const [dataShipping, setDataShipping] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSelect, setIsSelect] = useState(0);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      router.push("/");
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -257,7 +256,7 @@ function Info() {
 
   return (
     <>
-      {!userId ? (
+      {!userData ? (
         <Card className=" w-11/12 mx-auto h-[80vh] p-2 mt-4" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="w-full h-[80vh] rounded-sm bg-default-300"></div>
