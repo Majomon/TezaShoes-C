@@ -16,7 +16,7 @@ export const useAccountPage = () => {
   const [isSelect, setIsSelect] = useState(0);
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
+    const userId = localStorage.getItem("userId");
     if (!userId) {
       router.push("/");
     }
