@@ -8,13 +8,19 @@ import { useEffect, useState } from "react";
 import Banner from "../../../../public/Banner.png";
 
 function Edit() {
-  const userId = JSON.parse(localStorage.getItem("userId"));
   const router = useRouter();
   const { userData, fetchPutUserId } = useStoreUsers();
   const [dataShipping, setDataShipping] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
 
-  
+  useEffect(() => {
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    if (!userId) {
+      router.push("/");
+    }
+  }, [router]);
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -33,18 +39,14 @@ function Edit() {
     e.preventDefault();
 
     if (hasChanges) {
+      const userId = JSON.parse(localStorage.getItem("userId"));
       await fetchPutUserId(userId.id, dataShipping);
 
       setHasChanges(false);
     }
   };
 
-  useEffect(() => {
-    if (!userId) {
-      router.push("/");
-    }
-  }, [userId, router]);
-
+ 
   useEffect(() => {
     setDataShipping(userData);
     setHasChanges(false);
