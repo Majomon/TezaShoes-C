@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const useAccountPage = () => {
-  const userId = JSON.parse(localStorage.getItem("userId"));
   const router = useRouter();
   const { userData, fetchPutUserId } = useStoreUsers();
   const [dataEditForm, setDataEditForm] = useState({});
@@ -17,12 +16,9 @@ export const useAccountPage = () => {
   const [isSelect, setIsSelect] = useState(0);
 
   useEffect(() => {
-    // Verificar si localStorage está definido antes de usarlo
-    if (typeof window !== "undefined") {
-      const userId = JSON.parse(localStorage.getItem("userId"));
-      if (!userId) {
-        router.push("/");
-      }
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    if (!userId) {
+      router.push("/");
     }
   }, [router]);
 
