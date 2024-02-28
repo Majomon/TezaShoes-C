@@ -20,13 +20,9 @@ function Info() {
   const [isSelect, setIsSelect] = useState(0);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("load", () => {
-        const userId = localStorage.getItem("userId");
-        if (!userId) {
-          router.push("/");
-        }
-      });
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      router.push("/");
     }
   }, []);
 
@@ -62,7 +58,7 @@ function Info() {
     setHasChanges(true);
   };
 
-  const handleSubmit = async (e) => {
+/*   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (hasChanges) {
@@ -75,7 +71,7 @@ function Info() {
 
       setHasChanges(false);
     }
-  };
+  }; */
 
   useEffect(() => {
     setDataEditForm(userData);
@@ -285,7 +281,7 @@ function Info() {
             </div>
           </div>
           <ModalUpdatePassword
-            userId={userData._id}
+            userData={userData._id}
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
           />
