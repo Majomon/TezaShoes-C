@@ -258,7 +258,7 @@ function Info() {
 
   return (
     <>
-      {!userId ? (
+      {!userData ? (
         <Card className=" w-11/12 mx-auto h-[80vh] p-2 mt-4" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="w-full h-[80vh] rounded-sm bg-default-300"></div>
@@ -283,7 +283,7 @@ function Info() {
             </div>
           </div>
           <ModalUpdatePassword
-            userId={userId}
+            userId={userData._id}
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
           />
