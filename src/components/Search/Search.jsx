@@ -215,165 +215,167 @@ export default function Search({ product }) {
   //const isInvalidData = !searchParamsCategory && !searchParamsName;
 
   return (
-    <div className="w-full h-full flex flex-col gap-y-5">
-      <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
-        <Image
-          src={bgSearch}
-          className="w-full h-full absolute top-0 left-0 object-cover object-top -z-10 "
-          alt="banner main search"
-        />
-        {searchParamsCategory && (
-          <h1 className="opacity-60 text-center text-white text-3xl md:text-4xl font-normal font-['Martel'] tracking-[6.40px] md:tracking-[14.40px] text-wrap uppercase">
-            {searchParamsCategory}
-          </h1>
-        )}
-        {searchParamsName && (
-          <h1 className=" opacity-60 text-center text-white text-4xl font-normal font-['Martel'] tracking-[14.40px] uppercase">
-            {capitalize(searchParamsName)}
-          </h1>
-        )}
-        {searchParamsName ? (
-          <PageRouting currentRuat={"Resultado de busqueda"} />
-        ) : (
-          <PageRouting currentRuat={searchParamsCategory} />
-        )}
-      </section>
-      <section className="w-11/12 mx-auto flex flex-col md:flex-row px-3 py-10 ">
-        <div className=" flex sm:flex-row w-full flex-col pb-4 gap-y-4 flex-wrap items-start sm:justify-between md:w-[35%] xl:w-[20%] h-fit md:sticky md:top-10 ">
-          <Accordion>
-            <AccordionItem key={1} aria-label="Accordion 1" title="Color">
-              <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2">
-                {listNoRepitColor().map((elem, index) => {
-                  return (
-                    <ColorComponent
-                      key={`${index}+${elem}`}
-                      searchParamsSize={searchParamsSize}
-                      searchParamsCategory={searchParamsCategory}
-                      searchParamsName={searchParamsName}
-                      nameColor={elem.nameColor}
-                      idColor={elem.codHexadecimal}
-                      setSelectColor={setSelectColor}
-                      selectColor={selectColor}
-                      indexColor={index}
-                    />
-                  );
-                })}
-              </article>
-            </AccordionItem>
-            <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
-              <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
-                {listNoRepitSize().map((elem, index) => {
-                  return (
-                    <SizeComponent
-                      key={`${index}+${elem}`}
-                      searchParamsColor={searchParamsColor}
-                      searchParamsCategory={searchParamsCategory}
-                      searchParamsName={searchParamsName}
-                      numberSize={elem}
-                      setSelectSize={setSelectSize}
-                      selectSize={selectSize}
-                      indexSize={index}
-                    />
-                  );
-                })}
-              </article>
-            </AccordionItem>
-            <AccordionItem key={3} aria-label="Accordion 3" title="Orden">
-              <article className=" flex flex-col gap-y-[5px]">
-                {listOrder.map((item, index) => {
-                  return (
-                    <p
-                      key={`${index * 2}}`}
-                      className={
-                        selectOrder === index
-                          ? ` text-colorGoldSecundary-500 transition-all duration-250 font-normal text-base cursor-pointer`
-                          : `text-colorGray-100 font-normal text-sm cursor-pointer`
-                      }
-                      onClick={() => {
-                        handleListOrder(item.value);
-                        setSelectOrder(index);
-                      }}
-                    >
-                      {item.name}
-                    </p>
-                  );
-                })}
-              </article>
-            </AccordionItem>
-          </Accordion>
-          <Link
-            href={`/search?${
-              searchParamsCategory && !searchParamsName
-                ? `category=${searchParamsCategory}`
-                : `name=${searchParamsName}`
-            }`}
-            className="w-full h-[40px] text-colorWhite-100 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black uppercase flex items-center justify-center"
-            onClick={() => {
-              setProductsFilterTwo(productsFilter);
-              setSelectOrder(null);
-              setSelectColor(null);
-              setSelectSize(null);
-            }}
-          >
-            Limpiar
-          </Link>
-        </div>
-        <div className=" md:w-[65%] xl:w-[80%] w-full h-fit">
-          <Suspense fallback={<p>Loading...</p>}>
-            <section
-              className={` grid grid-cols-13Cards items-start sm:justify-center justify-start w-[100%] gap-x-3 transition-all ease-in py-3 ${
-                isActiveShow ? "h-fit" : `min-h-[850px]`
-              } overflow-${
-                isActiveShow ? "visible" : "hidden"
-              } gap-y-6 place-items-center 
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="w-full h-full flex flex-col gap-y-5">
+        <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
+          <Image
+            src={bgSearch}
+            className="w-full h-full absolute top-0 left-0 object-cover object-top -z-10 "
+            alt="banner main search"
+          />
+          {searchParamsCategory && (
+            <h1 className="opacity-60 text-center text-white text-3xl md:text-4xl font-normal font-['Martel'] tracking-[6.40px] md:tracking-[14.40px] text-wrap uppercase">
+              {searchParamsCategory}
+            </h1>
+          )}
+          {searchParamsName && (
+            <h1 className=" opacity-60 text-center text-white text-4xl font-normal font-['Martel'] tracking-[14.40px] uppercase">
+              {capitalize(searchParamsName)}
+            </h1>
+          )}
+          {searchParamsName ? (
+            <PageRouting currentRuat={"Resultado de busqueda"} />
+          ) : (
+            <PageRouting currentRuat={searchParamsCategory} />
+          )}
+        </section>
+        <section className="w-11/12 mx-auto flex flex-col md:flex-row px-3 py-10 ">
+          <div className=" flex sm:flex-row w-full flex-col pb-4 gap-y-4 flex-wrap items-start sm:justify-between md:w-[35%] xl:w-[20%] h-fit md:sticky md:top-10 ">
+            <Accordion>
+              <AccordionItem key={1} aria-label="Accordion 1" title="Color">
+                <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2">
+                  {listNoRepitColor().map((elem, index) => {
+                    return (
+                      <ColorComponent
+                        key={`${index}+${elem}`}
+                        searchParamsSize={searchParamsSize}
+                        searchParamsCategory={searchParamsCategory}
+                        searchParamsName={searchParamsName}
+                        nameColor={elem.nameColor}
+                        idColor={elem.codHexadecimal}
+                        setSelectColor={setSelectColor}
+                        selectColor={selectColor}
+                        indexColor={index}
+                      />
+                    );
+                  })}
+                </article>
+              </AccordionItem>
+              <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
+                <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
+                  {listNoRepitSize().map((elem, index) => {
+                    return (
+                      <SizeComponent
+                        key={`${index}+${elem}`}
+                        searchParamsColor={searchParamsColor}
+                        searchParamsCategory={searchParamsCategory}
+                        searchParamsName={searchParamsName}
+                        numberSize={elem}
+                        setSelectSize={setSelectSize}
+                        selectSize={selectSize}
+                        indexSize={index}
+                      />
+                    );
+                  })}
+                </article>
+              </AccordionItem>
+              <AccordionItem key={3} aria-label="Accordion 3" title="Orden">
+                <article className=" flex flex-col gap-y-[5px]">
+                  {listOrder.map((item, index) => {
+                    return (
+                      <p
+                        key={`${index * 2}}`}
+                        className={
+                          selectOrder === index
+                            ? ` text-colorGoldSecundary-500 transition-all duration-250 font-normal text-base cursor-pointer`
+                            : `text-colorGray-100 font-normal text-sm cursor-pointer`
+                        }
+                        onClick={() => {
+                          handleListOrder(item.value);
+                          setSelectOrder(index);
+                        }}
+                      >
+                        {item.name}
+                      </p>
+                    );
+                  })}
+                </article>
+              </AccordionItem>
+            </Accordion>
+            <Link
+              href={`/search?${
+                searchParamsCategory && !searchParamsName
+                  ? `category=${searchParamsCategory}`
+                  : `name=${searchParamsName}`
+              }`}
+              className="w-full h-[40px] text-colorWhite-100 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black uppercase flex items-center justify-center"
+              onClick={() => {
+                setProductsFilterTwo(productsFilter);
+                setSelectOrder(null);
+                setSelectColor(null);
+                setSelectSize(null);
+              }}
+            >
+              Limpiar
+            </Link>
+          </div>
+          <div className=" md:w-[65%] xl:w-[80%] w-full h-fit">
+            <Suspense fallback={<p>Loading...</p>}>
+              <section
+                className={` grid grid-cols-13Cards items-start sm:justify-center justify-start w-[100%] gap-x-3 transition-all ease-in py-3 ${
+                  isActiveShow ? "h-fit" : `min-h-[850px]`
+                } overflow-${
+                  isActiveShow ? "visible" : "hidden"
+                } gap-y-6 place-items-center 
               ${productsFilterTwo.length === 0 ? "w-fit mx-auto " : " "} 
               `}
-            >
-              {productsFilterTwo.length > 0 ? (
-                productsFilterTwo.map((item) => {
-                  const {
-                    _id,
-                    images,
-                    name,
-                    price,
-                    cantDues,
-                    newProduct,
-                    category,
-                    offer,
-                  } = item;
-                  return (
-                    (isHeightCount += 1),
-                    (
-                      <Card
-                        key={_id}
-                        images={images}
-                        title={name}
-                        price={price}
-                        cantDues={cantDues}
-                        newProduct={newProduct}
-                        id={_id}
-                        categori={category}
-                        offer={offer.offerActive}
-                        offerPrice={offer.offerPrice}
-                      />
-                    )
-                  );
-                })
-              ) : (
-                <NotProducts
-                  searchParamsCategory={searchParamsCategory}
-                  searchParamsName={searchParamsName}
-                  setProductsFilterTwo={setProductsFilterTwo}
-                  productsFilter={productsFilter}
-                  setSelectOrder={setSelectOrder}
-                  setSelectColor={setSelectColor}
-                  setSelectSize={setSelectSize}
-                />
-              )}
-            </section>
-          </Suspense>
-        </div>
-      </section>
-    </div>
+              >
+                {productsFilterTwo.length > 0 ? (
+                  productsFilterTwo.map((item) => {
+                    const {
+                      _id,
+                      images,
+                      name,
+                      price,
+                      cantDues,
+                      newProduct,
+                      category,
+                      offer,
+                    } = item;
+                    return (
+                      (isHeightCount += 1),
+                      (
+                        <Card
+                          key={_id}
+                          images={images}
+                          title={name}
+                          price={price}
+                          cantDues={cantDues}
+                          newProduct={newProduct}
+                          id={_id}
+                          categori={category}
+                          offer={offer.offerActive}
+                          offerPrice={offer.offerPrice}
+                        />
+                      )
+                    );
+                  })
+                ) : (
+                  <NotProducts
+                    searchParamsCategory={searchParamsCategory}
+                    searchParamsName={searchParamsName}
+                    setProductsFilterTwo={setProductsFilterTwo}
+                    productsFilter={productsFilter}
+                    setSelectOrder={setSelectOrder}
+                    setSelectColor={setSelectColor}
+                    setSelectSize={setSelectSize}
+                  />
+                )}
+              </section>
+            </Suspense>
+          </div>
+        </section>
+      </div>
+    </Suspense>
   );
 }
