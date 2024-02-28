@@ -20,9 +20,11 @@ function Info() {
   const [isSelect, setIsSelect] = useState(0);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      router.push("/");
+    if (typeof window !== "undefined") {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        router.push("/");
+      }
     }
   }, []);
 
@@ -256,7 +258,7 @@ function Info() {
 
   return (
     <>
-      {!userData ? (
+      {!userId ? (
         <Card className=" w-11/12 mx-auto h-[80vh] p-2 mt-4" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="w-full h-[80vh] rounded-sm bg-default-300"></div>
@@ -281,7 +283,7 @@ function Info() {
             </div>
           </div>
           <ModalUpdatePassword
-            userId={userData.id}
+            userId={userId}
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
           />
