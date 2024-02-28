@@ -15,13 +15,15 @@ export const useAccountPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSelect, setIsSelect] = useState(0);
 
-  const userId = JSON.parse(localStorage.getItem("userId"));
-  
   useEffect(() => {
-    if (!userId) {
-      router.push("/");
+    if (typeof window !== "undefined") {
+      const userId = JSON.parse(localStorage.getItem("userId"));
+      if (!userId) {
+        router.push("/");
+      }
     }
-  }, [router, userId]);
+  }, [router]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "day" || name === "month" || name === "year") {
