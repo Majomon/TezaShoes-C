@@ -87,12 +87,12 @@ function Info() {
           id="personalInformation"
         >
           <h2 className=" text-center uppercase">Informacion personal</h2>
-          <ContainerInputPersonalInformation
+        {/*   <ContainerInputPersonalInformation
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             dataEditForm={dataEditForm}
             hasChanges={hasChanges}
-          />
+          /> */}
         </section>
       ),
     },
@@ -104,7 +104,7 @@ function Info() {
           id="address"
         >
           <h2 className=" text-center uppercase">Direccion</h2>
-          <form className="w-full h-full " onSubmit={handleSubmit}>
+         {/*  <form className="w-full h-full " onSubmit={handleSubmit}>
             <ContainerInputShipping
               handleChange={handleChangeShipping}
               dataShipping={dataShipping}
@@ -122,7 +122,7 @@ function Info() {
             ) : (
               ""
             )}
-          </form>
+          </form> */}
         </section>
       ),
     },
@@ -134,7 +134,7 @@ function Info() {
           id="emailAndPassword"
         >
           <h2 className=" text-center uppercase">Email y Contraseña</h2>
-          <form className="w-full h-full " onSubmit={handleSubmit}>
+        {/*   <form className="w-full h-full " onSubmit={handleSubmit}>
             <div className="w-full flex flex-wrap justify-center gap-x-10 items-center px-10 py-4 gap-y-4 ">
               <div className="py-2 flex flex-col items-start">
                 <label className="text-center text-stone-300 text-sm font-normal">
@@ -171,7 +171,7 @@ function Info() {
                 Cambiar contraseña
               </button>
             </div>
-          </form>
+          </form> */}
         </section>
       ),
     },
