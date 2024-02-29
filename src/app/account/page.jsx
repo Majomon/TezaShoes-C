@@ -5,7 +5,7 @@ import { Card, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Banner from "../../../../public/Banner.png";
+import Banner from "../../../public/Banner.png";
 
 function Edit() {
   const router = useRouter();
