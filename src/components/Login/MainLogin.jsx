@@ -6,13 +6,13 @@ import WelcomeLogin from "./WelcomeLogin";
 import { useEffect } from "react";
 function MainLogin({ url }) {
   const router = useRouter();
-  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
+    const userId = localStorage.getItem("userId");
     if (userId) {
       router.push("/");
     }
-  }, [userId, router]);
+  }, []);
 
   return (
     <section className="w-full h-full">
