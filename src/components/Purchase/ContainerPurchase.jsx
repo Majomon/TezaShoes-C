@@ -8,7 +8,7 @@ function ContainerPurchase({ cart, totalCart }) {
         <div>
           {/* <h2>Resumen de compra</h2> */}
           <ul className="grid grid-cols-1 gap-y-6 w-full">
-            {cart.map(
+            {cart?.map(
               (item, index) => (
                 (cantProduct += item.count),
                 (
