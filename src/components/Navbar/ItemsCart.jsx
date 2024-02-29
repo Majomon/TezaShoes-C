@@ -14,7 +14,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
   useEffect(() => {
     const listCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartLocalStorage(listCart);
-  }, [isOpenCart, setIsOpenCart]);
+  }, [isOpenCart]);
 
   useEffect(() => {
     const updateCart = async () => {
