@@ -41,7 +41,7 @@ export default function Main({ product, allproduct }) {
           <InterestProductsCarousel />
         </div>
       ) : (
-        <div className="w-full h-96 text-red-500 flex justify-center items-center">
+        <div className="w-full h-4/5 text-red-500 flex justify-center items-center">
           <h1 className="text-xl font-bold">
             El producto ya no está disponible.
           </h1>

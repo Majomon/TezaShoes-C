@@ -10,5 +10,5 @@ export const ListTableHeadClients = [
   "Nombre",
   "Ultima compra",
   "Total consumido",
-  "Contactar"
-]
+  "Contactar",
+];

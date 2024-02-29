@@ -9,4 +9,4 @@ const listTable = [
   "Notificación envío",
 ];
 
-export default listTable
+export default listTable;

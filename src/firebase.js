@@ -13,11 +13,11 @@ const firebaseConfig = {
   storageBucket: "teza-c542a.appspot.com",
   messagingSenderId: "182749420075",
   appId: "1:182749420075:web:c07a66f34475477332686e",
-  measurementId: "G-D0WWPXD92H"
+  measurementId: "G-D0WWPXD92H",
 };
 
 // Initialize Firebase
 const appFirebase = initializeApp(firebaseConfig);
 /* const analytics = getAnalytics(app); */
 
-export default appFirebase
+export default appFirebase;
