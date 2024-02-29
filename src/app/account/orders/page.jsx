@@ -11,9 +11,11 @@ function Orders() {
   const { userData } = useStoreUsers();
 
   useEffect(() => {
-    const userId = window.localStorage.getItem("userId");
-    if (!userId) {
-      router.push("/");
+    if (typeof window !== "undefined") {
+      const userId = window.localStorage.getItem("userId");
+      if (!userId) {
+        router.push("/");
+      }
     }
   }, []);
 
