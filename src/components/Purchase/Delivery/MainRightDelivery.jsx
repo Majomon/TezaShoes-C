@@ -3,9 +3,9 @@ import ContainerPurchase from "../ContainerPurchase";
 import ContainDeliverPersonal from "./ContainDeliverPersonal";
 
 function MainRightDelivery() {
-  const [cartState, setCartState] = useState(0);
+  const [cartState, setCartState] = useState([]);
   const [totalState, setTotalState] = useState(0);
-  const [storedDataState, setStoredDataState] = useState(0);
+  const [storedDataState, setStoredDataState] = useState({});
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart"));
