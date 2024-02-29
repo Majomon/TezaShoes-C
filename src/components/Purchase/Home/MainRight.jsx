@@ -12,7 +12,9 @@ function MainRight() {
   return (
     <div className="w-full max-w-[460px]">
       <div>
-        <h2 className="py-4 text-base font-normal uppercase text-center lg:text-left">Detalles</h2>
+        <h2 className="py-4 text-base font-normal uppercase text-center lg:text-left">
+          Detalles
+        </h2>
         <ContainerPurchase cart={cart} totalCart={total} />
       </div>
     </div>

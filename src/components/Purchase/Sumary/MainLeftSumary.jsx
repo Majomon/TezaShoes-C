@@ -1,12 +1,12 @@
+import ButtonModo from "@/components/ButtonMODO/ButtonModo";
 import { useStorePayOrder } from "@/zustand/store";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardProductPurchase from "../CardProductPurchase";
-import { Navigation } from "swiper/modules";
-import "swiper/css/navigation";
-import Link from "next/link";
-import ButtonModo from "@/components/ButtonMODO/ButtonModo";
-import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
 
 function MainLeftSumary() {
   const { orderData } = useStorePayOrder();

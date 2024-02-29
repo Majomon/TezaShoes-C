@@ -1,5 +1,3 @@
-import ButtonModo from "@/components/ButtonMODO/ButtonModo";
-
 export default function CardOptionPayment({
   handleChange,
   totalCart,
@@ -33,9 +31,6 @@ export default function CardOptionPayment({
           <p className=" text-colorGray-100">{descrip}</p>
           <p className=" font-bold">${totalCart}</p>
         </section>
- {/*        {name === "MODO" && selectedOption === index && (
-          <ButtonModo totalCart={totalCart} cantProduct={cantProduct} />
-        )} */}
       </div>
     </div>
   );

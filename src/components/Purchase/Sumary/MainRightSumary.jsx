@@ -1,10 +1,9 @@
 import { useStorePayOrder } from "@/zustand/store";
-import ContainInfoPersonal from "./ConatainInfoPersonal";
+import { redirect } from "next/navigation";
 import CardDetail from "../Payment/CardDetail";
 import CardPayment from "./CardPayment";
+import ContainInfoPersonal from "./ConatainInfoPersonal";
 import ItemPaymentStatus from "./ItemPaymentStatus";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
 
 function MainRightSumary() {
   const { orderData } = useStorePayOrder();
@@ -21,6 +20,7 @@ function MainRightSumary() {
     const newDate = date.split("T", 1);
     return newDate.toString();
   };
+  
   if (!orderData) {
     redirect("/");
   }

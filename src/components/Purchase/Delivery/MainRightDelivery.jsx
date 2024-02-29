@@ -14,13 +14,16 @@ function MainRightDelivery() {
 
   return (
     <div className=" w-full max-w-[460px]">
-      <h2 className="py-4 text-center lg:text-base font-normal uppercase">Detalles</h2>
+      <h2 className="py-4 text-left lg:text-base font-normal uppercase">
+        Detalles
+      </h2>
       <div className=" w-full  flex flex-col gap-y-4">
-        
-        <ContainerPurchase cart={cart} totalCart={total} storedData={storedData} />
-        <ContainDeliverPersonal 
+        <ContainerPurchase
+          cart={cart}
+          totalCart={total}
           storedData={storedData}
         />
+        <ContainDeliverPersonal storedData={storedData} />
       </div>
     </div>
   );

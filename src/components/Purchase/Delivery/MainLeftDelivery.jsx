@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CardOptionDelivery from "./CardOptionDelivery";
 
 function MainLeftDelivery() {
@@ -50,52 +50,51 @@ function MainLeftDelivery() {
 
   return (
     <div className=" max-w-[460px] w-full">
-        {/* <h2>Método de entrega</h2> */}
-        <section className="flex flex-col gap-y-[30px] w-full">
-          {/* Por local */}
-          {listOptionsDelivers.map((item, index) => {
-            const { title, descrip, value, id } = item;
-            return (
-              <CardOptionDelivery
-                key={index}
-                index={index}
-                title={title}
-                descrip={descrip}
-                value={value}
-                id={id}
-                state={state}
-                setState={setState}
-                handleOptionChange={handleOptionChange}
-              />
-            );
-          })}
-        </section>
-        <section className="flex flex-wrap gap-y-3 gap-x-4 items-center justify-between mt-[30px]">
-          <Link href={"/purchase"} className=" w-full sm:w-[180px]">
-            <button className="  w-full text-sm font-normal py-2 px-6 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black text-colorWhite-100 uppercase ">
-              Volver
+      {/* <h2>Método de entrega</h2> */}
+      <section className="flex flex-col gap-y-[30px] w-full">
+        {/* Por local */}
+        {listOptionsDelivers.map((item, index) => {
+          const { title, descrip, value, id } = item;
+          return (
+            <CardOptionDelivery
+              key={index}
+              index={index}
+              title={title}
+              descrip={descrip}
+              value={value}
+              id={id}
+              state={state}
+              setState={setState}
+              handleOptionChange={handleOptionChange}
+            />
+          );
+        })}
+      </section>
+      <section className="flex flex-wrap gap-y-3 gap-x-4 items-center justify-between mt-[30px]">
+        <Link href={"/purchase"} className=" w-full sm:w-[180px]">
+          <button className="  w-full text-sm font-normal py-2 px-6 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black text-colorWhite-100 uppercase ">
+            Volver
+          </button>
+        </Link>
+        <Link href={"/purchase/paymentMethod"} className=" w-full sm:w-[180px]">
+          {state !== null ? (
+            <button
+              className={` w-full bg-gradient-to-r from-zinc-600 via-zinc-800 to-black text-sm font-normal py-2 px-6 text-colorWhite-100 uppercase transition-all`}
+              onClick={handleContinue}
+            >
+              Continuar
             </button>
-          </Link>
-          <Link href={"/purchase/paymentMethod"} className=" w-full sm:w-[180px]">
-            {state !== null ? (
-              <button
-                className={` w-full bg-gradient-to-r from-zinc-600 via-zinc-800 to-black text-sm font-normal py-2 px-6 text-colorWhite-100 uppercase transition-all`}
-                onClick={handleContinue}
-              >
-                Continuar
-              </button>
-            ) : (
-              <button
-                className={` bg-slate-200 w-full text-sm font-normal py-2 px-6 text-colorWhite-100 uppercase`}
-                onClick={handleContinue}
-                disabled
-              >
-                Continuar
-              </button>
-            )}
-          </Link>
-        </section>
-      
+          ) : (
+            <button
+              className={` bg-slate-200 w-full text-sm font-normal py-2 px-6 text-colorWhite-100 uppercase`}
+              onClick={handleContinue}
+              disabled
+            >
+              Continuar
+            </button>
+          )}
+        </Link>
+      </section>
     </div>
   );
 }

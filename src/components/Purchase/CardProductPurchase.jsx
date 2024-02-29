@@ -1,6 +1,16 @@
 function CardProductPurchase({ item }) {
-
-  const {image,name,nameColor,count,totalPrice,category,size,price,offerActive,offerPrice} = item;
+  const {
+    image,
+    name,
+    nameColor,
+    count,
+    totalPrice,
+    category,
+    size,
+    price,
+    offerActive,
+    offerPrice,
+  } = item;
 
   return (
     <div className="flex flex-col  min-[420px]:flex-row w-full justify-between pb-[10px] border-b-1 border-[#EEEEEE]">
@@ -20,17 +30,22 @@ function CardProductPurchase({ item }) {
             <p className="text-sm text-colorBlack-400">{size}</p>
           </section>
           <section className="flex w-full justify-between">
-            {
-              offerActive ? <p className="text-sm text-colorBlack-400 font-bold">${offerPrice}</p>
-              : <p className="text-sm text-colorBlack-400 font-bold">${price}</p>
-            }
-            
+            {offerActive ? (
+              <p className="text-sm text-colorBlack-400 font-bold">
+                ${offerPrice}
+              </p>
+            ) : (
+              <p className="text-sm text-colorBlack-400 font-bold">${price}</p>
+            )}
+
             <p className="text-sm text-colorGray-100">x{count}</p>
           </section>
         </div>
       </section>
       <section className="flex items-end pt-2">
-        <p className=" font-bold text-white bg-colorGoldSecundary-500 py-1 px-3 rounded-2xl">${totalPrice}</p>
+        <p className=" font-bold text-white bg-colorGoldSecundary-500 py-1 px-3 rounded-2xl">
+          ${totalPrice}
+        </p>
       </section>
     </div>
   );

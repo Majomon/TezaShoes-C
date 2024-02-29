@@ -1,4 +1,4 @@
-import { useStorePayOrder, useStoreTimePurchase } from "@/zustand/store";
+import { useStorePayOrder } from "@/zustand/store";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useEffect, useState } from "react";

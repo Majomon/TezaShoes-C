@@ -1,9 +1,6 @@
 import CardProductPurchase from "./CardProductPurchase";
-import InfoDelivery from "./InfoDelivery";
-import InfoUser from "./InfoUser";
 
 function ContainerPurchase({ cart, totalCart }) {
-  
   let cantProduct = 0;
   return (
     <div className="w-full shadow-cardPurchaseShadow px-[10px] py-[15px] rounded-md">
@@ -23,12 +20,6 @@ function ContainerPurchase({ cart, totalCart }) {
             )}
           </ul>
         </div>
-        {/* Información usuario */}
-        {/* {storedData.address && storedData.name && storedData.phone && (
-          <InfoUser storedData={storedData} />
-        )} */}
-        {/* Método de envio */}
-        {/* {storedData.delivery && <InfoDelivery storedData={storedData} />} */}
         <section className="flex flex-col gap-y-1">
           <div className="flex justify-between items-center py-1">
             <h3 className="text-sm text-colorGray-100">

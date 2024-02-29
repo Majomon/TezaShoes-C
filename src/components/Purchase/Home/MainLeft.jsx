@@ -1,6 +1,6 @@
 import Link from "next/link";
-import InputFormPurchase from "../../InputFormPurchase/InputFormPurchase";
 import { useState } from "react";
+import InputFormPurchase from "../../InputFormPurchase/InputFormPurchase";
 
 function MainLeft({ dataForm, handlerChange }) {
   const [errors, setErrors] = useState({});
@@ -14,7 +14,7 @@ function MainLeft({ dataForm, handlerChange }) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
-  
+
   const validateInputs = () => {
     const newErrors = {};
     let isValid = true;

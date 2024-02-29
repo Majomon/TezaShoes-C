@@ -6,7 +6,7 @@ export default function CardOptionDelivery({
   id,
   title,
   value,
-  descrip
+  descrip,
 }) {
   return (
     <div

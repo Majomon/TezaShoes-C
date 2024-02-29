@@ -28,12 +28,13 @@ const listPurchaseSteps = [
 ];
 
 export default function ProccessPurchase() {
-  const itemCart = JSON.parse(localStorage.getItem("cart"));
-  const timePurchase = Cookies.get("timePurchase");
-
-  if (!itemCart && !timePurchase) {
-    redirect("/");
-  }
+  useEffect(() => {
+    const itemCart = JSON.parse(localStorage.getItem("cart"));
+    const timePurchase = Cookies.get("timePurchase");
+    if (!itemCart && !timePurchase) {
+      redirect("/");
+    }
+  }, []);
 
   const url = usePathname();
 

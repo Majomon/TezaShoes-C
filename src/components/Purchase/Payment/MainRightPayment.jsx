@@ -4,26 +4,34 @@ import ContainDeliverPersonal from "../Delivery/ContainDeliverPersonal";
 import CardDetail from "./CardDetail";
 
 function MainRightPayment() {
-  const [total, setTotal] = useState(0);
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const totalCart = parseFloat(localStorage.getItem("TotalCart"));
-  const storedData = JSON.parse(localStorage.getItem("dataPurchase")) || {};
+  const [cartState, setCartState] = useState(null);
+  const [totalState, setTotalState] = useState(null);
+  const [storedDataState, setStoredDataState] = useState(null);
 
   useEffect(() => {
-    setTotal(totalCart);
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalCart = parseFloat(localStorage.getItem("TotalCart"));
+    const storedData = JSON.parse(localStorage.getItem("dataPurchase")) || {};
+    if (cart && totalCart && storedData) {
+      setCartState(cart);
+      setTotalState(totalCart);
+      setStoredDataState(storedData);
+    }
   }, []);
-  
+
   return (
     <div className=" max-w-[460px] w-full">
       <h2 className="py-4 text-base font-normal uppercase">Detalles</h2>
       <div className="flex flex-col gap-y-4 w-full">
-        <ContainerPurchase cart={cart} totalCart={total} />
-        <ContainDeliverPersonal
-          storedData={storedData}
-        />
-        <CardDetail 
-          title={storedData.delivery}
-          value={storedData.delivery === "Retiro por local" ? "$0" : "A convenir"}
+        <ContainerPurchase cart={cartState} totalCart={totalState} />
+        <ContainDeliverPersonal storedData={storedDataState} />
+        <CardDetail
+          title={storedDataState.delivery}
+          value={
+            storedDataState.delivery === "Retiro por local"
+              ? "$0"
+              : "A convenir"
+          }
         />
       </div>
     </div>
