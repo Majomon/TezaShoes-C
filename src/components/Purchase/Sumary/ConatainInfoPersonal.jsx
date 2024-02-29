@@ -20,7 +20,7 @@ export default function ContainInfoPersonal({
       </p>
       <p>Tel:{phone}</p>
       <p className=" text-right">
-        {address?.province /* || "Buenos Aires" */},
+        {address?.province /* || "Buenos " */},
       </p>
     </div>
   );
