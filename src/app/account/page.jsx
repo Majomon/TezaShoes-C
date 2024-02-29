@@ -20,7 +20,7 @@ function Info() {
   const [isSelect, setIsSelect] = useState(0);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    const userId = JSON.parse(localStorage.getItem("userId")) || "";
     if (!userId) {
       router.push("/");
     }
@@ -58,7 +58,7 @@ function Info() {
     setHasChanges(true);
   };
 
-/*   const handleSubmit = async (e) => {
+  /*   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (hasChanges) {
@@ -87,7 +87,7 @@ function Info() {
           id="personalInformation"
         >
           <h2 className=" text-center uppercase">Informacion personal</h2>
-        {/*   <ContainerInputPersonalInformation
+          {/*   <ContainerInputPersonalInformation
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             dataEditForm={dataEditForm}
@@ -104,7 +104,7 @@ function Info() {
           id="address"
         >
           <h2 className=" text-center uppercase">Direccion</h2>
-         {/*  <form className="w-full h-full " onSubmit={handleSubmit}>
+          {/*  <form className="w-full h-full " onSubmit={handleSubmit}>
             <ContainerInputShipping
               handleChange={handleChangeShipping}
               dataShipping={dataShipping}
@@ -134,7 +134,7 @@ function Info() {
           id="emailAndPassword"
         >
           <h2 className=" text-center uppercase">Email y Contraseña</h2>
-        {/*   <form className="w-full h-full " onSubmit={handleSubmit}>
+          {/*   <form className="w-full h-full " onSubmit={handleSubmit}>
             <div className="w-full flex flex-wrap justify-center gap-x-10 items-center px-10 py-4 gap-y-4 ">
               <div className="py-2 flex flex-col items-start">
                 <label className="text-center text-stone-300 text-sm font-normal">
