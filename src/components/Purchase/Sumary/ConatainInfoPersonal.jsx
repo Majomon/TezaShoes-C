@@ -4,7 +4,6 @@ export default function ContainInfoPersonal({
   address,
   phone,
   document,
-  nationality,
 }) {
   return (
     <div className="w-full h-fit px-[10px] py-[15px] shadow-cardPurchaseShadow grid grid-cols-2 rounded-lg ">
