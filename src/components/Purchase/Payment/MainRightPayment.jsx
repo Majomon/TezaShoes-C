@@ -4,9 +4,9 @@ import ContainDeliverPersonal from "../Delivery/ContainDeliverPersonal";
 import CardDetail from "./CardDetail";
 
 function MainRightPayment() {
-  const [cartState, setCartState] = useState(null);
-  const [totalState, setTotalState] = useState(null);
-  const [storedDataState, setStoredDataState] = useState(null);
+  const [cartState, setCartState] = useState([]);
+  const [totalState, setTotalState] = useState(0);
+  const [storedDataState, setStoredDataState] = useState({});
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
