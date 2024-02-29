@@ -1,5 +1,5 @@
 export default function ColorComponentDetail({
-hexaColor,
+  hexaColor,
   selectedColor,
   nameColor,
   handleColorChange,
@@ -16,9 +16,17 @@ hexaColor,
     >
       <div
         className="rounded-full w-[25px] h-[25px] border-1 justify-center items-center p-[5px] border-stone-300"
-        style={{ backgroundColor: hexaColor  }}
+        style={{ backgroundColor: hexaColor }}
       ></div>
-      <h3 className={` text-xs font-bold ${selectedColor && selectedColor.color === option.color ? " text-colorGoldSecundary-500" : "text-stone-300"}`}>{nameColor}</h3>
+      <h3
+        className={` text-xs font-bold ${
+          selectedColor && selectedColor.color === option.color
+            ? " text-colorGoldSecundary-500"
+            : "text-stone-300"
+        }`}
+      >
+        {nameColor}
+      </h3>
     </div>
   );
 }

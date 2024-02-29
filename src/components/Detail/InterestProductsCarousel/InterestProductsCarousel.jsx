@@ -1,14 +1,14 @@
+import Card from "@/components/Card/Card";
+import { useStoreProducts } from "@/zustand/store";
+import "swiper/css/autoplay";
+import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
+import { Autoplay, EffectCube, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import {
   IconArrowNext,
   IconArrowPrev,
 } from "../../../../assets/Detail/IconDetails";
-import { useStoreProducts } from "@/zustand/store";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, EffectCube } from "swiper/modules";
-import "swiper/css/autoplay";
-import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
-import Card from "@/components/Card/Card";
 
 export default function InterestProductsCarousel() {
   const { detail, allProducts } = useStoreProducts();
@@ -27,11 +27,11 @@ export default function InterestProductsCarousel() {
 
   return (
     <section className="max-w-[1366px] h-fit mx-auto">
-      <article className=" flex flex/row items-center justify-between">
-        <h1 className="text-left text-neutral-950 text-xl font-semibold">
+      <article className=" flex flex/row items-center justify-between ">
+        <h1 className="sm:text-left text-center text-neutral-950 text-xl font-semibold ">
           Tambien te puede interesar
         </h1>
-        <div className="flex flex-row gap-x-[10px]">
+        <div className="hidden flex-row gap-x-[10px] sm:flex">
           <button
             className=" cursor-pointer w-[60px] h-[60px] rounded-full border border-neutral-200 flex items-center justify-center hover:shadow-md hover:border-none transition-all"
             id="ButtonPrev"

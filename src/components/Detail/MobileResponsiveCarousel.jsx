@@ -1,10 +1,10 @@
-import { EffectCube, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, EffectCube } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
-import "swiper/css/effect-cube";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-cube";
 
 export default function MobileResponsiveCarousel({
   imagens,
@@ -23,7 +23,7 @@ export default function MobileResponsiveCarousel({
           return (
             <SwiperSlide key={index}>
               <img
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain border-1"
                 src={image}
                 alt={`Imagen ${index}`}
                 onClick={() => handlerImgModal()}
