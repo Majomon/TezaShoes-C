@@ -240,17 +240,17 @@ function Edit() {
           alt="banner main search"
         />
       </section>
-{/*       <div className=" h-full flex items-center lg:px-10 lg:items-start flex-col gap-y-20 lg:flex-row lg:justify-between pt-16  w-full max-w-[1440px] mx-auto ">
+      <div className=" h-full flex items-center lg:px-10 lg:items-start flex-col gap-y-20 lg:flex-row lg:justify-between pt-16  w-full max-w-[1440px] mx-auto ">
         <NavAccount isSelect={isSelect} setIsSelect={setIsSelect} />
         <div className="flex flex-col items-center gap-y-52 pb-5 w-full ">
           {listForms[isSelect]?.data}
         </div>
       </div>
       <ModalUpdatePassword
-        userId={userId}
+        userDataId={userData._id}
         setIsOpenModal={setIsOpenModal}
         isOpenModal={isOpenModal}
-      /> */}
+      />
     </div>
   );
 }
