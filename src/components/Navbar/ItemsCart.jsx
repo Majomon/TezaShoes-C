@@ -14,7 +14,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
   useEffect(() => {
     const listCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartLocalStorage(listCart);
-  }, [cartLocalStorage]);
+  }, [isOpenCart, setIsOpenCart]);
 
   useEffect(() => {
     const updateCart = async () => {
@@ -78,10 +78,9 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
   };
 
   const handleClickAllDelete = () => {
-    console.log("Borrar");
     Cookies.remove("cartAbandoned");
-    setCartLocalStorage([]);
     localStorage.removeItem("cart");
+    setCartLocalStorage([]);
   };
 
   return (
