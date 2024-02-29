@@ -3,13 +3,20 @@ import ContainerPurchase from "../ContainerPurchase";
 import ContainDeliverPersonal from "./ContainDeliverPersonal";
 
 function MainRightDelivery() {
-  const [total, setTotal] = useState(0);
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const totalCart = parseFloat(localStorage.getItem("TotalCart"));
-  const storedData = JSON.parse(localStorage.getItem("dataPurchase")) || {};
+  const [cartState, setCartState] = useState(0);
+  const [totalState, setTotalState] = useState(0);
+  const [storedDataState, setStoredDataState] = useState(0);
 
   useEffect(() => {
-    setTotal(totalCart);
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const totalCart = parseFloat(localStorage.getItem("TotalCart"));
+    const storedData = JSON.parse(localStorage.getItem("dataPurchase"));
+
+    if (cart && totalCart && storedData) {
+      setCartState(cart);
+      setTotalState(totalCart);
+      setStoredDataState(storedData);
+    }
   }, []);
 
   return (
@@ -19,11 +26,11 @@ function MainRightDelivery() {
       </h2>
       <div className=" w-full  flex flex-col gap-y-4">
         <ContainerPurchase
-          cart={cart}
-          totalCart={total}
-          storedData={storedData}
+          cart={cartState}
+          totalCart={totalState}
+          storedData={storedDataState}
         />
-        <ContainDeliverPersonal storedData={storedData} />
+        <ContainDeliverPersonal storedData={storedDataState} />
       </div>
     </div>
   );
