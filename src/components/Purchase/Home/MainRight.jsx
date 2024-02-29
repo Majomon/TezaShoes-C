@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import ContainerPurchase from "../ContainerPurchase";
 
 function MainRight() {
+  const [cartState, setCartState] = useState([]);
   const [totalState, setTotalState] = useState(0);
-  const [cartState, setCartState] = useState(null);
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart"));
