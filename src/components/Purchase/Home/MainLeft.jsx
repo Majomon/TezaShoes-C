@@ -104,6 +104,8 @@ function MainLeft({ dataForm, handlerChange }) {
     handlerChange(e);
     validateInputs();
   };
+
+  
   return (
     <div className="max-w-[460px] pb-10 flex flex-col gap-y-5">
       {/*Email */}

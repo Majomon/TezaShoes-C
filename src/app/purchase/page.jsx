@@ -38,7 +38,7 @@ export default function Purchase() {
   };
 
   useEffect(() => {
-    const dataPurchase = JSON.parse(localStorage.getItem("dataPurchase"));
+    const dataPurchase = localStorage.getItem("dataPurchase");
     if (dataPurchase) {
       setDataForm(dataPurchase);
     }

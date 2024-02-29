@@ -2,20 +2,25 @@ import { useEffect, useState } from "react";
 import ContainerPurchase from "../ContainerPurchase";
 
 function MainRight() {
-  const [total, setTotal] = useState(0);
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const totalCart = parseFloat(localStorage.getItem("TotalCart"));
+  const [totalState, setTotalState] = useState(0);
+  const [cartState, setCartState] = useState(null);
 
   useEffect(() => {
-    setTotal(totalCart);
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const totalCart = parseFloat(localStorage.getItem("TotalCart"));
+    if (cart && totalCart) {
+      setCartState(cart);
+      setTotalState(totalCart);
+    }
   }, []);
+
   return (
     <div className="w-full max-w-[460px]">
       <div>
         <h2 className="py-4 text-base font-normal uppercase text-center lg:text-left">
           Detalles
         </h2>
-        <ContainerPurchase cart={cart} totalCart={total} />
+        <ContainerPurchase cart={cartState} totalCart={totalState} />
       </div>
     </div>
   );
