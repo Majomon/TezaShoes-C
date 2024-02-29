@@ -62,12 +62,11 @@ function Edit() {
     e.preventDefault();
 
     if (hasChanges) {
-      const userId = JSON.parse(localStorage.getItem("userId"));
       const requestData = {
         ...dataEditForm,
         address: dataShipping.address,
       };
-      await fetchPutUserId(userId.id, requestData);
+      await fetchPutUserId(userData._id, requestData);
 
       setHasChanges(false);
     }
