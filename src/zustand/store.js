@@ -133,7 +133,7 @@ const useStoreProducts = create(
       try {
         const response = await axios.put(`/products/${id}`, updateProductData);
         if (response.status === 200) {
-          toast.success("Modificado con exito");
+          toast.success("Producto modificado con exito");
         } else {
           throw new Error(toast.warning(`Error al realizar la modificacion`));
         }

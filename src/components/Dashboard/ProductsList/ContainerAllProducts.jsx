@@ -39,7 +39,6 @@ function ContainerAllProducts() {
       setTimeout(() => {
         setProducts(fetchAllProducts());
       }, 100);
-      toast.success("Producto modificado con exito");
     } catch (error) {
       /* console.error("Error al cambiar el estado del producto:", error); */
       toast.warning("Error al modificar el producto");
