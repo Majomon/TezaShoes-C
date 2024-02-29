@@ -60,7 +60,6 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
         );
         setCartLocalStorage(updatedCart);
       }
-      setLoading(false);
     };
 
     updateCart();
