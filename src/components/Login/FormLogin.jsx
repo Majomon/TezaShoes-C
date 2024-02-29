@@ -1,9 +1,10 @@
-import axios from "axios";
 import { validateFieldLogin, validateFormLogin } from "@/utils/validaciones";
+import axios from "axios";
+import Cookies from "js-cookie";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 function FormLogin({ url }) {
   const router = useRouter();
@@ -43,23 +44,25 @@ function FormLogin({ url }) {
     } else {
       try {
         const response = await axios.post(`${url}/login`, inputForm);
-
         if (response.status === 200) {
           localStorage.setItem(
-            "userData",
+            "userId",
             JSON.stringify({
-              success: response.data.success,
-              name: response.data.user.name,
-              phone: response.data.user.phone,
-              email: response.data.user.email,
+              id: response.data.user._id,
+              isAdmin: response.data.user.isAdmin,
             })
           );
+          // Si el usuario es administrador, establecer la cookie isAdmin
+          if (response.data.user.isAdmin) {
+            Cookies.set("isAdmin", true);
+          }
           toast.success("Logeado");
           setInputForm({
             email: "",
             password: "",
           });
           router.push("/");
+          /* redirect("/") */
         } else {
           toast.warning("Error al intentar logearse");
         }
@@ -69,22 +72,22 @@ function FormLogin({ url }) {
       }
     }
   };
+
   return (
-    <div className="w-full h-full bg-gradient-to-b from-gray-50 to-gray-200 rounded-tr-xl rounded-br-xl">
-      <div className="w-6/12 h-full mx-auto flex flex-col justify-center gap-4 mb-4 ">
-        <h1 className="text-lg font-bold">Iniciar sesión</h1>
+    <div className="w-full h-full ">
+      <div className="w-full h-full mx-auto flex flex-col justify-center gap-5 mb-4 ">
+        {/* <h2 className="text-lg font-bold">Iniciar sesión</h2> */}
         <form onSubmit={handlerSubmit} className="">
           {/* Inputs */}
-          <div className="flex flex-col gap-6">
-            <div>
-              <label htmlFor="email">Email</label>
+          <div className="w-full h-full flex flex-col gap-y-[25px]">
+            <div className="h-14 flex flex-col">
               <input
                 type="text"
                 name="email"
                 value={inputForm.email}
                 onChange={handlerChange}
                 placeholder="Ingresa tu email"
-                className={`w-full h-8 pl-2 text-sm border-1 border-gray-400 border-b-2 border-b-gray-700 shadow-md shadow-gray-400 ${
+                className={` border-colorGoldSecundary-500 border-b-2 p-2 outline-none${
                   error.email ? "focus:outline-none" : ""
                 }`}
               />
@@ -92,15 +95,14 @@ function FormLogin({ url }) {
                 <span className="text-xs text-red-400">{error.email}</span>
               )}
             </div>
-            <div>
-              <label htmlFor="password">Contraseña</label>
+            <div className="h-14 flex flex-col">
               <input
                 type="password"
                 name="password"
                 value={inputForm.password}
                 onChange={handlerChange}
                 placeholder="Ingresa tu contraseña"
-                className={`w-full h-8 pl-2 text-sm border-1 border-gray-400 border-b-2 border-b-gray-700 shadow-md shadow-gray-400 ${
+                className={` border-colorGoldSecundary-500 border-b-2 p-2 outline-none${
                   error.password ? "focus:outline-none" : ""
                 }`}
               />
@@ -110,16 +112,20 @@ function FormLogin({ url }) {
             </div>
           </div>
           <div className="pt-4">
-            <button className="w-full py-2 text-gray-100 bg-gray-950">
+            <button className="w-full h-[47px] py-2 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black uppercase text-center text-white text-base font-normal">
               Ingresar
             </button>
           </div>
         </form>
         <h2 className="text-center">O</h2>
-        <div className="flex gap-x-4">
-          <h2>No tenes cuenta?</h2>
+        <div className="flex flex-col gap-y-2 sm:flex-row gap-x-4 items-center justify-center">
+          <h2 className=" text-base sm:text-xl text-ms min-[420px]:text-lg">
+            No tenes cuenta?
+          </h2>
           <Link href={"/register"}>
-            <strong className="text-[#ae9667] text-xl">Registrate</strong>
+            <strong className=" text-colorGoldSecundary-500 underline text-lg sm:text-xl text-ms min-[420px]:text-lg uppercase">
+              Registrate
+            </strong>
           </Link>
         </div>
       </div>
