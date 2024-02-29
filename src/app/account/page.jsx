@@ -26,6 +26,38 @@ function Edit() {
     }
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "day" || name === "month" || name === "year") {
+      setDataEditForm({
+        ...dataEditForm,
+        birthdate: {
+          ...dataEditForm.birthdate,
+          [name]: value,
+        },
+      });
+    } else {
+      setDataEditForm((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+    setHasChanges(true);
+  };
+
+  const handleChangeShipping = (e) => {
+    const { name, value } = e.target;
+    setDataShipping((prevState) => ({
+      ...prevState,
+      address: {
+        ...prevState.address,
+        [name]: value,
+      },
+    }));
+
+    setHasChanges(true);
+  };
+
   return <>Hola</>;
 }
 
