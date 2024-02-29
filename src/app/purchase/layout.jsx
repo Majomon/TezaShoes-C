@@ -11,7 +11,7 @@ export default function PurchaseLayout({ children }) {
     <aside className="w-full sm:w-5/6 xl:max-w-[1440px] mx-auto h-full flex flex-col px-5 pb-4 relative">
       <Toaster position="top-center" />
       <main>
-        <ProccessPurchase />
+     {/*    <ProccessPurchase /> */}
         <section className="w-full">{children}</section>
       </main>
     </aside>
