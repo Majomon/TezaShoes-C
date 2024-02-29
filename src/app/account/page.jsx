@@ -228,13 +228,8 @@ function Edit() {
     },
   ];
 
-  return <>Hola</>;
-}
-
-export default Edit;
-
-{
-  /* <div className=" min-h-screen h-full">
+  return (
+    <div className=" min-h-screen h-full">
       <section className=" w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
         <h1 className="opacity-60 text-center text-white text-2xl sm:text-4xl font-normal font-['Martel'] tracking-[8.40px] sm:tracking-[14.40px] uppercase">
           Bienvenido {userData.name}
@@ -251,10 +246,13 @@ export default Edit;
           {listForms[isSelect]?.data}
         </div>
       </div>
-      <ModalUpdatePassword
+{/*       <ModalUpdatePassword
         userId={userId}
         setIsOpenModal={setIsOpenModal}
         isOpenModal={isOpenModal}
-      />
-    </div> */
+      /> */}
+    </div>
+  );
 }
+
+export default Edit;
