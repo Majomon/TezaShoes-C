@@ -8,13 +8,6 @@ export default function Purchase() {
   const { userData } = useStoreUsers();
   const [dataForm, setDataForm] = useState([]);
 
-  useEffect(() => {
-    const dataPurchase = JSON.parse(localStorage.getItem("dataPurchase"));
-    if (dataPurchase) {
-      setDataForm(dataPurchase);
-    }
-  }, [userData]);
-
   const handlerChange = (e) => {
     const { name, value } = e.target;
     setDataForm((prevDataForm) => {
@@ -43,6 +36,13 @@ export default function Purchase() {
       }
     });
   };
+
+  useEffect(() => {
+    const dataPurchase = JSON.parse(localStorage.getItem("dataPurchase"));
+    if (dataPurchase) {
+      setDataForm(dataPurchase);
+    }
+  }, [userData]);
 
   return (
     <div className="w-full min-h-screen mx-auto h-full flex flex-col gap-5 items-center lg:items-start lg:flex-row justify-between my-4 ">
