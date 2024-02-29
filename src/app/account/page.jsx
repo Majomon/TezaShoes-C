@@ -18,13 +18,13 @@ function Edit() {
   const [hasChanges, setHasChanges] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isSelect, setIsSelect] = useState(0);
-
+/* 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem("userId")) || "";
     if (!userId) {
       router.push("/");
     }
-  }, []);
+  }, []); */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
