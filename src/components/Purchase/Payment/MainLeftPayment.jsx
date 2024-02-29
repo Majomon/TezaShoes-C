@@ -6,6 +6,7 @@ import CardOptionPayment from "./CardOptionPayment";
 
 function MainLeftPayment() {
   const { fetchPostOrder } = useStorePayOrder();
+  const [selectedOption, setSelectedOption] = useState(null);
   const [orderInfo, setOrderInfo] = useState({
     userId: "",
     cart: [],
@@ -13,11 +14,6 @@ function MainLeftPayment() {
     totalCart: 0,
     paymentMethod: "",
   });
-  const [selectedOption, setSelectedOption] = useState(null);
-  const userId = JSON.parse(localStorage.getItem("userId")) || [];
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const dataPurchase = JSON.parse(localStorage.getItem("dataPurchase")) || {};
-  const totalCart = localStorage.getItem("TotalCart") || 0;
 
   const listPayment = [
     {
@@ -38,18 +34,25 @@ function MainLeftPayment() {
 
   let cantProduct = 0;
 
-  cart.forEach((item) => {
+  orderInfo.cart.forEach((item) => {
     cantProduct += item.count;
   });
 
   useEffect(() => {
-    setOrderInfo((prevOrderInfo) => ({
-      ...prevOrderInfo,
-      userId,
-      cart,
-      dataPurchase,
-      totalCart,
-    }));
+    const userId = JSON.parse(localStorage.getItem("userId")) || [];
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const dataPurchase = JSON.parse(localStorage.getItem("dataPurchase")) || {};
+    const totalCart = localStorage.getItem("TotalCart") || 0;
+
+    if (userId && cart && dataPurchase && totalCart) {
+      setOrderInfo((prevOrderInfo) => ({
+        ...prevOrderInfo,
+        userId,
+        cart,
+        dataPurchase,
+        totalCart,
+      }));
+    }
   }, []);
 
   const handleChange = (name /* e */) => {
