@@ -77,7 +77,7 @@ function MainLeftPayment() {
               index={index}
               key={index}
               handleChange={handleChange}
-              totalCart={totalCart}
+              totalCart={orderInfo.totalCart}
               name={name}
               descrip={descrip}
               setSelectedOption={setSelectedOption}
