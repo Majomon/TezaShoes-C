@@ -10,27 +10,31 @@ import { toast } from "sonner";
 function ModalUser({ isOpenUser, setIsOpenUser }) {
   const { setIsOpenSearch } = useStoreOpenSearch();
   const { userId, setUserId } = useStoreUserId();
+
   const router = useRouter();
 
   useEffect(() => {
-    const userIdFromStorage = window.localStorage.getItem("userId");
-    if (userIdFromStorage) {
+    const userIdFromStorage = JSON.parse(localStorage.getItem("userId"));
+
+    if (typeof window !== "undefined") {
       setUserId(userIdFromStorage);
     }
-  }, [router, userId]);
+  }, [isOpenUser]);
 
   const logOut = () => {
-    if (Cookies.get("isAdmin")) {
-      Cookies.remove("isAdmin");
-    }
     if (typeof window !== "undefined") {
+      if (Cookies.get("isAdmin")) {
+        Cookies.remove("isAdmin");
+      }
       window.localStorage.removeItem("userId");
+      toast.success("Cerraste sesión");
+      setUserId(null);
+      setIsOpenUser(!isOpenUser);
+      router.push("/");
     }
-    toast.success("Cerraste sesión");
-    setUserId(null);
-    setIsOpenUser(!isOpenUser);
-    router.push("/");
   };
+
+  const isAdmin = Cookies.get("isAdmin") === "true";
 
   return (
     <div>
@@ -72,7 +76,7 @@ function ModalUser({ isOpenUser, setIsOpenUser }) {
           </div>
         ) : (
           <div className="w-[200px] h-fit absolute top-16 right-0 py-2 flex flex-col justify-center items-center bg-white rounded-bl-md border-l-1 border-b-1 z-10 gap-2">
-            {userId.isAdmin ? (
+            {isAdmin ? (
               <Link
                 href={"/dashboard/sale/salesList"}
                 onClick={() => setIsOpenUser(!isOpenUser)}
