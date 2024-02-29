@@ -22,7 +22,7 @@ export default function PurchaseSummary() {
       </div>
       <div className="w-full h-fit flex justify-between gap-y-[20px] flex-col gap-5 items-center lg:items-start lg:flex-row">
         <MainLeftSumary />
-       {/*  <MainRightSumary /> */}
+        <MainRightSumary />
       </div>
     </div>
   );

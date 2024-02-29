@@ -8,10 +8,6 @@ import ItemPaymentStatus from "./ItemPaymentStatus";
 function MainRightSumary() {
   const { orderData } = useStorePayOrder();
 
-  if (!orderData || !orderData.dataPurchase) {
-    return <div>Loading...</div>;
-  }
-
   const { name, lastName, document, address, phone, delivery, nationality } =
     orderData.dataPurchase;
   const { paymentMethod } = orderData;
@@ -20,7 +16,7 @@ function MainRightSumary() {
     const newDate = date.split("T", 1);
     return newDate.toString();
   };
-  
+
   if (!orderData) {
     redirect("/");
   }
