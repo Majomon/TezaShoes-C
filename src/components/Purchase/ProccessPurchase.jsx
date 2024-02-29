@@ -29,9 +29,9 @@ const listPurchaseSteps = [
 ];
 
 export default function ProccessPurchase() {
+  const timePurchase = Cookies.get("timePurchase");
   useEffect(() => {
     const itemCart = JSON.parse(localStorage.getItem("cart"));
-    const timePurchase = Cookies.get("timePurchase");
     if (!itemCart && !timePurchase) {
       redirect("/");
     }
