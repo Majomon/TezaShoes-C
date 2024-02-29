@@ -13,13 +13,11 @@ function ModalUser({ isOpenUser, setIsOpenUser }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userIdFromStorage = window.localStorage.getItem("userId");
-      if (userIdFromStorage) {
-        setUserId(userIdFromStorage);
-      }
+    const userIdFromStorage = window.localStorage.getItem("userId");
+    if (userIdFromStorage) {
+      setUserId(userIdFromStorage);
     }
-  }, [isOpenUser]);
+  }, [router, userId]);
 
   const logOut = () => {
     if (Cookies.get("isAdmin")) {
