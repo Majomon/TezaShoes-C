@@ -2,8 +2,8 @@
 import TemporizadorDeCompra from "@/components/TemporizadorDeCompra";
 import Cookies from "js-cookie";
 import { redirect, usePathname } from "next/navigation";
-import PurchaseSteps from "./PurchaseSteps";
 import { useEffect } from "react";
+import PurchaseSteps from "./PurchaseSteps";
 
 const listPurchaseSteps = [
   {
@@ -30,6 +30,7 @@ const listPurchaseSteps = [
 
 export default function ProccessPurchase() {
   const timePurchase = Cookies.get("timePurchase");
+
   useEffect(() => {
     const itemCart = JSON.parse(localStorage.getItem("cart"));
     if (!itemCart && !timePurchase) {
