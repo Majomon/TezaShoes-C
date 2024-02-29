@@ -12,14 +12,13 @@ function Edit() {
   const { userData, fetchPutUserId } = useStoreUsers();
   const [dataShipping, setDataShipping] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
-  
+
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    const userId = window.localStorage.getItem("userId");
     if (!userId) {
       router.push("/");
     }
   }, []);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +45,6 @@ function Edit() {
     }
   };
 
- 
   useEffect(() => {
     setDataShipping(userData);
     setHasChanges(false);
