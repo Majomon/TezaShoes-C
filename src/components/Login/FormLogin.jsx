@@ -8,7 +8,6 @@ import { toast } from "sonner";
 
 function FormLogin({ url }) {
   const router = useRouter();
-
   const [error, setError] = useState({});
   const [disabled, setDisabled] = useState(true);
   const [inputForm, setInputForm] = useState({
