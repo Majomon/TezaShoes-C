@@ -2,12 +2,13 @@
 import { useStoreCartLocalStorage } from "@/zustand/store";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AllDeleteCart } from "../../../assets/Cart/IconsCart";
 import CartCards from "./CartCards";
 import TotalCart from "./TotalCart";
 
 function ItemsCart({ setIsOpenCart, isOpenCart }) {
+  const [loading, setLoading] = useState(true);
   const { cartLocalStorage, setCartLocalStorage, totalCart, setTotalCart } =
     useStoreCartLocalStorage();
 
@@ -60,6 +61,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
         );
         setCartLocalStorage(updatedCart);
       }
+      setLoading(false);
     };
 
     updateCart();
@@ -82,6 +84,10 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
     localStorage.removeItem("cart");
     setCartLocalStorage([]);
   };
+
+  if (loading) {
+    return <p className="text-center">Cargando...</p>;
+  }
 
   return (
     <div className="w-full max-h-[750px] py-6 px-2 ">
