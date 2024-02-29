@@ -13,7 +13,6 @@ export default function ContainDeliverPersonal({ storedData }) {
       <p>{address.city}</p>
       <p className=" text-right">{address.province}</p>
       <p className="truncate min-w-[128px]">Cp:{address.postalCode}</p>
-      <p>{nationality}</p>
     </div>
   );
 }
