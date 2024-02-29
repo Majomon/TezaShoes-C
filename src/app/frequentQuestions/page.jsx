@@ -1,12 +1,14 @@
-import Questions from "@/components/Questions/Questions";
+"use client";
 import PageRouting from "@/components/PageRouting/PageRouting";
+import Image from "next/image";
+import { useState } from "react";
+import bgFrequentQuestions from "../../../assets/image/bgFrequentQuestions.png";
 
-const listFreqPreg = [
+const listQuestionsAndTitle = [
   {
-    id: 1,
-    title: "¿Como comprar?",
-    text: (
-      <ol className=" font-light">
+    title: "Como comprar",
+    textContent: (
+      <ul className=" flex flex-col gap-y-3 font-light list-[upper-roman] animate-appearScale">
         <li>Elige el producto que deseas comprar.</li>
         <li>
           Haz clic en el botón de "Agregar al carrito". Esto agregará el
@@ -44,49 +46,126 @@ const listFreqPreg = [
           Una vez acreditado el pago, haremos el envío correspondiente de los
           productos que hayas comprado.
         </li>
-      </ol>
+      </ul>
     ),
   },
   {
-    id: 2,
-    title: "¿Cuanto tiempo tarda un pedido?",
-    text: (
-      <p className=" font-light">
-        El tiempo de entrega dependerá del tipo de envío seleccionado. En
-        general la demora se encuentra entre 3 y 7 días hábiles luego de
-        acreditado el pago.
-      </p>
+    title: "Envios/Pedidos",
+    textContent: (
+      <div className=" flex flex-col justify-start items-start gap-y-[25px] animate-appearScale">
+        <section className="flex flex-col gap-y-[5px] ">
+          <h5 className="text-black text-base font-bold">Costo de Envio</h5>
+          <p>
+            El costo de envío será mostrado en base al total de la compra y
+            ubicación, en el checkout, en el momento previo a la compra.
+          </p>
+        </section>
+        <section className="flex flex-col gap-y-[5px]">
+          <h5 className="text-black text-base font-bold">
+            ¿Dónde puedo recibir mi pedido?
+          </h5>
+          <p>Realizamos envíos a todo el país.</p>
+        </section>
+        <section className="flex flex-col gap-y-[5px]">
+          <h5 className="text-black text-base font-bold">
+            ¿Cuánto tarda en llegar el pedido?
+          </h5>
+          <p>
+            El tiempo de entrega dependerá del tipo de envío seleccionado. En
+            general la demora se encuentra entre 3 y 7 días hábiles luego de
+            acreditado el pago.
+          </p>
+        </section>
+      </div>
     ),
   },
   {
-    id: 3,
-    title: "¿Cuál es el plazo para realizar un cambio?",
-    text: (
-      <p className=" font-light">
-        Puedes solicitar un cambio hasta 15 días luego de realizada la compra.
-      </p>
-    ),
-  },
-  {
-    id: 4,
-    title: "¿Qué debo hacer si el producto no llega en buen estado?",
-    text: (
-      <p className=" font-light">
-        Ponte en contacto con nosotros a INFOTEZASHOES@GMAIL.COM y te enviaremos
-        uno nuevo.
-      </p>
+    title: "Cambios y devoluciones",
+    textContent: (
+      <section className=" flex flex-col gap-y-5 animate-appearScale">
+        <h3 className=" font-semibold">
+          Si no estás conforme con nuestro producto, puedes realizar un cambio
+          del mismo de alguna de las siguientes formas:
+        </h3>
+        <p>
+          En cualquiera de nuestras tiendas podrás cambiarlo por un producto del
+          mismo valor (esto si cuentas con locales a la calle o un showroom).
+          Desde tu domicilio. Para eso ponte en contacto a
+          Infotezashoes@gmail.com, Whatsapp y nosotros nos pondremos en contacto
+          con la empresa de correos para que pasen a retirar el producto. Podrás
+          cambiar el producto por otro del mismo valor, que también será enviado
+          a tu domicilio y el costo sera cubierto por el comprador. Las
+          devoluciones sólo pueden ser realizadas durante los 15 días siguientes
+          al pedido.
+        </p>
+      </section>
     ),
   },
 ];
 
 export default function FrequentQuestions() {
+  const [state, setState] = useState(0);
+  const selectStyle =
+    "text-colorBlack-400 border-b-1 border-colorGoldSecundary-500";
+
+  const handleClicTitle = (index) => {
+    setState(index);
+  };
+
   return (
-    <div className="w-full min-h-screen px-16 flex flex-col gap-y-[40px] mt-10">
-      <PageRouting currentRuat={"Preguntas Frecuentes"} />
-      {listFreqPreg.map((item) => {
-        const { id, title, text } = item;
-        return <Questions id={id} title={title} text={text} />;
-      })}
+    <div className="w-full min-h-screen flex flex-col gap-y-[40px] mb-[40px] ">
+      <section className="w-full h-[200px] relative top-0 left-0  flex flex-col items-center justify-center gap-y-5">
+        <Image
+          src={bgFrequentQuestions}
+          className="w-full h-full absolute top-0 left-0 object-cover -z-10"
+          alt="imgPreguntas"
+        />
+        <h1 className="opacity-60 text-center text-white text-3xl font-normal font-['Martel'] tracking-[6.40px] md:tracking-[6.40px] md:text-4xl uppercase">
+          Preguntas frecuentes
+        </h1>
+        <PageRouting currentRuat={"Preguntas Frecuentes"} />
+      </section>
+      <section className="w-full sm:w-11/12 mx-auto flex flex-col gap-y-[30px] px-4 ">
+        <section className="flex flex-col gap-y-2">
+          <div className="text-center">
+            <span className="text-neutral-950 text-4xl font-medium font-['Inter']">
+              Como podemos ayudarte
+            </span>
+            <span className="text-amber-500 text-4xl font-medium font-['Inter']">
+              ?
+            </span>
+          </div>
+          <div className="text-center">
+            <span className="text-neutral-950 text-lg font-normal font-['Martel']">
+              Si te quedo alguna duda podes llamarnos a nuestro numero:
+            </span>
+            <span className="text-amber-500 text-lg font-semibold font-['Martel']">
+              1122334455
+            </span>
+          </div>
+        </section>
+        <div className=" flex flex-col sm:flex-row gap-x-14 gap-y-4 sm:mx-auto ">
+          {listQuestionsAndTitle.map((item, index) => {
+            const { title } = item;
+            return (
+              <h3
+                className={`${
+                  state === index ? selectStyle : "text-colorGray-100"
+                }  pb-2 cursor-pointer`}
+                key={index}
+                onClick={() => {
+                  handleClicTitle(index);
+                }}
+              >
+                {title}
+              </h3>
+            );
+          })}
+        </div>
+        <section className=" h-fit overflow-hidden max-w-[1066px] mx-auto">
+          {listQuestionsAndTitle[state].textContent}
+        </section>
+      </section>
     </div>
   );
 }

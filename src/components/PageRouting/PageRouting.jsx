@@ -1,6 +1,5 @@
-import { IconPageRouting } from "../../../assets/PageRouting/IconPageRouting"
-import { IconArrowRight } from "../../../assets/svg/frequentQuestions"
 import { Link } from "@nextui-org/react"
+import { IconPageRouting } from "../../../assets/PageRouting/IconPageRouting"
 
 export default function PageRouting({currentRuat}){
     return(
