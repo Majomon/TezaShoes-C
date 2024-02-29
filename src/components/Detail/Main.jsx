@@ -38,6 +38,7 @@ export default function Main({ product, allproduct }) {
             <Description />
             {/* <ShippingCalculator /> */}
           </div>
+          <InterestProductsCarousel />
         </div>
       ) : (
         <div className="w-full h-96 text-red-500 flex justify-center items-center">
@@ -46,7 +47,6 @@ export default function Main({ product, allproduct }) {
           </h1>
         </div>
       )}
-      <InterestProductsCarousel />
     </div>
   );
 }
