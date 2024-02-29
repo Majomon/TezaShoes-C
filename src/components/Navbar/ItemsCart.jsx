@@ -13,11 +13,14 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
 
   useEffect(() => {
     const listCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartLocalStorage(listCart);
+  }, []);
 
+  useEffect(() => {
     const updateCart = async () => {
-      if (listCart) {
+      if (cartLocalStorage) {
         const updatedCart = await Promise.all(
-          listCart.map(async (item) => {
+          cartLocalStorage.map(async (item) => {
             const updatedProduct = await axios.get(
               `/products/${item.product_id}`
             );
@@ -30,7 +33,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
                 price: updatedProduct.data.price,
                 totalPrice,
               };
-              const updatedLocalStorageCart = listCart.map((cartItem) => {
+              const updatedLocalStorageCart = cartLocalStorage.map((cartItem) => {
                 if (cartItem.product_id === updatedItem.product_id) {
                   return updatedItem;
                 }
@@ -73,7 +76,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
   };
 
   const handleClickAllDelete = () => {
-    console.log("Borrar")
+    console.log("Borrar");
     Cookies.remove("cartAbandoned");
     setCartLocalStorage([]);
     localStorage.removeItem("cart");
