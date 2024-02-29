@@ -3,6 +3,7 @@ import TemporizadorDeCompra from "@/components/TemporizadorDeCompra";
 import Cookies from "js-cookie";
 import { redirect, usePathname } from "next/navigation";
 import PurchaseSteps from "./PurchaseSteps";
+import { useEffect } from "react";
 
 const listPurchaseSteps = [
   {
