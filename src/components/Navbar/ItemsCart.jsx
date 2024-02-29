@@ -14,7 +14,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
   useEffect(() => {
     const listCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartLocalStorage(listCart);
-  }, []);
+  }, [cartLocalStorage]);
 
   useEffect(() => {
     const updateCart = async () => {
@@ -33,12 +33,14 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
                 price: updatedProduct.data.price,
                 totalPrice,
               };
-              const updatedLocalStorageCart = cartLocalStorage.map((cartItem) => {
-                if (cartItem.product_id === updatedItem.product_id) {
-                  return updatedItem;
+              const updatedLocalStorageCart = cartLocalStorage.map(
+                (cartItem) => {
+                  if (cartItem.product_id === updatedItem.product_id) {
+                    return updatedItem;
+                  }
+                  return cartItem;
                 }
-                return cartItem;
-              });
+              );
               // Guarda el carrito actualizado en el local storage
               localStorage.setItem(
                 "cart",
