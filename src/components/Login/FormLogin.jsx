@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { validateFieldLogin, validateFormLogin } from "@/utils/validaciones";
 import Link from "next/link";
@@ -23,8 +22,6 @@ function FormLogin({ url }) {
       setDisabled(true);
     }
   }, [inputForm]);
-
-
 
   const handlerChange = (e) => {
     const { name, value } = e.target;

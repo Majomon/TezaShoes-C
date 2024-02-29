@@ -1,64 +1,38 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
 import FormLogin from "./FormLogin";
-
+import WelcomeLogin from "./WelcomeLogin";
+import { useEffect } from "react";
 function MainLogin({ url }) {
   const router = useRouter();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [userData, setUserData] = useState(null);
+  const userId = localStorage.getItem("userId");
 
-  const images = ["/login/Login1.jpg", "/login/Login2.jpg"];
-
-  const handleSuccessfulLogin = () => {
-    if (userData) {
+  useEffect(() => {
+    if (userId) {
       router.push("/");
     }
-  };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const data = window.localStorage.getItem("userData");
-      if (data) {
-        setUserData(data);
-      }
-    }
-  }, []);
-  
-  useEffect(() => {
-    handleSuccessfulLogin();
-
-    // Cambia la imagen cada 2 segundos
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
+  }, [userId, router]);
 
   return (
-    <div className="w-full h-full border rounded-xl flex">
-      <div className="w-5/12 h-full relative">
-        {images.map((image, index) => (
+    <section className="w-full h-full">
+      <Toaster position="top-center" />
+      <div className="w-full flex">
+        <div className="w-5/12 h-[100vh] -z-30 hidden lg:block">
           <img
-            key={index}
-            src={image}
-            alt={`img${index + 1}`}
-            className={`w-full h-full rounded-tl-xl rounded-bl-xl absolute ${
-              index === currentImageIndex
-                ? "opacity-100 animate-fadeInLogin"
-                : "opacity-0 animate-fadeOutLogin"
-            } `}
+            src="/imgLoginLeft.jpg"
+            alt="imgLogin"
+            className="w-full h-full object-cover "
           />
-        ))}
+        </div>
+        <div className="lg:w-7/12 sm:w-[450px] w-[80%] flex items-center justify-center mx-auto ">
+          <div className="lg:w-6/12 w-full mx-auto">
+            <WelcomeLogin />
+            <FormLogin url={url} />
+          </div>
+        </div>
       </div>
-
-      <div className="w-7/12 h-full relative">
-        <FormLogin url={url} />
-      </div>
-    </div>
+    </section>
   );
 }
 

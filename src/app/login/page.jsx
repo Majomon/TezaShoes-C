@@ -12,13 +12,14 @@ async function urlBase() {
 }
 
 async function Login() {
-  const url= await urlBase()
-  
+  const url = await urlBase();
+
   return (
-    <div className="w-10/12 h-[90vh] mx-auto p-10">
+    <section className="w-full h-full">
       <Toaster position="top-center" />
-      <MainLogin url={url}/>
-    </div>
+      <MainLogin url={url} />
+      {/*     <MainLoginV1 url={url}/> */}
+    </section>
   );
 }
 
