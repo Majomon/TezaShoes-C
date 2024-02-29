@@ -14,8 +14,8 @@ function MainRightSumary() {
   const { paymentMethod } = orderData;
 
   const dateOrder = (date) => {
-    const newDate = date.split("T", 1);
-    return newDate.toString();
+    const newDate = date?.split("T", 1);
+    return newDate?.toString();
   };
 
   if (!orderData) {
