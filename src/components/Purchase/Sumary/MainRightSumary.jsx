@@ -9,7 +9,8 @@ function MainRightSumary() {
   const { orderData } = useStorePayOrder();
 
   const { name, lastName, document, address, phone, delivery, nationality } =
-    orderData?.dataPurchase;
+    orderData?.dataPurchase || {};
+
   const { paymentMethod } = orderData;
 
   const dateOrder = (date) => {
