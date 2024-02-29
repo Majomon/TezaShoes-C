@@ -230,8 +230,7 @@ function Edit() {
 
   return (
     <div className=" min-h-screen h-full">
-    Hola
-{/*       <section className=" w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
+      <section className=" w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
         <h1 className="opacity-60 text-center text-white text-2xl sm:text-4xl font-normal font-['Martel'] tracking-[8.40px] sm:tracking-[14.40px] uppercase">
           Bienvenido {userData.name}
         </h1>
@@ -241,7 +240,7 @@ function Edit() {
           alt="banner main search"
         />
       </section>
-      <div className=" h-full flex items-center lg:px-10 lg:items-start flex-col gap-y-20 lg:flex-row lg:justify-between pt-16  w-full max-w-[1440px] mx-auto ">
+{/*       <div className=" h-full flex items-center lg:px-10 lg:items-start flex-col gap-y-20 lg:flex-row lg:justify-between pt-16  w-full max-w-[1440px] mx-auto ">
         <NavAccount isSelect={isSelect} setIsSelect={setIsSelect} />
         <div className="flex flex-col items-center gap-y-52 pb-5 w-full ">
           {listForms[isSelect]?.data}
