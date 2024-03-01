@@ -5,7 +5,7 @@ const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
   const { fetchPutOrderId } = useStorePayOrder();
 
   const createPaymentIntention = async () => {
-    const res = await fetch("http://localhost:8080/modo/modoCheckout", {
+    const res = await fetch("https://teza-shoes-api.vercel.app/modo/modoCheckout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
         callbackURL: "https://tiendadeprueba.com/checkout",
         callbackURLSuccess: "https://tiendadeprueba/thankyou",
       },
-      callbackURL: "http://localhost:3000/",
+      callbackURL: "https://porfolio-three-mocha.vercel.app",
       refreshData: createPaymentIntention,
       onSuccess: handleSuccess,
       onFailure: () => console.log("onFailure"),
