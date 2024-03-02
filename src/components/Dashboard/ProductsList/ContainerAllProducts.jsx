@@ -1,12 +1,11 @@
 "use client";
 import PaginationDashboard from "@/components/PaginateDashboard.jsx/PaginateDashboard";
 import { listTableProducts } from "@/utils/ListsDashboards";
-import { useStoreProducts } from "@/zustand/store";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger
+  DropdownTrigger,
 } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,14 +18,14 @@ import {
   Share,
 } from "../../../../assets/Dashboard/IconActions";
 
-function ContainerAllProducts() {
-  const {
-    allProducts,
-    fetchPutProductId,
-    fetchAllProducts,
-    setProducts,
-    fetchDeleteProductId,
-  } = useStoreProducts();
+function ContainerAllProducts({
+  allProducts,
+  fetchPutProductId,
+  fetchAllProducts,
+  setProducts,
+  fetchDeleteProductId,
+  stateList,
+}) {
   const [productsPerPage, setProductsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const lastIndex = currentPage * productsPerPage; // 1 * 2 = 2
@@ -39,6 +38,7 @@ function ContainerAllProducts() {
       setTimeout(() => {
         setProducts(fetchAllProducts());
       }, 100);
+      toast.success("Producto modificado con exito");
     } catch (error) {
       /* console.error("Error al cambiar el estado del producto:", error); */
       toast.warning("Error al modificar el producto");
@@ -77,14 +77,17 @@ function ContainerAllProducts() {
   };
 
   const orderWholesaleAllProducts = () => {
-    const allProductsWithId = allProducts?.map((item, index) => {
-      return { id: index, ...item };
-    });
-
-    return allProductsWithId?.sort((a, b) => b.id - a.id);
+    if (stateList.length === 0) {
+      const allProductsWithId = allProducts?.map((item, index) => {
+        return { id: index, ...item };
+      });
+      return allProductsWithId?.sort((a, b) => b.id - a.id);
+    } else {
+      return stateList;
+    }
   };
 
-  /* console.log(allProducts) */
+  /* console.log(stateList) */
 
   return (
     <div className="border-1 border-colorGray-100 bg-white rounded-lg p-4">

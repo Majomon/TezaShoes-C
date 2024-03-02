@@ -13,7 +13,7 @@ import ContainerActionsOrders from "./ContainerActionsOrders";
 import ContainerDetailsOrders from "./ContainerDetailsOrders";
 import DashboardModalClient from "./DashboardModalClient";
 
-function ContainerAllOrders({ currentPage, productsPerPage }) {
+function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
   const { allOrders, setAllOrders } = useStoreDashboard();
   const { fetchPostStatusPayment, fetchPostOrderCancel } = useStoreSendEmails();
   const { fetchPutUserOrderStatus } = useStoreUsers();
@@ -107,7 +107,11 @@ function ContainerAllOrders({ currentPage, productsPerPage }) {
   };
 
   const orderWholesaleAllOrders = () => {
-    return allOrders?.sort((a, b) => b.numberOrder - a.numberOrder);
+    if (stateOrder.length !== 0) {
+      return stateOrder?.sort((a, b) => b.numberOrder - a.numberOrder);
+    } else {
+      return allOrders?.sort((a, b) => b.numberOrder - a.numberOrder);
+    }
   };
 
   return (

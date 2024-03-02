@@ -1,18 +1,25 @@
 "use client";
 import { ListTableHeadClients } from "@/utils/ListsDashboards";
-import { useStoreUsers } from "@/zustand/store";
 import { useEffect } from "react";
 import DataListClients from "./DataListClients";
 
-export default function MainClient() {
-  const { users, setUsers, fetchAllUsers } = useStoreUsers();
-
+export default function MainClient({
+  stateList,
+  setStateList,
+  users,
+  setUsers,
+  fetchAllUsers,
+}) {
   useEffect(() => {
     if (users?.length === 0 || !users) {
       const allUsers = fetchAllUsers();
       setUsers(allUsers);
     }
   }, [users]);
+
+  /* useEffect(() => {
+    setStateList(users)
+  },[]) */
 
   return (
     <div className="p-4 bg-white border border-colorGray-100 w-full h-fit rounded-md">
@@ -32,7 +39,7 @@ export default function MainClient() {
           {!users ? (
             <p className="w-full text-center">Sin usuario registrados</p>
           ) : (
-            users?.map((user, index) => {
+            (stateList.length === 0 ? users : stateList)?.map((user, index) => {
               const { name, orders, email, phone, _id } = user;
               /* console.log(user) */
               return (
