@@ -1,5 +1,6 @@
 "use client";
 import ContainerAllOrders from "@/components/Dashboard/SalesList/ContainerAllOrders";
+import SearchTable from "@/components/Dashboard/SearchTable/SearchTable";
 import PaginationDashboard from "@/components/PaginateDashboard.jsx/PaginateDashboard";
 import listTable from "@/utils/listTabletSaleList";
 import { useStoreDashboard } from "@/zustand/store";
@@ -10,12 +11,19 @@ function SalesList() {
 
   const [productsPerPage, setProductsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
+  const [stateOrder, setStateOrder] = useState([]);
 
   let dimOrders = allOrders?.length;
 
   return (
     <div className="w-full p-6">
       <h1 className=" font-bold mx-auto w-full max-w-[960px] ">Ventas</h1>
+      <SearchTable
+        allList={allOrders}
+        setStateList={setStateOrder}
+        stateList={stateOrder}
+      />
+
       <div className="w-full max-w-[960px] flex flex-col items-center gap-y-2 p-3 border mx-auto border-colorGray-100 bg-white rounded-lg ">
         <table className="w-full mt-4">
           <thead>
@@ -33,6 +41,7 @@ function SalesList() {
             <ContainerAllOrders
               currentPage={currentPage}
               productsPerPage={productsPerPage}
+              stateOrder={stateOrder}
             />
           </tbody>
         </table>
