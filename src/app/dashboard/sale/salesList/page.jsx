@@ -7,7 +7,7 @@ import { useStoreDashboard } from "@/zustand/store";
 import { useState } from "react";
 
 function SalesList() {
-  const { allOrders } = useStoreDashboard();
+  const { allOrders, setAllOrders } = useStoreDashboard();
 
   const [productsPerPage, setProductsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
