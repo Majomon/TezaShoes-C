@@ -45,6 +45,8 @@ export default function Search({ product }) {
   } = useStoreProductsFilter();
   const [filterColorSize, setFilterColorSize] = useState([]);
   /* const [isLoading,setIsLoading] = useState(true) */
+  const searchParams = useSearchParams();
+
 
   let listProductColors = filterColorSize?.map((item) =>
     item.options.map((subItem) => subItem.color)
@@ -90,13 +92,7 @@ export default function Search({ product }) {
     searchParamsSize,
   ]);
 
- /*  useEffect(() => {
-    if(searchParamsCategory){
-      loadProductsFilterCategory(product);
-    }else{
-      loadProductsFilterParamsName(product);
-    }
-  }, [searchParams, searchParamsCategory, searchParamsName]); */
+
 
   const listNoRepitColor = () => {
     let listcolorsNorepite = [];
