@@ -41,7 +41,7 @@ function Info() {
             </div>
           </div>
           <ModalUpdatePassword
-            userId={userId}
+            userId={userDataId}
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
           />
