@@ -161,6 +161,8 @@ function Search({ product }) {
       setProductsFilter(productsFilter);
     }
   };
+
+  console.log(colorList);
   return (
     <div className="w-full h-full flex flex-col gap-y-5">
       <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
