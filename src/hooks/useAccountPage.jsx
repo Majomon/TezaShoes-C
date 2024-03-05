@@ -81,7 +81,7 @@ export const useAccountPage = () => {
 
   useEffect(() => {
     setListForm(listForms);
-  }, [userData, userData?.address]);
+  }, [dataEditForm,userData, userData?.address]);
 
   const listForms = [
     {
