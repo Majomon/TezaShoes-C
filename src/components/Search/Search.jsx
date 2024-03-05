@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { capitalize } from "@/utils/capitalize";
 import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
 import {
@@ -28,7 +28,15 @@ const listOrder = [
   },
 ];
 
-export default function Search({ product }) {
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Search />
+    </Suspense>
+  );
+}
+
+function Search({ product }) {
   const {
     fetchAllProductsFilter,
     setProductsFilter,
@@ -44,11 +52,12 @@ export default function Search({ product }) {
     selectOrder,
   } = useStoreProductsFilter();
   const [filterColorSize, setFilterColorSize] = useState([]);
+  /* const [isLoading,setIsLoading] = useState(true) */
   const searchParams = useSearchParams();
-  const searchParamsCategory = searchParams.get("category");
-  const searchParamsName = searchParams.get("name");
-  const searchParamsColor = searchParams.get("color");
-  const searchParamsSize = searchParams.get("size");
+  const searchParamsCategory = useSearchParams().get("category");
+  const searchParamsName = useSearchParams().get("name");
+  const searchParamsColor = useSearchParams().get("color");
+  const searchParamsSize = useSearchParams().get("size");
 
   let listProductColors = filterColorSize?.map((item) =>
     item.options.map((subItem) => subItem.color)
@@ -75,12 +84,15 @@ export default function Search({ product }) {
   useEffect(() => {
     const fetchData = async () => {
       const queryParams = Object.fromEntries(searchParams.entries());
-      await fetchAllProductsFilter(
+      let response = await fetchAllProductsFilter(
         queryParams,
         searchParamsName,
         searchParamsColor,
         searchParamsSize
       );
+      /* if(productsFilter){
+        setIsLoading(false);
+      } */
     };
     fetchData();
   }, [
@@ -138,7 +150,6 @@ export default function Search({ product }) {
       setProductsFilter(productsFilter);
     }
   };
-
   return (
     <div className="w-full h-full flex flex-col gap-y-5">
       <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
@@ -198,6 +209,7 @@ export default function Search({ product }) {
                       setSelectSize={setSelectSize}
                       selectSize={selectSize}
                       indexSize={index}
+                      /* fetchDataParamsSizes={fetchDataParamsSizes} */
                     />
                   );
                 })}
@@ -287,8 +299,55 @@ export default function Search({ product }) {
                   setSelectSize={setSelectSize}
                 />
               )}
+              {/* productsFilter?.length > 0 ? (
+                productsFilter?.map((item) => {
+                  const {
+                    _id,
+                    images,
+                    name,
+                    price,
+                    cantDues,
+                    newProduct,
+                    category,
+                    offer,
+                  } = item;
+                  return (
+                    <Card
+                      key={_id}
+                      images={images}
+                      title={name}
+                      price={price}
+                      cantDues={cantDues}
+                      newProduct={newProduct}
+                      id={_id}
+                      categori={category}
+                      offer={offer.offerActive}
+                      offerPrice={offer.offerPrice}
+                    />
+                  );
+                })
+              ) : (
+                <NotProducts
+                  searchParamsCategory={searchParamsCategory}
+                  searchParamsName={searchParamsName}
+                  productsFilter={productsFilter}
+                  setSelectOrder={setSelectOrder}
+                  setSelectColor={setSelectColor}
+                  setSelectSize={setSelectSize}
+                />
+              ) */}
             </section>
           </Suspense>
+          {/* <ButtonShow
+            isActiveShow={isActiveShow}
+            setIsActiveShows={setIsActiveShow}
+            isHeightCount={isHeightCount}
+          /> */}
+          {/* isInvalidData && (
+            <div className="w-full h-full flex justify-center items-center">
+              <h2>Producto no encontrado</h2>
+            </div>
+          ) */}
         </div>
       </section>
     </div>
