@@ -11,10 +11,11 @@ function Orders() {
   const { userData } = useStoreUsers();
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
-
+    const userId = localStorage.getItem("userId");
     if (!userId) {
       router.push("/");
+    } else {
+      setUserDataId(userId.id);
     }
   }, [router]);
 

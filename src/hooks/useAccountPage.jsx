@@ -13,7 +13,7 @@ export const useAccountPage = () => {
   const [dataShipping, setDataShipping] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [userDataId, setUserDataId] = useState("false");
+  const [userDataId, setUserDataId] = useState("");
   const [isSelect, setIsSelect] = useState(0);
 
   const handleChange = (e) => {
@@ -63,13 +63,13 @@ export const useAccountPage = () => {
   };
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
+    const userId = localStorage.getItem("userId");
     if (!userId) {
       router.push("/");
     } else {
       setUserDataId(userId.id);
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     setDataEditForm(userData);
