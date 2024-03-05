@@ -10,10 +10,11 @@ function Info() {
     userData,
     isSelect,
     setIsSelect,
-    listForm,
+    listForms,
     setIsOpenModal,
     isOpenModal,
   } = useAccountPage();
+
 
   return (
     <>
@@ -38,7 +39,7 @@ function Info() {
           <div className=" h-full flex items-center lg:px-10 lg:items-start flex-col gap-y-20 gap-x-5 lg:flex-row lg:justify-between pt-16  w-full max-w-[1440px] mx-auto ">
             <NavAccount isSelect={isSelect} setIsSelect={setIsSelect} />
             <div className="flex flex-col items-center gap-y-52 pb-5 w-full ">
-              {listForm[isSelect]?.data}
+              {listForms[isSelect]?.data}
             </div>
           </div>
           <ModalUpdatePassword
