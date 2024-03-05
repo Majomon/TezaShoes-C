@@ -15,6 +15,7 @@ export const useAccountPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [userDataId, setUserDataId] = useState("");
   const [isSelect, setIsSelect] = useState(0);
+  const [listForm, setListForm] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,6 +77,10 @@ export const useAccountPage = () => {
     setDataEditForm(userData);
     setDataShipping(userData?.address);
     setHasChanges(false);
+  }, [userData, userData?.address]);
+
+  useEffect(() => {
+    setListForm(listForms);
   }, [userData, userData?.address]);
 
   const listForms = [
@@ -235,7 +240,7 @@ export const useAccountPage = () => {
     userData,
     isSelect,
     setIsSelect,
-    listForms,
+    listForm,
     setIsOpenModal,
     isOpenModal,
     dataEditForm,
