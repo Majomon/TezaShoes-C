@@ -6,7 +6,7 @@ import { Card, Skeleton } from "@nextui-org/react";
 
 function Info() {
   const {
-    userId,
+    userDataId,
     userData,
     isSelect,
     setIsSelect,
@@ -16,7 +16,7 @@ function Info() {
   } = useAccountPage();
   return (
     <>
-      {!userId ? (
+      {!userDataId || userData.length <= 0 ? (
         <Card className=" w-11/12 mx-auto h-[80vh] p-2 mt-4" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="w-full h-[80vh] rounded-sm bg-default-300"></div>

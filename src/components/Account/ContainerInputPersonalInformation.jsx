@@ -8,39 +8,39 @@ export default function ContainerInputPersonalInformation({
     {
       nameLabel: "Nombre",
       nameInput: "name",
-      dataFormValue: dataEditForm.name,
+      dataFormValue: dataEditForm?.name,
     },
     {
       nameLabel: "Apellido",
       nameInput: "lastName",
-      dataFormValue: dataEditForm.lastName,
+      dataFormValue: dataEditForm?.lastName,
     },
     {
       nameLabel: "Telefono",
       nameInput: "phone",
-      dataFormValue: dataEditForm.phone,
+      dataFormValue: dataEditForm?.phone,
     },
     {
       nameLabel: "Email",
       nameInput: "Email",
-      dataFormValue: dataEditForm.email,
+      dataFormValue: dataEditForm?.email,
     },
     {
       nameLabel: "Documento",
       nameInput: "document",
-      dataFormValue: dataEditForm.document,
+      dataFormValue: dataEditForm?.document,
     },
     {
       nameLabel: "Nacionalidad",
       nameInput: "nationality",
-      dataFormValue: dataEditForm.nationality,
+      dataFormValue: dataEditForm?.nationality,
     },
   ];
 
   return (
     <form className="w-full h-fit" onSubmit={handleSubmit}>
       <div className="w-fit flex flex-wrap items-center justify-center px-10 py-10 gap-4">
-        {listDataInput.map((item,index) => {
+        {listDataInput.map((item, index) => {
           const { nameLabel, nameInput, dataFormValue } = item;
           return (
             <div className="py-2 flex flex-col items-start" key={index}>

@@ -17,7 +17,7 @@ export default function ItemCardOrder({
   const [isOpenModalCard, setIsOpenModalCard] = useState(false);
 
   const dateOrder = (date) => {
-    const newDate = date.split("T", 1);
+    const newDate = date?.split("T", 1);
     return newDate.toString();
   };
 
