@@ -52,7 +52,7 @@ export default function ModalUpdatePassword({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetchPutResetPassword(userId.id, dataPassword);
+    await fetchPutResetPassword(userId, dataPassword);
   };
 
   const handleKeyDown = (e) => {
