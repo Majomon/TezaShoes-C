@@ -37,6 +37,7 @@ export default function ContainerInputPersonalInformation({
     },
   ];
 
+  console.log(listDataInput);
   return (
     <form className="w-full h-fit" onSubmit={handleSubmit}>
       <div className="w-fit flex flex-wrap items-center justify-center px-10 py-10 gap-4">

@@ -40,7 +40,7 @@ export const useAccountPage = () => {
     setDataShipping((prevState) => ({
       ...prevState,
       address: {
-        ...prevState?.address,
+        ...(prevState?.address || {}), 
         [name]: value,
       },
     }));
@@ -230,6 +230,7 @@ export const useAccountPage = () => {
     },
   ];
 
+  console.log(listForms);
   return {
     userDataId,
     userData,
