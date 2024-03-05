@@ -8,32 +8,32 @@ export default function ContainerInputPersonalInformation({
     {
       nameLabel: "Nombre",
       nameInput: "name",
-      dataFormValue: dataEditForm.name,
+      dataFormValue: dataEditForm?.name,
     },
     {
       nameLabel: "Apellido",
       nameInput: "lastName",
-      dataFormValue: dataEditForm.lastName,
+      dataFormValue: dataEditForm?.lastName,
     },
     {
       nameLabel: "Telefono",
       nameInput: "phone",
-      dataFormValue: dataEditForm.phone,
+      dataFormValue: dataEditForm?.phone,
     },
     {
       nameLabel: "Email",
       nameInput: "Email",
-      dataFormValue: dataEditForm.email,
+      dataFormValue: dataEditForm?.email,
     },
     {
       nameLabel: "Documento",
       nameInput: "document",
-      dataFormValue: dataEditForm.document,
+      dataFormValue: dataEditForm?.document,
     },
     {
       nameLabel: "Nacionalidad",
       nameInput: "nationality",
-      dataFormValue: dataEditForm.nationality,
+      dataFormValue: dataEditForm?.nationality,
     },
   ];
 
