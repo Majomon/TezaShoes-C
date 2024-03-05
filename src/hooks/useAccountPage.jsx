@@ -113,7 +113,6 @@ export const useAccountPage = () => {
             <ContainerInputShipping
               handleChange={handleChangeShipping}
               dataShipping={dataShipping}
-              addressUserData={userData?.address}
               setDataShipping={setDataShipping}
             />
             {hasChanges && hasChanges ? (
