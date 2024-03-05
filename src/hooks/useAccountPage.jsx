@@ -39,10 +39,7 @@ export const useAccountPage = () => {
     const { name, value } = e.target;
     setDataShipping((prevState) => ({
       ...prevState,
-      address: {
-        ...(prevState?.address || {}),
-        [name]: value,
-      },
+      [name]: value,
     }));
 
     setHasChanges(true);
@@ -54,7 +51,7 @@ export const useAccountPage = () => {
     if (hasChanges) {
       const requestData = {
         ...dataEditForm,
-        address: dataShipping.address,
+        address: dataShipping,
       };
       await fetchPutUserId(userDataId, requestData);
 

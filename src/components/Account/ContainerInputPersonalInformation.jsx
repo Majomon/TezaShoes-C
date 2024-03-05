@@ -4,7 +4,6 @@ export default function ContainerInputPersonalInformation({
   dataEditForm,
   hasChanges,
 }) {
-/*   console.log("Es dataEditForm", dataEditForm); */
   const listDataInput = [
     {
       nameLabel: "Nombre",

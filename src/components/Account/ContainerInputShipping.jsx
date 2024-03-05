@@ -3,7 +3,7 @@ import InputShipping from "./InputShipping";
 
 function ContainerInputShipping({ handleChange, dataShipping }) {
   const address = dataShipping?.address || {};
-  console.log(dataShipping);
+  console.log("Data shipping", dataShipping);
   return (
     <div className="w-fit flex flex-wrap px-6 py-4 gap-y-4  items-center justify-center">
       {/* Calle */}
@@ -11,56 +11,56 @@ function ContainerInputShipping({ handleChange, dataShipping }) {
         handleChange={handleChange}
         nameLabel={"Calle"}
         nameInput={"street"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
       {/* Altura */}
       <InputShipping
         handleChange={handleChange}
         nameLabel={"Altura"}
         nameInput={"number"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
       {/* Piso */}
       <InputShipping
         handleChange={handleChange}
         nameLabel={"Piso"}
         nameInput={"floor"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
       {/* Departamento */}
       <InputShipping
         handleChange={handleChange}
         nameLabel={"Departamento"}
         nameInput={"department"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
       {/* Entre calles */}
       <InputShipping
         handleChange={handleChange}
         nameLabel={"Entre calles"}
         nameInput={"betweenStreets"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
       {/* Ciudad */}
       <InputShipping
         handleChange={handleChange}
         nameLabel={"Ciudad"}
         nameInput={"city"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
       {/* Código postal */}
       <InputShipping
         handleChange={handleChange}
         nameLabel={"Código postal"}
         nameInput={"postalCode"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
       {/* Provincia */}
       <InputShipping
         handleChange={handleChange}
         nameLabel={"Provincia"}
         nameInput={"province"}
-        dataShipping={address}
+        dataShipping={dataShipping}
       />
     </div>
   );
