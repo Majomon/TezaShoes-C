@@ -43,7 +43,8 @@ export default function Search({ product }) {
     setSelectOrder,
     selectOrder,
   } = useStoreProductsFilter();
-
+  const [filterColorSize, setFilterColorSize] = useState([]);
+  /* const [isLoading,setIsLoading] = useState(true) */
 
   let listProductColors = filterColorSize?.map((item) =>
     item.options.map((subItem) => subItem.color)
@@ -89,13 +90,13 @@ export default function Search({ product }) {
     searchParamsSize,
   ]);
 
-  useEffect(() => {
+ /*  useEffect(() => {
     if(searchParamsCategory){
       loadProductsFilterCategory(product);
     }else{
       loadProductsFilterParamsName(product);
     }
-  }, [searchParams, searchParamsCategory, searchParamsName]);
+  }, [searchParams, searchParamsCategory, searchParamsName]); */
 
   const listNoRepitColor = () => {
     let listcolorsNorepite = [];
