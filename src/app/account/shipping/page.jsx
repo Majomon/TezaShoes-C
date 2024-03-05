@@ -38,7 +38,7 @@ function Edit() {
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    const userId = JSON.parse(localStorage.getItem("userId"));
     if (!userId) {
       router.push("/");
     } else {

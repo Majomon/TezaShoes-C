@@ -1,7 +1,7 @@
 import ItemCardOrder from "@/components/Account/CardOrder/ItemCardOrder";
 import ContainerInputPersonalInformation from "@/components/Account/ContainerInputPersonalInformation";
 import ContainerInputShipping from "@/components/Account/ContainerInputShipping";
-import { useStoreResetPassword, useStoreUsers } from "@/zustand/store";
+import { useStoreUsers } from "@/zustand/store";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -63,7 +63,7 @@ export const useAccountPage = () => {
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    const userId = JSON.parse(localStorage.getItem("userId"));
     if (!userId) {
       router.push("/");
     } else {

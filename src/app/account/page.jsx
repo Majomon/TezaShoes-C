@@ -14,6 +14,8 @@ function Info() {
     setIsOpenModal,
     isOpenModal,
   } = useAccountPage();
+
+  console.log(userDataId);
   return (
     <>
       {!userDataId || userData.length <= 0 ? (
