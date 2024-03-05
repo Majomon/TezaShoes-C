@@ -4,11 +4,9 @@ import { IconNotProducts } from "../../../assets/NotProducts/IconNotProducts";
 export default function NotProducts({
   searchParamsCategory,
   searchParamsName,
-  setProductsFilterTwo,
-  productsFilter,
   setSelectOrder,
   setSelectColor,
-  setSelectSize
+  setSelectSize,
 }) {
   return (
     <div className=" mx-auto flex flex-col-reverse xl:flex-row items-center justify-center gap-x-[130px] ">
@@ -24,7 +22,6 @@ export default function NotProducts({
           }`}
           className=" text-sm w-full h-[40px] text-colorWhite-100 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black uppercase flex items-center justify-center"
           onClick={() => {
-            setProductsFilterTwo(productsFilter);
             setSelectOrder(null);
             setSelectColor(null);
             setSelectSize(null);

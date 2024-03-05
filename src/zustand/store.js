@@ -1,7 +1,7 @@
 import axios from "axios";
-import { create } from "zustand";
-import zukeeper from "zukeeper";
 import { toast } from "sonner";
+import zukeeper from "zukeeper";
+import { create } from "zustand";
 
 const useStoreDashboard = create(
   zukeeper((setState) => ({
@@ -65,7 +65,7 @@ const useStoreUsers = create(
           setState((prevState) => ({ ...prevState, userData: response.data }));
         } else {
           throw new Error(
-            `Error al pedir info del usuario: ${response.status}`
+            `Error al obtener el detalle del Producto: ${response.status}`
           );
         }
       } catch (error) {
@@ -114,6 +114,7 @@ const useStoreProducts = create(
     productsFilter: [],
     detail: {},
     categories: [],
+    isLoading: true,
     fetchDetailProduct: async (id) => {
       try {
         const response = await axios.get(`/products/${id}`);
@@ -133,7 +134,7 @@ const useStoreProducts = create(
       try {
         const response = await axios.put(`/products/${id}`, updateProductData);
         if (response.status === 200) {
-          toast.success("Producto modificado con exito");
+          toast.success("Modificado con exito");
         } else {
           throw new Error(toast.warning(`Error al realizar la modificacion`));
         }
@@ -160,6 +161,30 @@ const useStoreProducts = create(
           "Error al realizar la solicitud de todos los productos:",
           error
         );
+        return false; // Indica falla en la solicitud
+      }
+    },
+    fetchAllProductsFilter: async ({ category, name, color, size }) => {
+      try {
+        // Construye la URL de la solicitud basada en las query strings
+        let url = "/products";
+        if (category || name || color || size) {
+          url += "?";
+          if (category) url += `category=${category}`;
+          if (name) url += `&name=${name}`;
+          if (color) url += `&color=${encodeURIComponent(color)}`;
+          if (size) url += `&size=${size}`;
+        }
+        const response = await axios.get(url);
+        if (response.status === 200) {
+          setState({ productsFilter: response.data });
+          setState({ isLoading: false });
+          return response.data; // Retorna los productos obtenidos
+        } else {
+          throw new Error(`Error al obtener los productos: ${response.status}`);
+        }
+      } catch (error) {
+        console.error("Error al obtener los productos:", error);
         return false; // Indica falla en la solicitud
       }
     },
@@ -527,16 +552,8 @@ const useStoreResetPassword = create(
 );
 
 export {
-  useStoreUsers,
-  useStoreProducts,
-  useStoreProductsFilter,
-  useStoreOpenSearch,
-  useStorePayOrder,
-  useStoreDashboard,
-  useStoreSendEmails,
-  useStoreOpenCart,
-  useStoreUserId,
-  useStoreCartLocalStorage,
-  useStoreTimePurchase,
-  useStoreResetPassword,
+  useStoreCartLocalStorage, useStoreDashboard, useStoreOpenCart, useStoreOpenSearch,
+  useStorePayOrder, useStoreProducts,
+  useStoreProductsFilter, useStoreResetPassword, useStoreSendEmails, useStoreTimePurchase, useStoreUserId, useStoreUsers
 };
+

@@ -1,13 +1,9 @@
 "use client";
 import { capitalize } from "@/utils/capitalize";
 import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
-import {
-  Accordion,
-  AccordionItem,
-  CircularProgress,
-  Link,
-} from "@nextui-org/react";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import bgSearch from "../../../assets/image/backgroundSearchNew.png";
@@ -28,14 +24,11 @@ const listOrder = [
   },
 ];
 
-export default function Search({ product }) {
+export default function SearchViejo({ product }) {
+  const { setProductsFilter, productsFilter, setProducts } = useStoreProducts();
   const {
-    fetchAllProductsFilter,
-    setProductsFilter,
-    productsFilter,
-    isLoading,
-  } = useStoreProducts();
-  const {
+    productsFilterTwo,
+    setProductsFilterTwo,
     selectColor,
     setSelectColor,
     selectSize,
@@ -43,69 +36,108 @@ export default function Search({ product }) {
     setSelectOrder,
     selectOrder,
   } = useStoreProductsFilter();
-  const [filterColorSize, setFilterColorSize] = useState([]);
-  /* const [isLoading,setIsLoading] = useState(true) */
-  const searchParams = useSearchParams();
+
+  const [isActiveShow, setIsActiveShow] = useState(false);
+
+  /*variables*/
+  let listcolorsNorepite = [];
+  let listSizeNorepite = [];
+  let isHeightCount = 0;
+  /*querys URL*/
   const searchParamsCategory = useSearchParams().get("category");
   const searchParamsName = useSearchParams().get("name");
   const searchParamsColor = useSearchParams().get("color");
   const searchParamsSize = useSearchParams().get("size");
 
-  let listProductColors = filterColorSize?.map((item) =>
+  /*mapeos*/
+  let listProductColors = productsFilter.map((item) =>
     item.options.map((subItem) => subItem.color)
   );
-
-  let ListProductSize = filterColorSize?.map((item) =>
+  let ListProductSize = productsFilter.map((item) =>
     item.options.map((subItem) => subItem.sizes)
   );
 
-  const loadProductsFilterCategory = (product) => {
-    setFilterColorSize(
-      product?.filter((item) => item.category === searchParamsCategory)
+  /*funciones del filtro*/
+
+  const loadProductsFilterOne = (product) => {
+    setProductsFilter(
+      product.filter((item) => item.category === searchParamsCategory)
     );
   };
 
-  const loadProductsFilterParamsName = (product) => {
-    setFilterColorSize(
-      product.filter((item) =>
-        item.name.toLowerCase().includes(searchParamsName?.toLowerCase())
+  const loadProductsFilterTwo = (product) => {
+    setProductsFilterTwo(
+      product.filter((item) => item.category === searchParamsCategory)
+    );
+  };
+
+  const loadProductsFilterTwoColor = (newProductsFilterTwo) => {
+    setProductsFilterTwo(
+      newProductsFilterTwo.filter((item) =>
+        item.options.some(
+          (subItem) => subItem.color.codHexadecimal === searchParamsColor
+        )
       )
     );
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const queryParams = Object.fromEntries(searchParams.entries());
-      let response = await fetchAllProductsFilter(
-        queryParams,
-        searchParamsName,
-        searchParamsColor,
-        searchParamsSize
-      );
-      /* if(productsFilter){
-        setIsLoading(false);
-      } */
-    };
-    fetchData();
-  }, [
-    searchParams,
-    searchParamsCategory,
-    searchParamsName,
-    searchParamsColor,
-    searchParamsSize,
-  ]);
+  const loadProductsFilterTwoSize = (newProductsFilterTwo) => {
+    setProductsFilterTwo(
+      newProductsFilterTwo.filter((item) =>
+        item.options.some((subItem) =>
+          subItem.sizes.some(
+            (subSubItem) => subSubItem.size.toString() === searchParamsSize
+          )
+        )
+      )
+    );
+  };
 
-  useEffect(() => {
-    if(searchParamsCategory){
-      loadProductsFilterCategory(product);
-    }else{
-      loadProductsFilterParamsName(product);
-    }
-  }, [searchParams, searchParamsCategory, searchParamsName]);
+  const loadProductsFilterParamsNameOne = (product) => {
+    setProductsFilter(
+      product.filter((item) =>
+        item.name.toLowerCase().includes(searchParamsName.toLowerCase())
+      )
+    );
+  };
+
+  const loadProductsFilterParamsNameTwo = (product) => {
+    setProductsFilterTwo(
+      product.filter((item) =>
+        item.name.toLowerCase().includes(searchParamsName.toLowerCase())
+      )
+    );
+  };
+
+  const loadProductsFilterTwoColorAndSize = (newProductsFilterTwo) => {
+    setProductsFilterTwo(
+      newProductsFilterTwo.filter((item) =>
+        item.options.some(
+          (subItem) =>
+            subItem.color.codHexadecimal === searchParamsColor &&
+            subItem.sizes.some(
+              (subSubItem) => subSubItem.size.toString() === searchParamsSize
+            )
+        )
+      )
+    );
+  };
+
+  const listNoRepitSize = () => {
+    ListProductSize.map((item) => {
+      item.map((subItem) => {
+        subItem.map((subSubItem) => {
+          if (!listSizeNorepite.includes(subSubItem.size)) {
+            listSizeNorepite.push(subSubItem.size);
+          }
+        });
+      });
+    });
+    return listSizeNorepite;
+  };
 
   const listNoRepitColor = () => {
-    let listcolorsNorepite = [];
-    listProductColors?.map((item) => {
+    listProductColors.map((item) => {
       item.map((subItem) => {
         const { codHexadecimal, nameColor } = subItem;
         const newListcolorsNorepite = listcolorsNorepite.map(
@@ -119,29 +151,69 @@ export default function Search({ product }) {
     return listcolorsNorepite;
   };
 
-  const listNoRepitSize = () => {
-    let listSizeNorepite = [];
-    ListProductSize?.map((item) => {
-      item.map((subItem) => {
-        subItem.map((subSubItem) => {
-          if (!listSizeNorepite.includes(subSubItem.size)) {
-            listSizeNorepite.push(subSubItem.size);
-          }
-        });
-      });
-    });
-    return listSizeNorepite;
-  };
+  /*handles*/
 
   const handleListOrder = (value) => {
     if (value === "mayor") {
-      productsFilter.sort((a, b) => b.price - a.price);
+      productsFilterTwo.sort((a, b) => b.price - a.price);
     } else if (value === "menor") {
-      productsFilter.sort((a, b) => a.price - b.price);
+      productsFilterTwo.sort((a, b) => a.price - b.price);
     } else {
-      setProductsFilter(productsFilter);
+      productsFilterTwo(productsFilter);
     }
   };
+
+  /* useEffect */
+  useEffect(() => {
+    setProducts(product); //todos//
+  }, [product]);
+
+  useEffect(() => {
+    if (searchParamsCategory) {
+      loadProductsFilterOne(product);
+      loadProductsFilterTwo(product);
+
+      const newProductsFilterTwo = product.filter(
+        (item) => item.category === searchParamsCategory
+      );
+
+      if (searchParamsColor) {
+        loadProductsFilterTwoColor(newProductsFilterTwo);
+        if (searchParamsSize) {
+          loadProductsFilterTwoColorAndSize(newProductsFilterTwo);
+        }
+      } else if (searchParamsSize) {
+        loadProductsFilterTwoSize(newProductsFilterTwo);
+      }
+    } else if (searchParamsName) {
+      loadProductsFilterParamsNameOne(product);
+      loadProductsFilterParamsNameTwo(product);
+
+      const newProductsFilterParamsNameTwo = product.filter((item) =>
+        item.name.toLowerCase().includes(searchParamsName.toLowerCase())
+      );
+
+      if (searchParamsColor) {
+        loadProductsFilterTwoColor(newProductsFilterParamsNameTwo);
+        if (searchParamsSize) {
+          loadProductsFilterTwoColorAndSize(newProductsFilterParamsNameTwo);
+        }
+      } else if (searchParamsSize) {
+        loadProductsFilterTwoSize(newProductsFilterParamsNameTwo);
+      }
+    }
+    return () => {
+      setProductsFilterTwo(productsFilter);
+    };
+  }, [
+    searchParamsCategory,
+    searchParamsName,
+    searchParamsColor,
+    searchParamsSize,
+  ]);
+
+  //const isInvalidData = !searchParamsCategory && !searchParamsName;
+
   return (
     <div className="w-full h-full flex flex-col gap-y-5">
       <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
@@ -171,7 +243,7 @@ export default function Search({ product }) {
           <Accordion>
             <AccordionItem key={1} aria-label="Accordion 1" title="Color">
               <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2">
-                {listNoRepitColor()?.map((elem, index) => {
+                {listNoRepitColor().map((elem, index) => {
                   return (
                     <ColorComponent
                       key={`${index}+${elem}`}
@@ -190,7 +262,7 @@ export default function Search({ product }) {
             </AccordionItem>
             <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
               <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
-                {listNoRepitSize()?.map((elem, index) => {
+                {listNoRepitSize().map((elem, index) => {
                   return (
                     <SizeComponent
                       key={`${index}+${elem}`}
@@ -201,7 +273,6 @@ export default function Search({ product }) {
                       setSelectSize={setSelectSize}
                       selectSize={selectSize}
                       indexSize={index}
-                      /* fetchDataParamsSizes={fetchDataParamsSizes} */
                     />
                   );
                 })}
@@ -238,6 +309,7 @@ export default function Search({ product }) {
             }`}
             className="w-full h-[40px] text-colorWhite-100 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black uppercase flex items-center justify-center"
             onClick={() => {
+              setProductsFilterTwo(productsFilter);
               setSelectOrder(null);
               setSelectColor(null);
               setSelectSize(null);
@@ -249,13 +321,16 @@ export default function Search({ product }) {
         <div className=" md:w-[65%] xl:w-[80%] w-full h-fit">
           <Suspense fallback={<p>Loading...</p>}>
             <section
-              className={` grid grid-cols-13Cards items-start sm:justify-center justify-start w-[100%] gap-x-3 transition-all ease-in py-3 overflow-auto gap-y-6 place-items-center 
-              ${productsFilter?.length === 0 ? "w-fit mx-auto " : " "} 
+              className={` grid grid-cols-13Cards items-start sm:justify-center justify-start w-[100%] gap-x-3 transition-all ease-in py-3 ${
+                isActiveShow ? "h-fit" : `min-h-[850px]`
+              } overflow-${
+                isActiveShow ? "visible" : "hidden"
+              } gap-y-6 place-items-center 
+              ${productsFilterTwo.length === 0 ? "w-fit mx-auto " : " "} 
               `}
             >
-              {isLoading && <CircularProgress aria-label="Loading..." />}
-              {productsFilter &&
-                productsFilter?.map((item) => {
+              {productsFilterTwo.length > 0 ? (
+                productsFilterTwo.map((item) => {
                   const {
                     _id,
                     images,
@@ -267,67 +342,34 @@ export default function Search({ product }) {
                     offer,
                   } = item;
                   return (
-                    <Card
-                      key={_id}
-                      images={images}
-                      title={name}
-                      price={price}
-                      cantDues={cantDues}
-                      newProduct={newProduct}
-                      id={_id}
-                      categori={category}
-                      offer={offer.offerActive}
-                      offerPrice={offer.offerPrice}
-                    />
-                  );
-                })}
-              {productsFilter?.length === 0 && isLoading === false && (
-                <NotProducts
-                  searchParamsCategory={searchParamsCategory}
-                  searchParamsName={searchParamsName}
-                  productsFilter={productsFilter}
-                  setSelectOrder={setSelectOrder}
-                  setSelectColor={setSelectColor}
-                  setSelectSize={setSelectSize}
-                />
-              )}
-              {/* productsFilter?.length > 0 ? (
-                productsFilter?.map((item) => {
-                  const {
-                    _id,
-                    images,
-                    name,
-                    price,
-                    cantDues,
-                    newProduct,
-                    category,
-                    offer,
-                  } = item;
-                  return (
-                    <Card
-                      key={_id}
-                      images={images}
-                      title={name}
-                      price={price}
-                      cantDues={cantDues}
-                      newProduct={newProduct}
-                      id={_id}
-                      categori={category}
-                      offer={offer.offerActive}
-                      offerPrice={offer.offerPrice}
-                    />
+                    (isHeightCount += 1),
+                    (
+                      <Card
+                        key={_id}
+                        images={images}
+                        title={name}
+                        price={price}
+                        cantDues={cantDues}
+                        newProduct={newProduct}
+                        id={_id}
+                        categori={category}
+                        offer={offer.offerActive}
+                        offerPrice={offer.offerPrice}
+                      />
+                    )
                   );
                 })
               ) : (
                 <NotProducts
                   searchParamsCategory={searchParamsCategory}
                   searchParamsName={searchParamsName}
+                  setProductsFilterTwo={setProductsFilterTwo}
                   productsFilter={productsFilter}
                   setSelectOrder={setSelectOrder}
                   setSelectColor={setSelectColor}
                   setSelectSize={setSelectSize}
                 />
-              ) */}
+              )}
             </section>
           </Suspense>
           {/* <ButtonShow

@@ -15,8 +15,10 @@ function Orders() {
 
     if (!userId) {
       router.push("/");
+    } else {
+      setUserDataId(userId.id);
     }
-  }, []);
+  }, [router]);
 
   return (
     <>
