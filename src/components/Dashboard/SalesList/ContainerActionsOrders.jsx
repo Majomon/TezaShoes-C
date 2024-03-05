@@ -2,6 +2,7 @@ import {
   useStoreDashboard,
   useStorePayOrder,
   useStoreSendEmails,
+  useStoreUsers,
 } from "@/zustand/store";
 import { useState } from "react";
 
@@ -11,17 +12,29 @@ function ContainerActionsOrders({ item, openActionsModal }) {
   const [tracking, setTracking] = useState("");
   const { fetchPutOrderId } = useStorePayOrder();
   const { fetchPostNotification } = useStoreSendEmails();
+  const { fetchPutUserOrderStatus } = useStoreUsers();
 
   const handleShippingTracking = async () => {
+    /* Modifico la orden */
     await fetchPutOrderId(item._id, {
       notificationShipping: { notified: true, courier, tracking },
     });
 
+    /* Envio el email de notificación */
     await fetchPostNotification(item, {
       notified: true,
       courier,
       tracking,
     });
+
+    /* Modifico la orden del usuario */
+    if (item.idUserPurchase) {
+      await fetchPutUserOrderStatus(item.idUserPurchase, {
+        idOrder: item.numberOrder,
+        notificationShipping: { notified: true, courier, tracking },
+      });
+    }
+
     const updatedOrders = allOrders.map((order) => {
       if (order._id === item._id) {
         return {

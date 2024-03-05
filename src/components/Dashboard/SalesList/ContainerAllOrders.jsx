@@ -73,10 +73,12 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
         });
       }
     } else {
-      await fetchPutUserOrderStatus(item.idUserPurchase, {
-        idOrder: item.numberOrder,
-        status: "Pendiente de pago",
-      });
+      if (item.idUserPurchase) {
+        await fetchPutUserOrderStatus(item.idUserPurchase, {
+          idOrder: item.numberOrder,
+          status: "Pendiente de pago",
+        });
+      }
     }
 
     await fetchPutOrderId(item._id, { status: newStatus });
