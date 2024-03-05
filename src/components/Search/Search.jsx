@@ -52,7 +52,8 @@ function Search({ product }) {
     selectOrder,
   } = useStoreProductsFilter();
   const [filterColorSize, setFilterColorSize] = useState([]);
-  /* const [isLoading,setIsLoading] = useState(true) */
+  const [colorList, setColorList] = useState([]);
+  const [sizeList, setSizeList] = useState([]);
   const searchParams = useSearchParams();
   const searchParamsCategory = useSearchParams().get("category");
   const searchParamsName = useSearchParams().get("name");
@@ -141,6 +142,16 @@ function Search({ product }) {
     return listSizeNorepite;
   };
 
+  useEffect(() => {
+    const updatedColorList = listNoRepitColor();
+    setColorList(updatedColorList);
+  }, [searchParamsCategory, searchParamsName]);
+
+  useEffect(() => {
+    const updatedSizeList = listNoRepitSize();
+    setSizeList(updatedSizeList);
+  }, [searchParamsColor, searchParamsCategory, searchParamsName]);
+
   const handleListOrder = (value) => {
     if (value === "mayor") {
       productsFilter.sort((a, b) => b.price - a.price);
@@ -179,40 +190,36 @@ function Search({ product }) {
           <Accordion>
             <AccordionItem key={1} aria-label="Accordion 1" title="Color">
               <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2">
-                {listNoRepitColor()?.map((elem, index) => {
-                  return (
-                    <ColorComponent
-                      key={`${index}+${elem}`}
-                      searchParamsSize={searchParamsSize}
-                      searchParamsCategory={searchParamsCategory}
-                      searchParamsName={searchParamsName}
-                      nameColor={elem.nameColor}
-                      idColor={elem.codHexadecimal}
-                      setSelectColor={setSelectColor}
-                      selectColor={selectColor}
-                      indexColor={index}
-                    />
-                  );
-                })}
+                {colorList.map((elem, index) => (
+                  <ColorComponent
+                    key={`${index}+${elem}`}
+                    searchParamsSize={searchParamsSize}
+                    searchParamsCategory={searchParamsCategory}
+                    searchParamsName={searchParamsName}
+                    nameColor={elem.nameColor}
+                    idColor={elem.codHexadecimal}
+                    setSelectColor={setSelectColor}
+                    selectColor={selectColor}
+                    indexColor={index}
+                  />
+                ))}
               </article>
             </AccordionItem>
             <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
               <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
-                {listNoRepitSize()?.map((elem, index) => {
-                  return (
-                    <SizeComponent
-                      key={`${index}+${elem}`}
-                      searchParamsColor={searchParamsColor}
-                      searchParamsCategory={searchParamsCategory}
-                      searchParamsName={searchParamsName}
-                      numberSize={elem}
-                      setSelectSize={setSelectSize}
-                      selectSize={selectSize}
-                      indexSize={index}
-                      /* fetchDataParamsSizes={fetchDataParamsSizes} */
-                    />
-                  );
-                })}
+                {sizeList.map((elem, index) => (
+                  <SizeComponent
+                    key={`${index}+${elem}`}
+                    searchParamsColor={searchParamsColor}
+                    searchParamsCategory={searchParamsCategory}
+                    searchParamsName={searchParamsName}
+                    numberSize={elem}
+                    setSelectSize={setSelectSize}
+                    selectSize={selectSize}
+                    indexSize={index}
+                    /* fetchDataParamsSizes={fetchDataParamsSizes} */
+                  />
+                ))}
               </article>
             </AccordionItem>
             <AccordionItem key={3} aria-label="Accordion 3" title="Orden">
@@ -299,55 +306,8 @@ function Search({ product }) {
                   setSelectSize={setSelectSize}
                 />
               )}
-              {/* productsFilter?.length > 0 ? (
-                productsFilter?.map((item) => {
-                  const {
-                    _id,
-                    images,
-                    name,
-                    price,
-                    cantDues,
-                    newProduct,
-                    category,
-                    offer,
-                  } = item;
-                  return (
-                    <Card
-                      key={_id}
-                      images={images}
-                      title={name}
-                      price={price}
-                      cantDues={cantDues}
-                      newProduct={newProduct}
-                      id={_id}
-                      categori={category}
-                      offer={offer.offerActive}
-                      offerPrice={offer.offerPrice}
-                    />
-                  );
-                })
-              ) : (
-                <NotProducts
-                  searchParamsCategory={searchParamsCategory}
-                  searchParamsName={searchParamsName}
-                  productsFilter={productsFilter}
-                  setSelectOrder={setSelectOrder}
-                  setSelectColor={setSelectColor}
-                  setSelectSize={setSelectSize}
-                />
-              ) */}
             </section>
           </Suspense>
-          {/* <ButtonShow
-            isActiveShow={isActiveShow}
-            setIsActiveShows={setIsActiveShow}
-            isHeightCount={isHeightCount}
-          /> */}
-          {/* isInvalidData && (
-            <div className="w-full h-full flex justify-center items-center">
-              <h2>Producto no encontrado</h2>
-            </div>
-          ) */}
         </div>
       </section>
     </div>
