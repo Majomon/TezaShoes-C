@@ -229,8 +229,7 @@ export const useAccountPage = () => {
       ),
     },
   ];
-
-  console.log(listForms);
+  
   return {
     userDataId,
     userData,
