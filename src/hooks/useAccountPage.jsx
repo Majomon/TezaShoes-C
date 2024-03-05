@@ -13,7 +13,7 @@ export const useAccountPage = () => {
   const [dataShipping, setDataShipping] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [userDataId, setUserDataId] = useState(false);
+  const [userDataId, setUserDataId] = useState("false");
   const [isSelect, setIsSelect] = useState(0);
 
   const handleChange = (e) => {
@@ -67,7 +67,7 @@ export const useAccountPage = () => {
     if (!userId) {
       router.push("/");
     } else {
-      setUserDataId(userId);
+      setUserDataId(userId.id);
     }
   }, []);
 
