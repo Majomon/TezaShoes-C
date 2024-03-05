@@ -75,13 +75,7 @@ export const useAccountPage = () => {
 
   useEffect(() => {
     setDataEditForm(userData);
-    setDataShipping(userData?.address);
-    setHasChanges(false);
-  }, [userData, userData?.address]);
-
-  useEffect(() => {
-    setDataEditForm(userData);
-    setDataShipping(userData?.address);
+    setDataShipping(userData?.address || {});
     setHasChanges(false);
   }, [userData, userData?.address]);
 
