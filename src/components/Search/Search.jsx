@@ -1,21 +1,21 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
-import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
-import { useParams, useSearchParams } from "next/navigation";
-import PageRouting from "../PageRouting/PageRouting";
-import Image from "next/image";
-import bgSearch from "../../../assets/image/backgroundSearchNew.png";
 import { capitalize } from "@/utils/capitalize";
+import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
 import {
   Accordion,
   AccordionItem,
   CircularProgress,
   Link,
 } from "@nextui-org/react";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import bgSearch from "../../../assets/image/backgroundSearchNew.png";
+import Card from "../Card/Card";
 import ColorComponent from "../ColorComponent/ColorComponent";
+import PageRouting from "../PageRouting/PageRouting";
 import SizeComponent from "../SizeComponent/SizeComponent";
 import NotProducts from "./NotProducts";
-import Card from "../Card/Card";
 
 const listOrder = [
   {
@@ -28,7 +28,15 @@ const listOrder = [
   },
 ];
 
-export default function Search({ product }) {
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Search />
+    </Suspense>
+  );
+}
+
+function Search({ product }) {
   const {
     fetchAllProductsFilter,
     setProductsFilter,
@@ -44,7 +52,8 @@ export default function Search({ product }) {
     selectOrder,
   } = useStoreProductsFilter();
   const [filterColorSize, setFilterColorSize] = useState([]);
-  /* const [isLoading,setIsLoading] = useState(true) */
+  const [colorList, setColorList] = useState([]);
+  const [sizeList, setSizeList] = useState([]);
   const searchParams = useSearchParams();
   const searchParamsCategory = useSearchParams().get("category");
   const searchParamsName = useSearchParams().get("name");
@@ -132,6 +141,24 @@ export default function Search({ product }) {
     });
     return listSizeNorepite;
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const updatedColorList = await listNoRepitColor();
+      console.log(updatedColorList);
+      setColorList(updatedColorList);
+    };
+    fetchData();
+  }, [searchParamsCategory, searchParamsName]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const updatedSizeList = await listNoRepitSize();
+      console.log(updatedSizeList);
+      setSizeList(updatedSizeList);
+    };
+    fetchData();
+  }, [searchParamsColor, searchParamsCategory, searchParamsName]);
 
   const handleListOrder = (value) => {
     if (value === "mayor") {
@@ -315,55 +342,8 @@ export default function Search({ product }) {
                   setSelectSize={setSelectSize}
                 />
               )}
-              {/* productsFilter?.length > 0 ? (
-                productsFilter?.map((item) => {
-                  const {
-                    _id,
-                    images,
-                    name,
-                    price,
-                    cantDues,
-                    newProduct,
-                    category,
-                    offer,
-                  } = item;
-                  return (
-                    <Card
-                      key={_id}
-                      images={images}
-                      title={name}
-                      price={price}
-                      cantDues={cantDues}
-                      newProduct={newProduct}
-                      id={_id}
-                      categori={category}
-                      offer={offer.offerActive}
-                      offerPrice={offer.offerPrice}
-                    />
-                  );
-                })
-              ) : (
-                <NotProducts
-                  searchParamsCategory={searchParamsCategory}
-                  searchParamsName={searchParamsName}
-                  productsFilter={productsFilter}
-                  setSelectOrder={setSelectOrder}
-                  setSelectColor={setSelectColor}
-                  setSelectSize={setSelectSize}
-                />
-              ) */}
             </section>
           </Suspense>
-          {/* <ButtonShow
-            isActiveShow={isActiveShow}
-            setIsActiveShows={setIsActiveShow}
-            isHeightCount={isHeightCount}
-          /> */}
-          {/* isInvalidData && (
-            <div className="w-full h-full flex justify-center items-center">
-              <h2>Producto no encontrado</h2>
-            </div>
-          ) */}
         </div>
       </section>
     </div>
