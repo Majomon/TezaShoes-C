@@ -22,7 +22,8 @@ import {
 function NavAccount({ isSelect, setIsSelect }) {
   const router = useRouter();
   const { setUserId } = useStoreUsers();
-  const [selectedKeys, setSelectedKeys] = useState(0);
+  /*   const [selectedKeys, setSelectedKeys] = useState(0); */
+  const [userDataId, setUserDataId] = useState("");
 
   const listLinkPerfil = [
     {
@@ -48,30 +49,33 @@ function NavAccount({ isSelect, setIsSelect }) {
   ];
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
+    const userId = JSON.parse(localStorage.getItem("userId")) || [];
+
     if (!userId) {
       router.push("/login");
+    } else {
+      setUserDataId(userId.id);
     }
   }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`/users/${userId.id}`);
+        const response = await axios.get(`/users/${userDataId}`);
         setUserId(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
-    if (userId) {
+    if (userDataId) {
       fetchUserData();
     }
   }, []);
 
   return (
     <>
-      {!userId ? (
+      {!userDataId || userDataId.length <= 0 ? (
         <Card className=" w-[300px] h-[300px] mx-auto p-2 mt-4" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="w-full h-[80vh] rounded-sm bg-default-300"></div>

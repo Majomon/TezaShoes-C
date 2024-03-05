@@ -12,7 +12,6 @@ function Orders() {
 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem("userId")) || [];
-    console.log(userId);
 
     if (!userId) {
       router.push("/");
