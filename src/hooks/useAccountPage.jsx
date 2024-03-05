@@ -84,6 +84,7 @@ export const useAccountPage = () => {
     setHasChanges(false);
   }, [userData, userData?.address]);
 
+  console.log(userData );
   const listForms = [
     {
       name: "Informacion Personal",

@@ -4,7 +4,7 @@ export default function ContainerInputPersonalInformation({
   dataEditForm,
   hasChanges,
 }) {
-  console.log("Es dataEditForm", dataEditForm);
+/*   console.log("Es dataEditForm", dataEditForm); */
   const listDataInput = [
     {
       nameLabel: "Nombre",
@@ -38,7 +38,7 @@ export default function ContainerInputPersonalInformation({
     },
   ];
 
-  console.log("Es listDataInput", listDataInput);
+/*   console.log("Es listDataInput", listDataInput); */
   return (
     <form className="w-full h-fit" onSubmit={handleSubmit}>
       <div className="w-fit flex flex-wrap items-center justify-center px-10 py-10 gap-4">
