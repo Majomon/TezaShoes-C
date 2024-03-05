@@ -3,7 +3,7 @@ import { Modal, ModalBody, ModalContent } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 export default function ModalUpdatePassword({
-  userId,
+  userDataId,
   setIsOpenModal,
   isOpenModal,
 }) {
@@ -52,7 +52,7 @@ export default function ModalUpdatePassword({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetchPutResetPassword(userId, dataPassword);
+    await fetchPutResetPassword(userDataId, dataPassword);
   };
 
   const handleKeyDown = (e) => {
