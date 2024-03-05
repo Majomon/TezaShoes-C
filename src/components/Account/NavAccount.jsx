@@ -10,7 +10,7 @@ import {
   Skeleton,
 } from "@nextui-org/react";
 import axios from "axios";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   IconAddress,
@@ -20,10 +20,7 @@ import {
 } from "../../../assets/PerfilUser/IconPefilUser";
 
 function NavAccount({ isSelect, setIsSelect }) {
-  const userId = JSON.parse(localStorage.getItem("userId"));
   const router = useRouter();
-  const pathname = usePathname();
-  const [] = useState();
   const { setUserId } = useStoreUsers();
   const [selectedKeys, setSelectedKeys] = useState(0);
 
@@ -51,10 +48,11 @@ function NavAccount({ isSelect, setIsSelect }) {
   ];
 
   useEffect(() => {
+    const userId = JSON.parse(localStorage.getItem("userId"));
     if (!userId) {
       router.push("/login");
     }
-  }, [router, pathname]);
+  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -110,7 +108,10 @@ function NavAccount({ isSelect, setIsSelect }) {
           <div className=" block lg:hidden w-full ">
             <Dropdown className="w-full">
               <DropdownTrigger className="w-full">
-                <Button variant="bordered" className="capitalize w-full border-colorGoldSecundary-500">
+                <Button
+                  variant="bordered"
+                  className="capitalize w-full border-colorGoldSecundary-500"
+                >
                   {listLinkPerfil[isSelect]?.icon}
                   {listLinkPerfil[isSelect]?.name}
                 </Button>

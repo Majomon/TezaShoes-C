@@ -82,6 +82,7 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
     }
 
     await fetchPutOrderId(item._id, { status: newStatus });
+    
     const updatedOrders = allOrders.map((order) => {
       if (order._id === item._id) {
         return { ...order, status: newStatus };

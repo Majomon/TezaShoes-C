@@ -1,9 +1,9 @@
-import { useStoreResetPassword, useStoreUsers } from "@/zustand/store";
+import { useStoreResetPassword } from "@/zustand/store";
 import { Modal, ModalBody, ModalContent } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 export default function ModalUpdatePassword({
-  userDataId,
+  userId,
   setIsOpenModal,
   isOpenModal,
 }) {
@@ -52,7 +52,7 @@ export default function ModalUpdatePassword({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetchPutResetPassword(userDataId, dataPassword);
+    await fetchPutResetPassword(userId.id, dataPassword);
   };
 
   const handleKeyDown = (e) => {
