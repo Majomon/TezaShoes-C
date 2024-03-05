@@ -1,3 +1,4 @@
+"use client"
 import { capitalize } from "@/utils/capitalize";
 import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
 import {
