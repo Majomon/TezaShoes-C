@@ -77,8 +77,6 @@ export const useAccountPage = () => {
     setDataShipping(userData?.address);
     setHasChanges(false);
   }, [userData, userData?.address]);
-  
-  console.log(dataEditForm);
 
   const listForms = [
     {
@@ -240,5 +238,6 @@ export const useAccountPage = () => {
     listForms,
     setIsOpenModal,
     isOpenModal,
+    dataEditForm,
   };
 };
