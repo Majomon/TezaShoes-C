@@ -65,7 +65,7 @@ const useStoreUsers = create(
           setState((prevState) => ({ ...prevState, userData: response.data }));
         } else {
           throw new Error(
-            `Error al obtener el detalle del Producto: ${response.status}`
+            `Error al pedir info del usuario: ${response.status}`
           );
         }
       } catch (error) {

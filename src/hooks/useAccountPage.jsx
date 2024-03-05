@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export const useAccountPage = () => {
   const router = useRouter();
-  const { userData, fetchPutUserId } = useStoreUsers();
+  const { userData, fetchPutUserId, fetchUserId } = useStoreUsers();
   const [dataEditForm, setDataEditForm] = useState({});
   const [dataShipping, setDataShipping] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
@@ -69,6 +69,7 @@ export const useAccountPage = () => {
       router.push("/");
     } else {
       setUserDataId(userId.id);
+      fetchUserId(userId.id);
     }
   }, [router]);
 
@@ -84,7 +85,8 @@ export const useAccountPage = () => {
     setHasChanges(false);
   }, [userData, userData?.address]);
 
-  console.log(userData );
+  console.log(userData);
+
   const listForms = [
     {
       name: "Informacion Personal",
