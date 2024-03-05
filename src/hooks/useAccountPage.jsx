@@ -40,7 +40,7 @@ export const useAccountPage = () => {
     setDataShipping((prevState) => ({
       ...prevState,
       address: {
-        ...(prevState?.address || {}), 
+        ...(prevState?.address || {}),
         [name]: value,
       },
     }));
@@ -77,7 +77,7 @@ export const useAccountPage = () => {
     setDataShipping(userData?.address);
     setHasChanges(false);
   }, [userData, userData?.address]);
-
+  console.log(dataEditForm);
   const listForms = [
     {
       name: "Informacion Personal",
@@ -229,7 +229,7 @@ export const useAccountPage = () => {
       ),
     },
   ];
-  
+
   return {
     userDataId,
     userData,
