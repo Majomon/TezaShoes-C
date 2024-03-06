@@ -1,21 +1,21 @@
 "use client";
-import { capitalize } from "@/utils/capitalize";
+import { Suspense, useEffect, useState } from "react";
 import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
+import { useParams, useSearchParams } from "next/navigation";
+import PageRouting from "../PageRouting/PageRouting";
+import Image from "next/image";
+import bgSearch from "../../../assets/image/backgroundSearchNew.png";
+import { capitalize } from "@/utils/capitalize";
 import {
   Accordion,
   AccordionItem,
   CircularProgress,
   Link,
 } from "@nextui-org/react";
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
-import bgSearch from "../../../assets/image/backgroundSearchNew.png";
-import Card from "../Card/Card";
 import ColorComponent from "../ColorComponent/ColorComponent";
-import PageRouting from "../PageRouting/PageRouting";
 import SizeComponent from "../SizeComponent/SizeComponent";
 import NotProducts from "./NotProducts";
+import Card from "../Card/Card";
 
 const listOrder = [
   {
@@ -28,15 +28,7 @@ const listOrder = [
   },
 ];
 
-export default function SearchPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Search />
-    </Suspense>
-  );
-}
-
-function Search({ product }) {
+export default function Search({ product }) {
   const {
     fetchAllProductsFilter,
     setProductsFilter,
@@ -52,6 +44,9 @@ function Search({ product }) {
     selectOrder,
   } = useStoreProductsFilter();
   const [filterColorSize, setFilterColorSize] = useState([]);
+  const [loadingTest, setLoadingTest] = useState(true);
+  const [listColors, setListColors] = useState([]);
+  const [listSizes, setListSizes] = useState([]);
   const searchParams = useSearchParams();
   const searchParamsCategory = useSearchParams().get("category");
   const searchParamsName = useSearchParams().get("name");
@@ -89,6 +84,9 @@ function Search({ product }) {
         searchParamsColor,
         searchParamsSize
       );
+      /* if(productsFilter){
+        setIsLoading(false);
+      } */
     };
     fetchData();
   }, [
@@ -107,20 +105,15 @@ function Search({ product }) {
     }
   }, [searchParams, searchParamsCategory, searchParamsName]);
 
-  const listNoRepitColor = () => {
-    let listcolorsNorepite = [];
-    listProductColors?.map((item) => {
-      item.map((subItem) => {
-        const { codHexadecimal, nameColor } = subItem;
-        const newListcolorsNorepite = listcolorsNorepite?.map(
-          (item) => item.codHexadecimal
-        );
-        if (!newListcolorsNorepite.includes(codHexadecimal)) {
-          listcolorsNorepite.push({ codHexadecimal, nameColor });
-        }
-      });
+  const listNoRepitColor = async () => {
+    return new Promise((resolve, reject) => {
+      // Simular una llamada asíncrona
+      setTimeout(() => {
+        // Lógica para obtener los colores
+        const colors = []; // Aquí va la lógica real para obtener los colores
+        resolve(colors);
+      }, 2000); // Simular un tiempo de carga
     });
-    return listcolorsNorepite;
   };
 
   const listNoRepitSize = () => {
@@ -136,6 +129,29 @@ function Search({ product }) {
     });
     return listSizeNorepite;
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoadingTest(true);
+
+        // Lógica para obtener los colores
+        const colors = await listNoRepitColor();
+        setListColors(colors);
+
+        // Lógica para obtener los tamaños
+        const sizes = await listNoRepitSize();
+        setListSizes(sizes);
+
+        setLoadingTest(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoadingTest(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleListOrder = (value) => {
     if (value === "mayor") {
