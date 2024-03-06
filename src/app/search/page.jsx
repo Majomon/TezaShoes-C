@@ -1,4 +1,4 @@
-import Search from "@/components/Search/Search";
+import SearchPage from "@/components/Search/Search";
 
 export const metadata = {
   title: "TezaShoes - Search",
@@ -15,7 +15,7 @@ export default async function () {
   const product = await getAllProducts();
   return (
     <div className="w-full min-h-screen flex flex-col gap-y-[40px] ">
-      <Search product={product} />
+      <SearchPage product={product} />
     </div>
   );
 }

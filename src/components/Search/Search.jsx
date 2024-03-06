@@ -1,21 +1,21 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
-import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
-import { useParams, useSearchParams } from "next/navigation";
-import PageRouting from "../PageRouting/PageRouting";
-import Image from "next/image";
-import bgSearch from "../../../assets/image/backgroundSearchNew.png";
 import { capitalize } from "@/utils/capitalize";
+import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
 import {
   Accordion,
   AccordionItem,
   CircularProgress,
   Link,
 } from "@nextui-org/react";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import bgSearch from "../../../assets/image/backgroundSearchNew.png";
+import Card from "../Card/Card";
 import ColorComponent from "../ColorComponent/ColorComponent";
+import PageRouting from "../PageRouting/PageRouting";
 import SizeComponent from "../SizeComponent/SizeComponent";
 import NotProducts from "./NotProducts";
-import Card from "../Card/Card";
 
 const listOrder = [
   {
@@ -27,8 +27,14 @@ const listOrder = [
     name: "Menor precio",
   },
 ];
-
-export default function Search({ product }) {
+export default function SearchPage({ product }) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Search product={product} />
+    </Suspense>
+  );
+}
+function Search({ product }) {
   const {
     fetchAllProductsFilter,
     setProductsFilter,
@@ -44,9 +50,6 @@ export default function Search({ product }) {
     selectOrder,
   } = useStoreProductsFilter();
   const [filterColorSize, setFilterColorSize] = useState([]);
-  const [loadingTest, setLoadingTest] = useState(true);
-  const [listColors, setListColors] = useState([]);
-  const [listSizes, setListSizes] = useState([]);
   const searchParams = useSearchParams();
   const searchParamsCategory = useSearchParams().get("category");
   const searchParamsName = useSearchParams().get("name");
@@ -105,15 +108,20 @@ export default function Search({ product }) {
     }
   }, [searchParams, searchParamsCategory, searchParamsName]);
 
-  const listNoRepitColor = async () => {
-    return new Promise((resolve, reject) => {
-      // Simular una llamada asíncrona
-      setTimeout(() => {
-        // Lógica para obtener los colores
-        const colors = []; // Aquí va la lógica real para obtener los colores
-        resolve(colors);
-      }, 2000); // Simular un tiempo de carga
+  const listNoRepitColor = () => {
+    let listcolorsNorepite = [];
+    listProductColors?.map((item) => {
+      item.map((subItem) => {
+        const { codHexadecimal, nameColor } = subItem;
+        const newListcolorsNorepite = listcolorsNorepite.map(
+          (item) => item.codHexadecimal
+        );
+        if (!newListcolorsNorepite.includes(codHexadecimal)) {
+          listcolorsNorepite.push({ codHexadecimal, nameColor });
+        }
+      });
     });
+    return listcolorsNorepite;
   };
 
   const listNoRepitSize = () => {
@@ -129,29 +137,6 @@ export default function Search({ product }) {
     });
     return listSizeNorepite;
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoadingTest(true);
-
-        // Lógica para obtener los colores
-        const colors = await listNoRepitColor();
-        setListColors(colors);
-
-        // Lógica para obtener los tamaños
-        const sizes = await listNoRepitSize();
-        setListSizes(sizes);
-
-        setLoadingTest(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoadingTest(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleListOrder = (value) => {
     if (value === "mayor") {
@@ -311,8 +296,55 @@ export default function Search({ product }) {
                   setSelectSize={setSelectSize}
                 />
               )}
+              {/* productsFilter?.length > 0 ? (
+                productsFilter?.map((item) => {
+                  const {
+                    _id,
+                    images,
+                    name,
+                    price,
+                    cantDues,
+                    newProduct,
+                    category,
+                    offer,
+                  } = item;
+                  return (
+                    <Card
+                      key={_id}
+                      images={images}
+                      title={name}
+                      price={price}
+                      cantDues={cantDues}
+                      newProduct={newProduct}
+                      id={_id}
+                      categori={category}
+                      offer={offer.offerActive}
+                      offerPrice={offer.offerPrice}
+                    />
+                  );
+                })
+              ) : (
+                <NotProducts
+                  searchParamsCategory={searchParamsCategory}
+                  searchParamsName={searchParamsName}
+                  productsFilter={productsFilter}
+                  setSelectOrder={setSelectOrder}
+                  setSelectColor={setSelectColor}
+                  setSelectSize={setSelectSize}
+                />
+              ) */}
             </section>
           </Suspense>
+          {/* <ButtonShow
+            isActiveShow={isActiveShow}
+            setIsActiveShows={setIsActiveShow}
+            isHeightCount={isHeightCount}
+          /> */}
+          {/* isInvalidData && (
+            <div className="w-full h-full flex justify-center items-center">
+              <h2>Producto no encontrado</h2>
+            </div>
+          ) */}
         </div>
       </section>
     </div>
