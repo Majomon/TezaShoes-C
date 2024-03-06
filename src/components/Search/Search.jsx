@@ -1,21 +1,21 @@
 "use client";
-import { capitalize } from "@/utils/capitalize";
+import { Suspense, useEffect, useState } from "react";
 import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
+import { useParams, useSearchParams } from "next/navigation";
+import PageRouting from "../PageRouting/PageRouting";
+import Image from "next/image";
+import bgSearch from "../../../assets/image/backgroundSearchNew.png";
+import { capitalize } from "@/utils/capitalize";
 import {
   Accordion,
   AccordionItem,
   CircularProgress,
   Link,
 } from "@nextui-org/react";
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
-import bgSearch from "../../../assets/image/backgroundSearchNew.png";
-import Card from "../Card/Card";
 import ColorComponent from "../ColorComponent/ColorComponent";
-import PageRouting from "../PageRouting/PageRouting";
 import SizeComponent from "../SizeComponent/SizeComponent";
 import NotProducts from "./NotProducts";
+import Card from "../Card/Card";
 
 const listOrder = [
   {
@@ -28,15 +28,7 @@ const listOrder = [
   },
 ];
 
-export default function SearchPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Search />
-    </Suspense>
-  );
-}
-
-function Search({ product }) {
+export default function Search({ product }) {
   const {
     fetchAllProductsFilter,
     setProductsFilter,
@@ -52,8 +44,6 @@ function Search({ product }) {
     selectOrder,
   } = useStoreProductsFilter();
   const [filterColorSize, setFilterColorSize] = useState([]);
-  const [colorList, setColorList] = useState([]);
-  const [sizeList, setSizeList] = useState([]);
   const searchParams = useSearchParams();
   const searchParamsCategory = useSearchParams().get("category");
   const searchParamsName = useSearchParams().get("name");
@@ -112,7 +102,7 @@ function Search({ product }) {
     }
   }, [searchParams, searchParamsCategory, searchParamsName]);
 
-  const listNoRepitColor = () => {
+  async function listNoRepitColor() {
     let listcolorsNorepite = [];
     listProductColors?.map((item) => {
       item.map((subItem) => {
@@ -126,9 +116,9 @@ function Search({ product }) {
       });
     });
     return listcolorsNorepite;
-  };
+  }
 
-  const listNoRepitSize = () => {
+  async function listNoRepitSize() {
     let listSizeNorepite = [];
     ListProductSize?.map((item) => {
       item.map((subItem) => {
@@ -140,25 +130,7 @@ function Search({ product }) {
       });
     });
     return listSizeNorepite;
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const updatedColorList = await listNoRepitColor();
-      console.log(updatedColorList);
-      setColorList(updatedColorList);
-    };
-    fetchData();
-  }, [searchParamsCategory, searchParamsName]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const updatedSizeList = await listNoRepitSize();
-      console.log(updatedSizeList);
-      setSizeList(updatedSizeList);
-    };
-    fetchData();
-  }, [searchParamsColor, searchParamsCategory, searchParamsName]);
+  }
 
   const handleListOrder = (value) => {
     if (value === "mayor") {
@@ -169,26 +141,6 @@ function Search({ product }) {
       setProductsFilter(productsFilter);
     }
   };
-
-  const [colorComponentsVisible, setColorComponentsVisible] = useState(false);
-  const [sizeComponentsVisible, setSizeComponentsVisible] = useState(false);
-
-  useEffect(() => {
-    if (listNoRepitColor() && listNoRepitColor().length > 0) {
-      setColorComponentsVisible(true);
-    } else {
-      setColorComponentsVisible(false);
-    }
-  }, [listNoRepitColor()]);
-
-  useEffect(() => {
-    if (listNoRepitSize() && listNoRepitSize().length > 0) {
-      setSizeComponentsVisible(true);
-    } else {
-      setSizeComponentsVisible(false);
-    }
-  }, [listNoRepitSize()]);
-
   return (
     <div className="w-full h-full flex flex-col gap-y-5">
       <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
@@ -216,48 +168,44 @@ function Search({ product }) {
       <section className="w-11/12 mx-auto flex flex-col md:flex-row px-3 py-10 ">
         <div className=" flex sm:flex-row w-full flex-col pb-4 gap-y-4 flex-wrap items-start sm:justify-between md:w-[35%] xl:w-[20%] h-fit md:sticky md:top-10 ">
           <Accordion>
-            {colorComponentsVisible && (
-              <AccordionItem key={1} aria-label="Accordion 1" title="Color">
-                <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2">
-                  {listNoRepitColor()?.map((elem, index) => {
-                    return (
-                      <ColorComponent
-                        key={`${index}+${elem}`}
-                        searchParamsSize={searchParamsSize}
-                        searchParamsCategory={searchParamsCategory}
-                        searchParamsName={searchParamsName}
-                        nameColor={elem.nameColor}
-                        idColor={elem.codHexadecimal}
-                        setSelectColor={setSelectColor}
-                        selectColor={selectColor}
-                        indexColor={index}
-                      />
-                    );
-                  })}
-                </article>
-              </AccordionItem>
-            )}
-            {sizeComponentsVisible && (
-              <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
-                <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
-                  {listNoRepitSize()?.map((elem, index) => {
-                    return (
-                      <SizeComponent
-                        key={`${index}+${elem}`}
-                        searchParamsColor={searchParamsColor}
-                        searchParamsCategory={searchParamsCategory}
-                        searchParamsName={searchParamsName}
-                        numberSize={elem}
-                        setSelectSize={setSelectSize}
-                        selectSize={selectSize}
-                        indexSize={index}
-                        /* fetchDataParamsSizes={fetchDataParamsSizes} */
-                      />
-                    );
-                  })}
-                </article>
-              </AccordionItem>
-            )}
+            <AccordionItem key={1} aria-label="Accordion 1" title="Color">
+              <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2">
+                {listNoRepitColor()?.then((colors) =>
+                  colors.map((elem, index) => (
+                    <ColorComponent
+                      key={`${index}+${elem}`}
+                      searchParamsSize={searchParamsSize}
+                      searchParamsCategory={searchParamsCategory}
+                      searchParamsName={searchParamsName}
+                      nameColor={elem.nameColor}
+                      idColor={elem.codHexadecimal}
+                      setSelectColor={setSelectColor}
+                      selectColor={selectColor}
+                      indexColor={index}
+                    />
+                  ))
+                )}
+              </article>
+            </AccordionItem>
+            <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
+              <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
+                {listNoRepitSize()?.then((sizes) =>
+                  sizes.map((elem, index) => (
+                    <SizeComponent
+                      key={`${index}+${elem}`}
+                      searchParamsColor={searchParamsColor}
+                      searchParamsCategory={searchParamsCategory}
+                      searchParamsName={searchParamsName}
+                      numberSize={elem}
+                      setSelectSize={setSelectSize}
+                      selectSize={selectSize}
+                      indexSize={index}
+                      /* fetchDataParamsSizes={fetchDataParamsSizes} */
+                    />
+                  ))
+                )}
+              </article>
+            </AccordionItem>
             <AccordionItem key={3} aria-label="Accordion 3" title="Orden">
               <article className=" flex flex-col gap-y-[5px]">
                 {listOrder.map((item, index) => {
