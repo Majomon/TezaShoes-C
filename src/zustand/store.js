@@ -552,8 +552,16 @@ const useStoreResetPassword = create(
 );
 
 export {
-  useStoreCartLocalStorage, useStoreDashboard, useStoreOpenCart, useStoreOpenSearch,
-  useStorePayOrder, useStoreProducts,
-  useStoreProductsFilter, useStoreResetPassword, useStoreSendEmails, useStoreTimePurchase, useStoreUserId, useStoreUsers
+  useStoreCartLocalStorage,
+  useStoreDashboard,
+  useStoreOpenCart,
+  useStoreOpenSearch,
+  useStorePayOrder,
+  useStoreProducts,
+  useStoreProductsFilter,
+  useStoreResetPassword,
+  useStoreSendEmails,
+  useStoreTimePurchase,
+  useStoreUserId,
+  useStoreUsers,
 };
-

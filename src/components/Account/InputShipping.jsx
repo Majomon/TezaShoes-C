@@ -1,4 +1,3 @@
-import React from "react";
 
 function InputShipping({ nameLabel, nameInput, dataShipping, handleChange }) {
   return (

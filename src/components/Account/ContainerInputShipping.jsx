@@ -1,4 +1,3 @@
-import React from "react";
 import InputShipping from "./InputShipping";
 
 function ContainerInputShipping({ handleChange, dataShipping }) {

@@ -76,7 +76,6 @@ export const useAccountPage = () => {
     setHasChanges(false);
   }, [userData, userData?.address]);
 
-
   const listForms = [
     {
       name: "Informacion Personal",
@@ -158,8 +157,8 @@ export const useAccountPage = () => {
                   type="password"
                   className="bg-colorGoldSecundary-500 text-white border border-colorGoldSecundary-500 text-center w-full sm:w-[300px] h-[40px] shadow-inputPerfilShadow"
                   name={"email"}
-                  placeholder={dataEditForm?.password || ""}
-                  value={dataEditForm?.password || ""}
+                  placeholder={"*123234456*"}
+                  value={"*123234456*"}
                   disabled
                 />
               </div>

@@ -30,6 +30,7 @@ function ContainerAllProducts({
   const [currentPage, setCurrentPage] = useState(1);
   const lastIndex = currentPage * productsPerPage; // 1 * 2 = 2
   const firstIndex = lastIndex - productsPerPage;
+  const urlDeploy = "https://www.mongar.tech";
 
   const toggleIsActive = async (productId, currentStatus) => {
     try {
@@ -208,7 +209,9 @@ function ContainerAllProducts({
                         className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full"
                         onClick={() =>
                           copyToClipboard(
-                            `http://localhost:3000/detail/${product._id}`
+                            copyToClipboard(
+                              `${urlDeploy}/detail/${product._id}`
+                            )
                           )
                         }
                       >
