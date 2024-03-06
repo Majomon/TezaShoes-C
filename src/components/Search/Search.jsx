@@ -1,21 +1,21 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
-import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
-import { useParams, useSearchParams } from "next/navigation";
-import PageRouting from "../PageRouting/PageRouting";
-import Image from "next/image";
-import bgSearch from "../../../assets/image/backgroundSearchNew.png";
 import { capitalize } from "@/utils/capitalize";
+import { useStoreProducts, useStoreProductsFilter } from "@/zustand/store";
 import {
   Accordion,
   AccordionItem,
   CircularProgress,
   Link,
 } from "@nextui-org/react";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import bgSearch from "../../../assets/image/backgroundSearchNew.png";
+import Card from "../Card/Card";
 import ColorComponent from "../ColorComponent/ColorComponent";
+import PageRouting from "../PageRouting/PageRouting";
 import SizeComponent from "../SizeComponent/SizeComponent";
 import NotProducts from "./NotProducts";
-import Card from "../Card/Card";
 
 const listOrder = [
   {
@@ -28,7 +28,15 @@ const listOrder = [
   },
 ];
 
-export default function Search({ product }) {
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Search />
+    </Suspense>
+  );
+}
+
+function Search({ product }) {
   const {
     fetchAllProductsFilter,
     setProductsFilter,
@@ -81,9 +89,6 @@ export default function Search({ product }) {
         searchParamsColor,
         searchParamsSize
       );
-      /* if(productsFilter){
-        setIsLoading(false);
-      } */
     };
     fetchData();
   }, [
@@ -102,12 +107,12 @@ export default function Search({ product }) {
     }
   }, [searchParams, searchParamsCategory, searchParamsName]);
 
-  async function listNoRepitColor() {
+  const listNoRepitColor = () => {
     let listcolorsNorepite = [];
     listProductColors?.map((item) => {
       item.map((subItem) => {
         const { codHexadecimal, nameColor } = subItem;
-        const newListcolorsNorepite = listcolorsNorepite.map(
+        const newListcolorsNorepite = listcolorsNorepite?.map(
           (item) => item.codHexadecimal
         );
         if (!newListcolorsNorepite.includes(codHexadecimal)) {
@@ -116,9 +121,9 @@ export default function Search({ product }) {
       });
     });
     return listcolorsNorepite;
-  }
+  };
 
-  async function listNoRepitSize() {
+  const listNoRepitSize = () => {
     let listSizeNorepite = [];
     ListProductSize?.map((item) => {
       item.map((subItem) => {
@@ -130,7 +135,7 @@ export default function Search({ product }) {
       });
     });
     return listSizeNorepite;
-  }
+  };
 
   const handleListOrder = (value) => {
     if (value === "mayor") {
@@ -170,8 +175,8 @@ export default function Search({ product }) {
           <Accordion>
             <AccordionItem key={1} aria-label="Accordion 1" title="Color">
               <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2">
-                {listNoRepitColor()?.then((colors) =>
-                  colors.map((elem, index) => (
+                {listNoRepitColor()?.map((elem, index) => {
+                  return (
                     <ColorComponent
                       key={`${index}+${elem}`}
                       searchParamsSize={searchParamsSize}
@@ -183,14 +188,14 @@ export default function Search({ product }) {
                       selectColor={selectColor}
                       indexColor={index}
                     />
-                  ))
-                )}
+                  );
+                })}
               </article>
             </AccordionItem>
             <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
               <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
-                {listNoRepitSize()?.then((sizes) =>
-                  sizes.map((elem, index) => (
+                {listNoRepitSize()?.map((elem, index) => {
+                  return (
                     <SizeComponent
                       key={`${index}+${elem}`}
                       searchParamsColor={searchParamsColor}
@@ -202,8 +207,8 @@ export default function Search({ product }) {
                       indexSize={index}
                       /* fetchDataParamsSizes={fetchDataParamsSizes} */
                     />
-                  ))
-                )}
+                  );
+                })}
               </article>
             </AccordionItem>
             <AccordionItem key={3} aria-label="Accordion 3" title="Orden">
