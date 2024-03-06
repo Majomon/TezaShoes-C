@@ -27,6 +27,7 @@ const listOrder = [
     name: "Menor precio",
   },
 ];
+
 export default function SearchPage({ product }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -87,9 +88,6 @@ function Search({ product }) {
         searchParamsColor,
         searchParamsSize
       );
-      /* if(productsFilter){
-        setIsLoading(false);
-      } */
     };
     fetchData();
   }, [
@@ -296,55 +294,8 @@ function Search({ product }) {
                   setSelectSize={setSelectSize}
                 />
               )}
-              {/* productsFilter?.length > 0 ? (
-                productsFilter?.map((item) => {
-                  const {
-                    _id,
-                    images,
-                    name,
-                    price,
-                    cantDues,
-                    newProduct,
-                    category,
-                    offer,
-                  } = item;
-                  return (
-                    <Card
-                      key={_id}
-                      images={images}
-                      title={name}
-                      price={price}
-                      cantDues={cantDues}
-                      newProduct={newProduct}
-                      id={_id}
-                      categori={category}
-                      offer={offer.offerActive}
-                      offerPrice={offer.offerPrice}
-                    />
-                  );
-                })
-              ) : (
-                <NotProducts
-                  searchParamsCategory={searchParamsCategory}
-                  searchParamsName={searchParamsName}
-                  productsFilter={productsFilter}
-                  setSelectOrder={setSelectOrder}
-                  setSelectColor={setSelectColor}
-                  setSelectSize={setSelectSize}
-                />
-              ) */}
             </section>
           </Suspense>
-          {/* <ButtonShow
-            isActiveShow={isActiveShow}
-            setIsActiveShows={setIsActiveShow}
-            isHeightCount={isHeightCount}
-          /> */}
-          {/* isInvalidData && (
-            <div className="w-full h-full flex justify-center items-center">
-              <h2>Producto no encontrado</h2>
-            </div>
-          ) */}
         </div>
       </section>
     </div>
