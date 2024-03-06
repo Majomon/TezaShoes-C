@@ -27,7 +27,6 @@ const listOrder = [
     name: "Menor precio",
   },
 ];
-
 export default function SearchPage({ product }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -35,6 +34,7 @@ export default function SearchPage({ product }) {
     </Suspense>
   );
 }
+
 function Search({ product }) {
   const {
     fetchAllProductsFilter,
@@ -88,6 +88,9 @@ function Search({ product }) {
         searchParamsColor,
         searchParamsSize
       );
+      /* if(productsFilter){
+        setIsLoading(false);
+      } */
     };
     fetchData();
   }, [
@@ -149,6 +152,7 @@ function Search({ product }) {
   useEffect(() => {
     console.log(productsFilter);
   }, [productsFilter]);
+
   return (
     <div className="w-full h-full flex flex-col gap-y-5">
       <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
