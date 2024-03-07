@@ -65,6 +65,11 @@ function MainLeftPayment() {
   const handleSubmit = async () => {
     await fetchPostOrder(orderInfo);
     Cookies.remove("timePurchase");
+    /* - Cookies - */
+    if(listPayment[selectedOption].name === "MODO"){
+      let convertToString = JSON.stringify(orderInfo);
+      Cookies.set('OrderPaymentModo', convertToString);
+    }
   };
 
   return (

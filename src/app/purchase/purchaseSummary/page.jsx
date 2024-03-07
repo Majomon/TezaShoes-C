@@ -2,6 +2,7 @@
 import MainLeftSumary from "@/components/Purchase/Sumary/MainLeftSumary";
 import MainRightSumary from "@/components/Purchase/Sumary/MainRightSumary";
 import { useStorePayOrder, useStoreSendEmails } from "@/zustand/store";
+import Cookies from "js-cookie";
 import { useEffect } from "react";
 
 export default function PurchaseSummary() {
@@ -13,6 +14,11 @@ export default function PurchaseSummary() {
       fetchPostOrderCreate(orderData);
     }
   }, [orderData]);
+
+  if(orderData.paymentMethod === "MODO"){
+    let convertToString = JSON.stringify(orderData);
+    Cookies.set("orderData",convertToString)
+  }
 
   return (
     <div className="w-full min-h-screen mx-auto">

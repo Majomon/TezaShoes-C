@@ -28,19 +28,3 @@ async function Nav() {
 }
 
 export default Nav;
-
-/* async function getAllCategories() {
-  const response = await fetch(`https://teza-shoes-api.vercel.app/categories`);
-  const data = await response.json();
-  return data;
-}
-
-async function getAllProducts() {
-  const response = await fetch(`https://teza-shoes-api.vercel.app/products`);
-  const data = await response.json();
-  return data;
-}
-async function Nav() {
-  const categories = await getAllCategories();
-  const products = await getAllProducts();
-   */

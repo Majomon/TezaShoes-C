@@ -46,7 +46,7 @@ function ContainerAllProducts({
     }
   };
 
-  let dimProduct = allProducts?.length;
+  let dimProduct = stateList?.length === 0 ? allProducts?.length : stateList?.length;
 
   const toggleDelete = async (productId) => {
     try {
@@ -184,23 +184,6 @@ function ContainerAllProducts({
                         ))}
                       </DropdownMenu>
                     </Dropdown>
-                    {/* <button className=" text-sm font-semibold text-colorGoldSecundary-500">
-                  Ver
-                </button> */}
-                    {/* {product.options.map((option) => (
-                  <div key={option._id}>
-                    <h4 className="text-xs font-bold py-1">
-                      {option.color.nameColor}
-                    </h4>
-                    <ul>
-                      {option.sizes.map((size) => (
-                        <li key={size._id} className="text-xs">
-                          Talle: {size.size} - Stock: {size.stock}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))} */}
                   </td>
                   {/* Acciones */}
                   <td className="w-fit h-full ">

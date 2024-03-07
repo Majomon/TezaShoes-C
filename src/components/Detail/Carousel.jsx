@@ -14,7 +14,7 @@ export default function Carousel() {
   const [arrayImg, setArrayImg] = useState([]);
   const [newArrayImg, setNewArrayImg] = useState([]);
   /* variables */
-  const filteredImages = arrayImg.filter((image) => image !== imgSelected);
+  const filteredImages = arrayImg?.filter((image) => image !== imgSelected);
   const maxItems = 4;
   let contItems = 0;
   /* destructuring */
@@ -28,12 +28,17 @@ export default function Carousel() {
 
   useEffect(() => {
     if (detail.images && detail.images.length > 0) {
+      let arrayPush = []
       setFirstImage(detail.images[0]);
       detail.images.forEach((image) => {
-        setArrayImg((prevArrayImg) => [...prevArrayImg, image]);
+        /* console.log(image) */
+        /* setArrayImg((prevArrayImg) => [...prevArrayImg, image]); */
+        arrayPush.push(image);
       });
+      setArrayImg([...arrayImg,...arrayPush])
     }
   }, [detail.images]);
+
 
   /* funciones */
   const handlerSelectImg = (image) => {
@@ -51,7 +56,7 @@ export default function Carousel() {
   const lengthDetailImage = (detail) => {
     return detail.images.length;
   };
-
+  
   return (
     <div className="w-full h-fit flex flex-col-reverse gap-y-4 md:flex-row gap-x-[30px] ">
       {!detail.images ? (
@@ -157,7 +162,7 @@ export default function Carousel() {
 
       {isModalOpen && (
         <CarouselModal
-          images={arrayImg}
+          images={arrayImg} 
           closeModal={closeModal}
           newArrayImg={newArrayImg}
         />

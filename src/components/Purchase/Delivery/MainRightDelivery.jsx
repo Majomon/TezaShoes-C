@@ -10,7 +10,7 @@ function MainRightDelivery() {
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     const totalCart = parseFloat(localStorage.getItem("TotalCart"));
-    const storedData = localStorage.getItem("dataPurchase");
+    const storedData = JSON.parse(localStorage.getItem("dataPurchase"));
 
     if (cart && totalCart && storedData) {
       setCartState(cart);

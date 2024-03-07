@@ -1,5 +1,6 @@
+
 import ButtonModo from "@/components/ButtonMODO/ButtonModo";
-import { useStorePayOrder } from "@/zustand/store";
+import { useStorePayOrder, useStoreCartLocalStorage } from "@/zustand/store";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CardProductPurchase from "../CardProductPurchase";
 
 function MainLeftSumary() {
+  const { setCartLocalStorage } = useStoreCartLocalStorage();
   const { orderData } = useStorePayOrder();
   const [countdown, setCountdown] = useState(10);
 
@@ -24,6 +26,10 @@ function MainLeftSumary() {
       return () => clearTimeout(timer);
     }
   }, [countdown]);
+
+  useEffect(() => {
+    setCartLocalStorage([])
+  }, []);
 
   useEffect(() => {
     if (countdown === 0) {

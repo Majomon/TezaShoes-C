@@ -4,9 +4,10 @@ import ItemShippingStatus from "../Purchase/Sumary/ItemShippingStatus";
 import SaleCart from "./SaleCart";
 
 export default function DetailSaleAndClient({ ordersId }) {
+  
   return (
     <div className="w-full max-w-[970px] m-auto h-fit flex flex-col gap-4">
-      {ordersId.error ? (
+      {ordersId?.error ? (
         <p className=" text-center w-full">No existe este numero de orden</p>
       ) : (
         <>

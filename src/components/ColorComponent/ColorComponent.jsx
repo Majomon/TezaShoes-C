@@ -15,21 +15,32 @@ export default function ColorComponent({
 
   const handleSearch = (color) => {
     const encodedColor = encodeURIComponent(color);
-    router.push(`/search?color=${encodedColor}`);
+    router.push(`/search?color=${color}`);
   };
 
 
   return (
     <Link
       href={
-        !searchParamsSize ? `/search?color=${encodeURIComponent(idColor)}&${searchParamsCategory && !searchParamsName ? `category=${searchParamsCategory}` : `name=${searchParamsName}`}`
-          : `/search?size=${searchParamsSize}&color=${encodeURIComponent(idColor)}&${searchParamsName && !searchParamsCategory ? `name=${searchParamsName}` : `category=${searchParamsCategory}`}`
+        !searchParamsSize
+          ? `/search?color=${encodeURIComponent(idColor)}&${
+              searchParamsCategory && !searchParamsName
+                ? `category=${searchParamsCategory}`
+                : `name=${searchParamsName}`
+            }`
+          : `/search?size=${searchParamsSize}&color=${encodeURIComponent(
+              idColor
+            )}&${
+              searchParamsName && !searchParamsCategory
+                ? `name=${searchParamsName}`
+                : `category=${searchParamsCategory}`
+            }`
       }
       onClick={() => {
         setSelectColor(indexColor);
         handleSearch(idColor);
       }}
-      className={`flex flex-row gap-x-[5px] justify-center items-center  ${
+      className={`flex flex-row gap-x-[5px] justify-center items-center p-1 ${
         selectColor === indexColor
           ? "border-b-1 border-colorGoldSecundary-500"
           : "border-1 border-[#E8E8E8]"

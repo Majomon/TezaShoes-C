@@ -53,7 +53,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
               return updatedItem;
             }
 
-            console.log("Nada de modifico");
+            /* console.log("Nada de modifico"); */
 
             return item; // Retorna los datos actualizados del producto
           })
@@ -95,7 +95,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
           >
             <AllDeleteCart /> Borrar todo
           </button>
-          <ul className="w-full overflow-auto max-h-[500px]">
+          <ul className="w-full overflow-auto max-h-[60vh]">
             {cartLocalStorage?.map((item, index) => {
               const {
                 image,

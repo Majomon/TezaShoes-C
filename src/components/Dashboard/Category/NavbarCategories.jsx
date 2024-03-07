@@ -2,13 +2,13 @@ import { PlusRunded } from "../../../../assets/Dashboard/IconActions";
 
 function NavbarCategories({ handleAddCategory }) {
   return (
-    <div className="w-full flex justify-between items-center px-4">
-      <h1 className="">Categorias</h1>
-      <div className="bg-colorGoldSecundary-500 text-white flex py-2 px-3 gap-x-2 rounded-lg ">
+    <div className="w-full flex justify-between items-center ">
+      <h1 className=" text-lg font-bold">Categorias</h1>
+      <div className=" bg-colorGoldSecundary-500 text-white flex items-center py-2 px-3 gap-x-2 rounded-full cursor-pointer" onClick={handleAddCategory}>
         <div className="p-1 rounded-full bg-gray-50">
           <PlusRunded />
         </div>
-        <button onClick={handleAddCategory}>Agregar categoria</button>
+        <p className=" text-sm font-normal">Agregar categoria</p>
       </div>
     </div>
   );

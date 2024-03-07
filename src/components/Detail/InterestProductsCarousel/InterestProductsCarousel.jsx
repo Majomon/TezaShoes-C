@@ -26,7 +26,7 @@ export default function InterestProductsCarousel() {
   const randomProducts = getRandomProducts(sameCategoryProducts, 6);
 
   return (
-    <section className="max-w-[1366px] h-fit mx-auto">
+    <section className="max-w-[1366px] w-full h-fit mx-auto">
       <article className=" flex flex/row items-center justify-between ">
         <h1 className="sm:text-left text-center text-neutral-950 text-xl font-semibold ">
           Tambien te puede interesar
@@ -46,7 +46,7 @@ export default function InterestProductsCarousel() {
           </button>
         </div>
       </article>
-      <article className="">
+      <article className="w-full max-w-[1366px]">
         <Swiper
           modules={[Autoplay, Navigation, EffectCube]}
           /* effect={{ shadow: true }} */
@@ -59,7 +59,7 @@ export default function InterestProductsCarousel() {
             nextEl: "#ButtonNext",
             prevEl: "#ButtonPrev",
           }}
-          className=" max-w-[1366px] h-[450px]"
+          className="w-full h-[450px] "
           breakpoints={{
             slidesPerGroup: 1,
             slidesPerView: 1,
@@ -82,7 +82,7 @@ export default function InterestProductsCarousel() {
         >
           {randomProducts.map((product) => (
             <SwiperSlide className=" " key={product._id}>
-              <div className=" w-[100%] h-full flex flex-col justify-center items-center ">
+              <div className=" w-full h-full flex flex-col justify-center items-center ">
                 <Card
                   key={product._id}
                   id={product._id}

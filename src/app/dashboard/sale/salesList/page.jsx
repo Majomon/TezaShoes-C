@@ -13,7 +13,7 @@ function SalesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [stateOrder, setStateOrder] = useState([]);
 
-  let dimOrders = allOrders?.length;
+  let dimOrders = stateOrder?.length === 0 ? allOrders?.length : stateOrder?.length;
 
   return (
     <div className="w-full p-6">

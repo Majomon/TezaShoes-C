@@ -7,7 +7,7 @@ export default function SearchTableClient({ allList, stateList, setStateList }) 
   const handleChangeInput = (e) => {
     const { value } = e.target;
     setValueSearch(value);
-    filterOrders();
+    filterOrders(value);
 
     if (!value) {
       setStateList(allList);
@@ -18,14 +18,14 @@ export default function SearchTableClient({ allList, stateList, setStateList }) 
     setStateList(allList);
   }, []);
 
-  const filterOrders = () => {
+  const filterOrders = (valueParam) => {
     let newAllOrders = allList.filter((order) => {
       if (
         order.name
           .toLowerCase()
           .includes(
-            valueSearch?.toLowerCase()
-          ) /* || order?.totalCart?.toLowerCase().include(valueSearch?.toLowerCase()) */
+            valueParam?.toLowerCase()
+          ) 
       ) {
         return order;
       }
@@ -33,18 +33,15 @@ export default function SearchTableClient({ allList, stateList, setStateList }) 
     setStateList(newAllOrders);
   };
 
-  /* console.log(stateList) */
-
   return (
-    <div className="mx-auto w-full max-w-[960px] py-2">
+    <div className="mx-auto w-full max-w-[960px] py-2 flex gap-x-2">
       <input
         type="text"
         className="border-1 border-colorGray-100 rounded-lg w-full p-1"
-        placeholder="Buscar por Nombre"
+        placeholder="Buscar por Nombre de cliente"
         value={valueSearch}
         onChange={handleChangeInput}
       />
-      {/* stateOrder.length === 0 && <p>no se encontro la busqueda</p> */}
     </div>
   );
 }

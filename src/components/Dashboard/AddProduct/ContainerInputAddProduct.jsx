@@ -34,7 +34,7 @@ function ContainerInputAddProduct() {
     offerActive: false,
     offerPrice: 0,
   });
-
+  const [isContinueEnabled, setIsContinueEnabled] = useState(false);
   const [dataForm, setDataForm] = useState({
     name: "",
     category: "",
@@ -197,7 +197,26 @@ function ContainerInputAddProduct() {
     }
   };
 
-  /* console.log(dataForm) */
+const checkFormCompletion = () => {
+  const requiredFields = [
+    "name",
+    "category",
+    "price",
+    "description",
+    "images",
+  ];
+  const isComplete = requiredFields.every((field) => dataForm[field]);
+
+  const isColorNameEmpty = dataForm.options.some(
+    (option) => option.color.nameColor === ""
+  );
+
+  setIsContinueEnabled(isComplete && !isColorNameEmpty);
+};
+
+  useEffect(() => {
+    checkFormCompletion();
+  }, [dataForm]);
 
   return (
     <div className="w-full flex flex-col gap-y-4">
@@ -269,16 +288,10 @@ function ContainerInputAddProduct() {
         {isOn && (
           <div className="flex-col w-full ">
             <p className=" text-xs font-normal">Precio de oferta</p>
-            {/* <input
-              className="w-full h-full min-h-[30px] border-colorGray-100 border-1 focus:outline-none rounded-md px-1"
-              name="offerPrice"
-              onChange={handleChangeSwitch}
-            /> */}
             <input
               className="w-full h-full min-h-[30px] border-colorGray-100 border-1 focus:outline-none rounded-md px-1"
               type="text"
               name={"offer"}
-              /* placeholder={place || ""} */
               value={dataForm.offer.offerPrice || ""}
               onChange={handleChangeSwitch}
             />
@@ -331,12 +344,21 @@ function ContainerInputAddProduct() {
         isOpenMeasure={isOpenMeasure}
       />
 
-      <button
-        className="bg-gray-950 text-gray-50 py-2 px-4 rounded-md my-4"
-        onClick={handlerSubmit}
-      >
-        Crear
-      </button>
+      {(!dataForm.name &&
+      !dataForm.category &&
+      !dataForm.price === 0 &&
+      !dataForm.description &&
+      dataForm.options.length === 0 &&
+      dataForm.images.length === 0) ? (
+        <p>sin boton</p>
+      ) : (
+        <button
+          className="bg-gray-950 text-gray-50 py-2 px-4 rounded-md my-4"
+          onClick={handlerSubmit}
+        >
+          Crear
+        </button>
+      )}
     </div>
   );
 }

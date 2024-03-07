@@ -211,6 +211,7 @@ const useStoreProducts = create(
             ...prevState,
             categories: response.data,
           }));
+          return true;
         } else {
           throw new Error(
             `Error al obtener las categorias: ${response.status}`

@@ -1,5 +1,9 @@
 "use client";
-import { useStoreOpenCart, useStoreProducts } from "@/zustand/store";
+import {
+  useStoreCartLocalStorage,
+  useStoreOpenCart,
+  useStoreProducts,
+} from "@/zustand/store";
 import { Card, Skeleton } from "@nextui-org/react";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -22,6 +26,7 @@ export default function DetailArticle() {
   const [isOpenSizeGuide, setIsOpenSizeGuide] = useState(false);
   const { detail } = useStoreProducts();
   const [showCartReminder, setShowCartReminder] = useState(false);
+  const { setCartLocalStorage } = useStoreCartLocalStorage();
 
   useEffect(() => {
     if (detail && detail.options && detail.options.length > 0) {
@@ -164,6 +169,10 @@ export default function DetailArticle() {
       cartItems.push(selectedVariant);
     }
     localStorage.setItem("cart", JSON.stringify(cartItems));
+
+    const listCart = JSON.parse(localStorage.getItem("cart"));
+    setCartLocalStorage(listCart);
+
     Cookies.set("cartAbandoned", new Date());
     setModalBuy(true);
 

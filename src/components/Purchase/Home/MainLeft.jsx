@@ -26,19 +26,19 @@ function MainLeft({ dataForm, handlerChange }) {
     }
 
     // Validar el nombre y el apellido
-    if (dataForm?.name.length < 2 || dataForm.name.length > 20) {
+    if (dataForm?.name?.length < 2 || dataForm.name?.length > 20) {
       newErrors.name = "El nombre debe tener entre 2 y 20 caracteres";
       isValid = false;
     }
 
-    if (dataForm?.lastName.length < 2 || dataForm.lastName.length > 20) {
+    if (dataForm?.lastName?.length < 2 || dataForm.lastName?.length > 20) {
       newErrors.lastName = "El apellido debe tener entre 2 y 20 caracteres";
       isValid = false;
     }
 
     // Validar el documento
     const documentRegex = /^[0-9]{2,20}$/;
-    if (!documentRegex.test(dataForm.document)) {
+    if (!documentRegex.test(dataForm?.document)) {
       newErrors.document =
         "El documento debe tener entre 2 y 20 dígitos y no contener caracteres especiales";
       isValid = false;
@@ -55,32 +55,32 @@ function MainLeft({ dataForm, handlerChange }) {
     // Validar los campos de dirección
     if (dataForm?.address) {
       if (
-        dataForm.address.street.length < 2 ||
-        dataForm.address.street.length > 20
+        dataForm.address.street?.length < 2 ||
+        dataForm.address.street?.length > 20
       ) {
         newErrors.street = "La calle debe tener entre 2 y 20 caracteres";
         isValid = false;
       }
 
       if (
-        dataForm.address.number.length < 2 ||
-        dataForm.address.number.length > 20
+        dataForm.address.number?.length < 2 ||
+        dataForm.address.number?.length > 20
       ) {
         newErrors.number = "La altura debe tener entre 2 y 20 caracteres";
         isValid = false;
       }
 
       if (
-        dataForm.address.city.length < 2 ||
-        dataForm.address.city.length > 20
+        dataForm.address.city?.length < 2 ||
+        dataForm.address.city?.length > 20
       ) {
         newErrors.city = "La ciudad debe tener entre 2 y 20 caracteres";
         isValid = false;
       }
 
       if (
-        dataForm.address.postalCode.length < 2 ||
-        dataForm.address.postalCode.length > 20
+        dataForm.address.postalCode?.length < 2 ||
+        dataForm.address.postalCode?.length > 20
       ) {
         newErrors.postalCode =
           "El código postal debe tener entre 2 y 20 caracteres";
@@ -88,8 +88,8 @@ function MainLeft({ dataForm, handlerChange }) {
       }
 
       if (
-        dataForm.address.province.length < 2 ||
-        dataForm.address.province.length > 25
+        dataForm.address.province?.length < 2 ||
+        dataForm.address.province?.length > 25
       ) {
         newErrors.province = "La provincia debe tener entre 2 y 25 caracteres";
         isValid = false;
@@ -104,8 +104,6 @@ function MainLeft({ dataForm, handlerChange }) {
     handlerChange(e);
     validateInputs();
   };
-
-  
   return (
     <div className="max-w-[460px] pb-10 flex flex-col gap-y-5">
       {/*Email */}

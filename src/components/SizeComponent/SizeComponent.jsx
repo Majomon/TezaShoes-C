@@ -12,19 +12,10 @@ export default function SizeComponent({
   return (
     <Link
       href={
-        !searchParamsColor
-          ? `/search?size=${numberSize}&${
-              searchParamsCategory && !searchParamsName
-                ? `category=${searchParamsCategory}`
-                : `name=${searchParamsName}`
-            }`
+        !searchParamsColor ? `/search?size=${numberSize}&${searchParamsCategory && !searchParamsName ? `category=${searchParamsCategory}` : `name=${searchParamsName}`}`
           : `/search?size=${numberSize}&color=${encodeURIComponent(
               searchParamsColor
-            )}&${
-              searchParamsName && !searchParamsCategory
-                ? `name=${searchParamsName}`
-                : `category=${searchParamsCategory}`
-            }`
+            )}&${searchParamsName && !searchParamsCategory ? `name=${searchParamsName}` : `category=${searchParamsCategory}`}`
       }
       className={`w-[50px] h-[40px] flex items-center justify-center cursor-pointer ${
         selectSize === indexSize

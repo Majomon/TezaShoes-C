@@ -2,16 +2,22 @@
 import {
   useStoreDashboard,
   useStoreProducts,
+  useStoreUserId,
   useStoreUsers,
 } from "@/zustand/store";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IconLogOut, IconWeb } from "../../../assets/svg/IconsDashboards";
 import ContainerNavLinksDashboard from "./ContainerNavLinksDashboard";
+import Cookies from "js-cookie";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 function NavDashboard({ orders, category, allUsers, products }) {
+  const [isOpenUser, setIsOpenUser] = useState(false);
   const { setAllOrders, allOrders, fetchAllOrders } = useStoreDashboard();
   const { setUsers, users, fetchAllUsers } = useStoreUsers();
+  const { setUserId } = useStoreUserId();
   const {
     allProducts,
     fetchAllProducts,
@@ -20,6 +26,8 @@ function NavDashboard({ orders, category, allUsers, products }) {
     categories,
     fetchAllCategories,
   } = useStoreProducts();
+
+  const router = useRouter();
 
 
   useEffect(() => {
@@ -51,6 +59,20 @@ function NavDashboard({ orders, category, allUsers, products }) {
     fetchData();
   }, []);
 
+  const logOut = () => {
+    console.log("clic");
+    if (typeof window !== "undefined") {
+      if (Cookies.get("isAdmin")) {
+        Cookies.remove("isAdmin");
+      }
+      window.localStorage.removeItem("userId");
+      toast.success("Cerraste sesión");
+      setUserId(null);
+      setIsOpenUser(!isOpenUser);
+      router.push("/");
+    }
+  };
+
   return (
     <div className="w-9/12 h-4/5 mx-auto  flex flex-col items-center justify-between relative">
       <div className="">
@@ -61,9 +83,9 @@ function NavDashboard({ orders, category, allUsers, products }) {
           <IconWeb />
           <p className="text-base font-semibold">Ir a inicio</p>
         </Link>
-        <button className="flex gap-x-2 justify-center items-center">
+        <button className="flex gap-x-2 justify-center items-center" onClick={() => logOut()}>
           <IconLogOut />
-          <p className="text-base font-semibold">Salir</p>
+          <p className="text-base font-semibold" >Salir</p>
         </button>
       </div>
     </div>

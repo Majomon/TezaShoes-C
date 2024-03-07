@@ -26,23 +26,24 @@ function Categories() {
   };
 
   const handleDeleteCategory = async (category) => {
-    await fetchDeleteCategoryId(category._id);
-
-    setTimeout(() => {
-      setCategories(fetchAllCategories());
-    }, 100);
+    try {
+      await fetchDeleteCategoryId(category._id);
+    } catch (error) {
+      console.error("Error al eliminar la categoría:", error);
+      // Tratar el error según sea necesario
+    }
   };
 
   return (
-    <main className="w-full p-6 relative">
+    <main className=" w-full max-w-[960px] mx-auto p-6 relative">
       <Toaster position="top-center" />
-      <div className="p-4 border border-gray-300 rounded-md">
+      <div className="flex flex-col gap-y-2">
         <NavbarCategories handleAddCategory={handleAddCategory} />
-        <ul className="py-2">
+        <ul className="pb-2 bg-white rounded-md">
           {categories?.map((item, index) => (
             <li
               key={index}
-              className="w-full  py-2 px-4 border-gray-200 border-1 relative"
+              className="w-full py-2 px-4 border-slate-200 border-b-1 relative"
             >
               <div>
                 <div className="flex justify-between">
@@ -58,7 +59,7 @@ function Categories() {
                   </div>
                 </div>
                 {editCategory === item && (
-                  <EditCategory item={item} setEditCategory={setEditCategory} />
+                  <EditCategory item={item} editCategory={editCategory} setEditCategory={setEditCategory} />
                 )}
               </div>
             </li>
@@ -66,7 +67,7 @@ function Categories() {
         </ul>
       </div>
       {addCategory && (
-        <AddCategory setAddCategory={setAddCategory} category={true} />
+        <AddCategory setAddCategory={setAddCategory} addCategory={addCategory} category={true} />
       )}
     </main>
   );

@@ -1,8 +1,9 @@
 import { useStoreProducts } from "@/zustand/store";
 import { useState } from "react";
 import ImgFirebase from "../AddProduct/ImgFirebase";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
 
-function EditCategory({ item, setEditCategory }) {
+function EditCategory({ item, setEditCategory, editCategory }) {
   const { fetchPutCategoryId, fetchAllCategories, setCategories } =
     useStoreProducts();
 
@@ -27,26 +28,25 @@ function EditCategory({ item, setEditCategory }) {
   };
 
   return (
-    <div className="w-full fixed inset-0 flex justify-center items-center bg-gray-950/50 z-50">
-      <div className="bg-white p-8 rounded-lg w-4/12 h-fit shadow-md shadow-gray-950 relative">
-        <div
-          className="w-7 h-7 flex justify-center absolute top-1 right-1 bg-gray-950 text-gray-50 p-1 rounded-full cursor-pointer"
-          onClick={() => setEditCategory(false)}
+    <Modal
+      isOpen={editCategory}
+      placement={"center"}
+      onOpenChange={() => setEditCategory(!editCategory)}
         >
-          X
-        </div>
-        <h2 className="font-bold">Editar categoria</h2>
-        <div className="w-full flex flex-col">
-          <div className="w-full py-2 flex gap-x-2">
-            <label htmlFor="nameCategory" className="text-gray-950">
+          <ModalContent>
+        <ModalHeader>
+        <h2 className="text-base font-bold">Editar categoria</h2>
+        </ModalHeader>
+        <ModalBody>
+          <div className="flex flex-col gap-y-1">
+            <label htmlFor="nameCategory" className="text-gray-950 text-sm font-normal">
               Nombre de la categoria
             </label>
-            <p>-- </p>
-            <input
+                        <input
               id="nameCategory"
               value={dataCategory.name}
               onChange={handleNameChange}
-              className="border-1 border-gray-400 rounded-lg text-center "
+              className="border-1 border-colorGray-100 rounded-xl p-1"
             />
           </div>
           <div className="w-full">
@@ -55,17 +55,18 @@ function EditCategory({ item, setEditCategory }) {
               nameCategory={"nameCategory"}
             />
           </div>
-        </div>
+        </ModalBody>
+        <ModalFooter>
         {dataCategory.name.length > 0 && dataCategory.image.length > 0 && (
-          <div className="bg-colorGoldSecundary-500 text-white flex py-2 px-3 gap-x-2 rounded-lg justify-center">
+          <div className="bg-colorGoldSecundary-500 text-white flex py-2 px-3 gap-x-2 rounded-full justify-center">
             <button onClick={() => handleSubmit(dataCategory)}>
               Modificar
             </button>
           </div>
         )}
-      </div>
-      ;
-    </div>
+      </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 

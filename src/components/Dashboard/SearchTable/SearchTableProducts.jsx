@@ -1,13 +1,13 @@
 'use client'
 import React, { useEffect, useState } from "react";
 
-export default function SearchTableProducts({ allList, stateList, setStateList }) {
+export default function SearchTableProducts({ allList, setStateList }) {
   const [valueSearch, setValueSearch] = useState(null);
   
   const handleChangeInput = (e) => {
     const { value } = e.target;
     setValueSearch(value);
-    filterOrders();
+    filterOrders(value);
 
     if (!value) {
       setStateList(allList);
@@ -18,14 +18,14 @@ export default function SearchTableProducts({ allList, stateList, setStateList }
     setStateList(allList);
   }, []);
 
-  const filterOrders = () => {
+  const filterOrders = (valueParam) => {
     let newAllOrders = allList.filter((order) => {
       if (
         order.name
           .toLowerCase()
           .includes(
-            valueSearch?.toLowerCase()
-          ) /* || order?.totalCart?.toLowerCase().include(valueSearch?.toLowerCase()) */
+            valueParam?.toLowerCase() 
+          ) || order.category.toLowerCase().includes(valueParam?.toLowerCase())
       ) {
         return order;
       }
@@ -33,14 +33,13 @@ export default function SearchTableProducts({ allList, stateList, setStateList }
     setStateList(newAllOrders);
   };
 
-  /* console.log(stateList) */
 
   return (
     <div className="mx-auto w-full max-w-[960px] py-2">
       <input
         type="text"
         className="border-1 border-colorGray-100 rounded-lg w-full p-1"
-        placeholder="Buscar por Nombre"
+        placeholder="Buscar por Nombre de producto o Categoria"
         value={valueSearch}
         onChange={handleChangeInput}
       />

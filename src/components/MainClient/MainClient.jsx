@@ -4,8 +4,8 @@ import { useStoreUsers } from "@/zustand/store";
 import { useEffect } from "react";
 import DataListClients from "./DataListClients";
 
-export default function MainClient() {
-  const { users, setUsers, fetchAllUsers } = useStoreUsers();
+export default function MainClient({ stateList, users, setUsers, fetchAllUsers }) {
+  /* const { users, setUsers, fetchAllUsers } = useStoreUsers(); */
 
   useEffect(() => {
     if (users?.length === 0 || !users) {
@@ -32,7 +32,7 @@ export default function MainClient() {
           {!users ? (
             <p className="w-full text-center">Sin usuario registrados</p>
           ) : (
-            users?.map((user, index) => {
+            (stateList.length === 0 ? users : stateList)?.map((user, index) => {
               const { name, orders, email, phone, _id } = user;
               /* console.log(user) */
               return (

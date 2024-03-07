@@ -1,5 +1,6 @@
 "use client";
 import { useStorePayOrder } from "@/zustand/store";
+import Cookies from "js-cookie";
 
 const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
   const { fetchPutOrderId } = useStorePayOrder();
@@ -27,7 +28,9 @@ const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
 
   const handleSuccess = async () => {
     try {
-      console.log("Exitoso perrito");
+      /*remover cookies*/
+      Cookies.remove("OrderPaymentModo");
+      Cookies.remove("orderData");
       await fetchPutOrderId(dataId, { status: "Pago realizado" });
     } catch (error) {
       console.error("Error al actualizar el estado:", error);

@@ -34,44 +34,19 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
             </button>
             <Image className="" src={LogoTeza} alt="Logo Teza Shoes" />
           </div>
-          <ul>
-            <h3 className=" text-lg font-semibold border-b-1 border-t-1 border-colorBlack-400 px-6">
-              Categorias
-            </h3>
-            {categories?.map((item) => (
-              <li
-                key={item.name}
-                className="cursor-pointer px-6 my-4 hover:font-bold hover:underline"
-              >
-                <Link
-                  className="w-full text-lg "
-                  href={`/search?category=${item.name}`}
-                  onClick={() => {
-                    setSelectColor(null);
-                    setSelectSize(null);
-                    setSelectOrder(null);
-                    setIsMenuOpen(!isMenuOpen);
-                  }}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul className=" block ">
-            <h3 className=" text-lg font-semibold border-b-1 border-t-1 border-colorBlack-400 px-6">
-              Paginas
-            </h3>
-            {listLinkNavbar.map((item) => {
-              const { name, url } = item;
-              return (
+          <section className=" h-[75vh] overflow-auto">
+            <ul className="">
+              <h3 className=" text-lg font-semibold border-b-1 border-t-1 border-colorBlack-400 px-6">
+                Categorias
+              </h3>
+              {categories?.map((item) => (
                 <li
-                  key={name}
+                  key={item.name}
                   className="cursor-pointer px-6 my-4 hover:font-bold hover:underline"
                 >
                   <Link
                     className="w-full text-lg "
-                    href={url}
+                    href={`/search?category=${item.name}`}
                     onClick={() => {
                       setSelectColor(null);
                       setSelectSize(null);
@@ -79,12 +54,39 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
                       setIsMenuOpen(!isMenuOpen);
                     }}
                   >
-                    {name}
+                    {item.name}
                   </Link>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+            <ul className=" block ">
+              <h3 className=" text-lg font-semibold border-b-1 border-t-1 border-colorBlack-400 px-6">
+                Paginas
+              </h3>
+              {listLinkNavbar.map((item) => {
+                const { name, url } = item;
+                return (
+                  <li
+                    key={name}
+                    className="cursor-pointer px-6 my-4 hover:font-bold hover:underline"
+                  >
+                    <Link
+                      className="w-full text-lg "
+                      href={url}
+                      onClick={() => {
+                        setSelectColor(null);
+                        setSelectSize(null);
+                        setSelectOrder(null);
+                        setIsMenuOpen(!isMenuOpen);
+                      }}
+                    >
+                      {name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
         </div>
       </div>
     </div>
