@@ -29,7 +29,6 @@ function NavDashboard({ orders, category, allUsers, products }) {
 
   const router = useRouter();
 
-
   useEffect(() => {
     setAllOrders(orders);
     setCategories(category);
@@ -82,9 +81,12 @@ function NavDashboard({ orders, category, allUsers, products }) {
           <IconWeb />
           <p className="text-base font-semibold">Ir a inicio</p>
         </Link>
-        <button className="flex gap-x-2 justify-center items-center" onClick={() => logOut()}>
+        <button
+          className="flex gap-x-2 justify-center items-center"
+          onClick={() => logOut()}
+        >
           <IconLogOut />
-          <p className="text-base font-semibold" >Salir</p>
+          <p className="text-base font-semibold">Salir</p>
         </button>
       </div>
     </div>

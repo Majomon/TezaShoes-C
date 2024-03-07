@@ -1,5 +1,11 @@
 "use client";
-
+import {
+  useStoreCartLocalStorage,
+  useStorePayOrder,
+  useStoreProducts,
+  useStoreSendEmails,
+  useStoreUsers,
+} from "@/zustand/store";
 import {
   Modal,
   ModalBody,
@@ -8,10 +14,8 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import Cookies from "js-cookie";
-import ButtonModo from "../ButtonMODO/ButtonModo";
-import ItemCardOrder from "../Account/CardOrder/ItemCardOrder";
 import ItemModal from "../Account/CardOrder/ItemModal/ItemModal";
-import { useStoreCartLocalStorage, useStorePayOrder, useStoreProducts, useStoreSendEmails, useStoreUsers } from "@/zustand/store";
+import ButtonModo from "../ButtonMODO/ButtonModo";
 
 function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
   const { fetchPostPutProductsRestore } = useStoreProducts();
@@ -22,13 +26,19 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
 
   let varCookies = Cookies.get("OrderPaymentModo");
   let varCookiesOrderData = Cookies.get("orderData");
-  const orderDataCookies = varCookiesOrderData ? JSON.parse(varCookiesOrderData) : {};
+
+  const orderDataCookies = varCookiesOrderData
+    ? JSON.parse(varCookiesOrderData)
+    : {};
 
   const cookiesParsing = varCookies ? JSON.parse(varCookies) : {};
+
   const { cart, dataPurchase, totalCart } = cookiesParsing;
 
-  const handleClicCancel = async() => {
-    await fetchPutOrderId(orderDataCookies._id,{status: "Cancelado"})
+  const handleClicCancel = async () => {
+    /* Pasarle la información de CART */
+   /*  await fetchPostPutProductsRestore(cart); */
+    await fetchPutOrderId(orderDataCookies._id, { status: "Cancelado" });
     await fetchPostOrderCancel(orderDataCookies);
     if (cookiesParsing.userId.id) {
       await fetchPutUserOrderStatus(cookiesParsing.userId.id, {
@@ -36,10 +46,12 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
         status: "Cancelado",
       });
     }
+    fetchPostPutProductsRestore(cart);
     Cookies.remove("OrderPaymentModo");
     Cookies.remove("orderData");
+    Cookies.remove("numberIdOrder")
+    Cookies.remove("number_IdOrder")
     setOpenModalPaymentModo(false);
-    fetchPostPutProductsRestore(cartLocalStorage);
   };
 
   const totalProducts =
@@ -55,7 +67,9 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
       >
         <ModalContent>
           <ModalHeader>
-            <h1 className=" text-base font-bold">#{orderDataCookies?.numberOrder}</h1>
+            <h1 className=" text-base font-bold">
+              #{orderDataCookies?.numberOrder}
+            </h1>
           </ModalHeader>
           <ModalBody>
             <section className=" overflow-auto max-h-[350px]">

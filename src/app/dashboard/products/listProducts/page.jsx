@@ -13,6 +13,9 @@ function ListProducts() {
     fetchDeleteProductId,
   } = useStoreProducts();
   const [stateList, setStateList] = useState([]);
+
+  /* console.log(allProducts) */
+
   return (
     <div className="w-full p-6">
       <div className=" w-full max-w-[960px] mx-auto">

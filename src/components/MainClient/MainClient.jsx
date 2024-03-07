@@ -34,6 +34,7 @@ export default function MainClient({ stateList, users, setUsers, fetchAllUsers }
           ) : (
             (stateList.length === 0 ? users : stateList)?.map((user, index) => {
               const { name, orders, email, phone, _id } = user;
+              /* console.log(user) */
               return (
                 <DataListClients
                   _id={_id}

@@ -9,12 +9,15 @@ import {
 export default function DataListClients({ name, orders, email, phone, _id }) {
   const [idUser, setIdUser] = useState(0);
   const [idPurchase, setIdPurchase] = useState(0);
+  /* let idPurchase = 0; */
 
   const totalPaymentOrders = () => {
+    /* console.log(orders); */
     let totalPaymentCart = 0;
     let cartList = null;
     orders.forEach((elem) => {
       cartList = elem.cart;
+      /* console.log(elem.cart) */
     });
 
     cartList?.forEach((item) => {
@@ -41,6 +44,7 @@ export default function DataListClients({ name, orders, email, phone, _id }) {
     });
   }, []);
 
+  /* console.log(idPurchase) */
 
   return (
     <tr className=" text-left ">

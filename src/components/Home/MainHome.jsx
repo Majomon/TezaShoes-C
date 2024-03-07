@@ -35,7 +35,7 @@ export default function MainHome() {
       <Offer />
       {/*    <VideoPlay /> */}
       <Title text={"Categorias"} />
-      <div className="w-10/12 h-full mx-auto">
+      <div className="w-full h-full mx-auto">
         <Categorias />
       </div>
     </div>

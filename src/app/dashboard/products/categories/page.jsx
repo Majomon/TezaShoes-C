@@ -26,12 +26,11 @@ function Categories() {
   };
 
   const handleDeleteCategory = async (category) => {
-    try {
-      await fetchDeleteCategoryId(category._id);
-    } catch (error) {
-      console.error("Error al eliminar la categoría:", error);
-      // Tratar el error según sea necesario
-    }
+    await fetchDeleteCategoryId(category._id);
+
+    setTimeout(() => {
+      setCategories(fetchAllCategories());
+    }, 100);
   };
 
   return (

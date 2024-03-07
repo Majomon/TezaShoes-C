@@ -3,7 +3,7 @@ import { IconCart } from "../../../assets/Card/IconCard";
 
 export default function ItemCardCart({ hoverAction }) {
   const [hoverCart,setHoverCart] = useState(false)
-
+  /* console.log(hoverAction) */
   return (
     <div>
       {hoverAction ? (

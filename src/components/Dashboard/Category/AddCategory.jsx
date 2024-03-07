@@ -38,19 +38,25 @@ function AddCategory({ setAddCategory, addCategory }) {
       name: e.target.value,
     }));
   };
+
   const handleSubmit = async (data) => {
+
     setFinalyDataCategory({ ...finalyDataCategory,
       name: data.name,
       image: data.image,
       sizesGuides: listSizeGuide 
     });
+    console.log(finalyDataCategory)
+
+
     await fetchPostCategory(/* data */ finalyDataCategory);
     setTimeout(() => {
       setCategories(fetchAllCategories());
     }, 100);
     setAddCategory(false);
   };
-
+  /* 
+  console.log(finalyDataCategory); */
   const handleClicCheckbox = (e) => {
     const { value } = e.target;
     if (value) {
@@ -145,16 +151,16 @@ function AddCategory({ setAddCategory, addCategory }) {
                   Sin talles y medidas
                 </p>
               )}
-        </div>
-)}
+            </div>
+          )}
         </ModalBody>
         <ModalFooter>
-        {dataCategory.name.length > 0 && dataCategory.image.length > 0 && (
-          <div className="bg-colorGoldSecundary-500 text-white flex py-2 px-3 gap-x-2 rounded-full justify-center">
-            <button onClick={() => handleSubmit(dataCategory)}>Crear</button>
-          </div>
-        )}
-      </ModalFooter>
+          {dataCategory.name.length > 0 && dataCategory.image.length > 0 && (
+            <div className="bg-colorGoldSecundary-500 text-white flex py-2 px-3 gap-x-2 rounded-full justify-center">
+              <button onClick={() => handleSubmit(dataCategory)}>Crear</button>
+            </div>
+          )}
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );

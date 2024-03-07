@@ -73,6 +73,7 @@ function ContainerEditProduct({ productId }) {
     setDataForm({ ...dataForm, offer: offerInput });
   }, [offerInput]);
 
+  /* console.log(dataForm) */
 
   useEffect(() => {
     if (dataForm.category === "Carteras") {
@@ -122,6 +123,7 @@ function ContainerEditProduct({ productId }) {
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
+    /* console.log(e); */
     try {
       const response = await axios.put(`/products/${dataForm._id}`, dataForm);
       if (response.status === 200) {
@@ -135,6 +137,7 @@ function ContainerEditProduct({ productId }) {
 
   const handleSizeChange = (colorIndex, sizeIndex, e) => {
     const { name, value } = e.target;
+    /* console.log(value) */
     const updatedSizes = [...colorInputs[colorIndex].sizes];
     updatedSizes[sizeIndex][name] = value;
     const updatedColors = [...colorInputs];

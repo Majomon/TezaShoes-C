@@ -38,6 +38,7 @@ export default function DetailArticle() {
     };
   }, [detail]);
 
+  /* console.log(detail) */
 
   useEffect(() => {
     const cartAbandoned = Cookies.get("cartAbandoned");

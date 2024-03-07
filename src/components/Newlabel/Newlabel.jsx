@@ -5,6 +5,7 @@ import {
   
   export default function Newlabel({ newProduct, offer }) {
     let New = newProduct === true ? "block" : "hidden";
+    /* console.log(newProduct, offer) */
     return (
       <>
         {
@@ -21,7 +22,7 @@ import {
                       <OfferLabelItem />
                       <p className="w-[45.36px] h-5 rotate-45 text-center text-white text-xs font-light absolute top-[11px] right-0">OFERTA</p>
                   </div> */
-          ) : offer === true && newProduct === true ? (
+          ) : offer === true ? (
             <div>
               {/* <div className={` text-colorWhite-100 w-[54px] h-[54px] rounded-tr-sm rounded-br-sm flex justify-center items-center absolute z-[5] top-0  ${New}`}>
                           <NewLabelItem />

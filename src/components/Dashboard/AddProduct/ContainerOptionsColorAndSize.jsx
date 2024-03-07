@@ -39,24 +39,27 @@ function ContainerOptionsColorAndSize({
       <div className=" flex flex-col gap-y-3">
         <div className="flex gap-x-10 ">
           <h2 className=" text-base font-medium w-1/2">Talles y Stock</h2>
-          <button
-            className=" flex items-center justify-start gap-x-2 w-1/2"
-            onClick={() => handleAddSize(colorIndex)}
-          >
-            <IconAdd />
-            <p className=" text-colorGoldSecundary-500 text-base font-medium">
-              Agregar Talle
-            </p>
-          </button>
+          {!isOpenMeasure && (
+            <button
+              className=" flex items-center justify-start gap-x-2 w-1/2"
+              onClick={() => handleAddSize(colorIndex)}
+            >
+              <IconAdd />
+
+              <p className=" text-colorGoldSecundary-500 text-base font-medium">
+                Agregar Talle
+              </p>
+            </button>
+          )}
         </div>
         {colorInput.sizes.map((size, sizeIndex) => (
           <div key={sizeIndex} className="grid grid-cols-2 gap-x-10">
             {isOpenMeasure ? (
               <input
-                className=" border-1 border-colorGray-100 rounded-lg px-2 h-[30px]"
-                type="number"
+                className=" rounded-lg px-2 h-[30px] bg-gray-100 text-gray-500"
+                type="text"
                 name="size"
-                value={1}
+                value={"U"}
                 onChange={(e) => handleSizeChange(colorIndex, sizeIndex, e)}
                 placeholder="Talle"
                 min={0}
@@ -65,15 +68,15 @@ function ContainerOptionsColorAndSize({
               />
             ) : (
               <input
-              className=" border-1 border-colorGray-100 rounded-lg px-2 h-[30px]"
-              type="number"
-              name="size"
-              value={check(size.size)}
-              onChange={(e) => handleSizeChange(colorIndex, sizeIndex, e)}
-              placeholder="Talle"
-              min={0}
-              id="sizeInput"
-            />
+                className=" border-1 border-colorGray-100 rounded-lg px-2 h-[30px]"
+                type="number"
+                name="size"
+                value={check(size.size)}
+                onChange={(e) => handleSizeChange(colorIndex, sizeIndex, e)}
+                placeholder="Talle"
+                min={0}
+                id="sizeInput"
+              />
             )}
             {/* <input
               className=" border-1 border-colorGray-100 rounded-lg px-2 h-[30px]"

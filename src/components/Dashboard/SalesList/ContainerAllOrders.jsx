@@ -89,6 +89,7 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
       }
       return order;
     });
+
     setAllOrders(updatedOrders);
   };
 
@@ -120,7 +121,9 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
   return (
     <>
       {!orderWholesaleAllOrders() ? (
-        <p className="w-full text-center">Sin ventas</p>
+        <tr>
+          <p className="w-full text-center">Sin ventas</p>
+        </tr>
       ) : (
         orderWholesaleAllOrders()
           ?.map((item, index) => [
@@ -223,8 +226,7 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
                       selectedOrder._id === item._id && (
                         <ContainerActionsOrders
                           item={item}
-                          setIsOpenModalActions={setIsOpenModalActions}
-                          isOpenModalActions={isOpenModalActions}
+                          openActionsModal={openActionsModal}
                         />
                       )}
                   </div>

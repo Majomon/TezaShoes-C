@@ -125,11 +125,13 @@ function NavAccount({ isSelect, setIsSelect }) {
                 variant="shadow"
                 disallowEmptySelection
                 selectionMode="single"
+                /* selectedKeys={selectedKeys}
+                onSelectionChange={setSelectedKeys} */
                 color="warning"
               >
                 {listLinkPerfil.map((item, index) => {
                   const { icon, name } = item;
-       
+                  /* console.log(selectedKeys); */
                   return (
                     <DropdownItem
                       key={index}

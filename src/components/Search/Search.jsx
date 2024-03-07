@@ -149,6 +149,10 @@ function Search({ product }) {
     }
   };
 
+  /* useEffect(() => {
+    console.log(productsFilter);
+  }, [productsFilter]); */
+
   return (
     <div className="w-full h-full flex flex-col gap-y-5">
       <section className="w-full h-[200px] relative top-0 left-0 flex flex-col items-center justify-center gap-y-5">
@@ -195,25 +199,27 @@ function Search({ product }) {
                 })}
               </article>
             </AccordionItem>
-            <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
-              <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
-                {listNoRepitSize()?.map((elem, index) => {
-                  return (
-                    <SizeComponent
-                      key={`${index}+${elem}`}
-                      searchParamsColor={searchParamsColor}
-                      searchParamsCategory={searchParamsCategory}
-                      searchParamsName={searchParamsName}
-                      numberSize={elem}
-                      setSelectSize={setSelectSize}
-                      selectSize={selectSize}
-                      indexSize={index}
-                      /* fetchDataParamsSizes={fetchDataParamsSizes} */
-                    />
-                  );
-                })}
-              </article>
-            </AccordionItem>
+            {searchParamsCategory.toLocaleLowerCase() !== "carteras" ? (
+              <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
+                <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
+                  {listNoRepitSize()?.map((elem, index) => {
+                    return (
+                      <SizeComponent
+                        key={`${index}+${elem}`}
+                        searchParamsColor={searchParamsColor}
+                        searchParamsCategory={searchParamsCategory}
+                        searchParamsName={searchParamsName}
+                        numberSize={elem}
+                        setSelectSize={setSelectSize}
+                        selectSize={selectSize}
+                        indexSize={index}
+                        /* fetchDataParamsSizes={fetchDataParamsSizes} */
+                      />
+                    );
+                  })}
+                </article>
+              </AccordionItem>
+            ) : ""}
             <AccordionItem key={3} aria-label="Accordion 3" title="Orden">
               <article className=" flex flex-col gap-y-[5px]">
                 {listOrder.map((item, index) => {

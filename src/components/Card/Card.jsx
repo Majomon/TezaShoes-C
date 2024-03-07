@@ -33,7 +33,7 @@ export default function Card({
         <Newlabel newProduct={newProduct} offer={offer} />
         <Link href={`/detail/${id}`}>
           <Image
-            className="w-[280px] h-[280px] rounded-t-md rounded-b-none object-contain cursor-pointer z-0 "
+            className="w-[280px] h-[280px] rounded-t-md rounded-b-none object-cover cursor-pointer z-0 "
             src={images[0]}
             alt="imageCard"
           />

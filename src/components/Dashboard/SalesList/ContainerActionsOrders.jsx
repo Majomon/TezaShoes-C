@@ -6,11 +6,7 @@ import {
 } from "@/zustand/store";
 import { useState } from "react";
 
-function ContainerActionsOrders({
-  item,
-  setIsOpenModalActions,
-  isOpenModalActions,
-}) {
+function ContainerActionsOrders({ item, openActionsModal }) {
   const { allOrders, setAllOrders } = useStoreDashboard();
   const [courier, setCourier] = useState("");
   const [tracking, setTracking] = useState("");
@@ -48,8 +44,8 @@ function ContainerActionsOrders({
       }
       return order;
     });
+    
     setAllOrders(updatedOrders);
-    setIsOpenModalActions(!isOpenModalActions);
   };
 
   const handleCourierChange = (e) => {
@@ -59,6 +55,7 @@ function ContainerActionsOrders({
   const handleTrackingChange = (e) => {
     setTracking(e.target.value);
   };
+
 
   return (
     <div className="h-fit absolute right-[100%] top-0 bg-gray-50 border-1 border-colorGray-100 shadow-cardPerfilShadow rounded-md z-50 p-4 flex flex-col gap-2">

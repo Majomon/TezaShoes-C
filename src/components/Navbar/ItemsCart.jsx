@@ -27,6 +27,7 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
 
             if (updatedProduct && updatedProduct.data.price !== item.price) {
               const totalPrice = item.count * updatedProduct.data.price;
+              console.log(totalPrice);
               const updatedItem = {
                 ...item,
                 price: updatedProduct.data.price,
@@ -45,9 +46,14 @@ function ItemsCart({ setIsOpenCart, isOpenCart }) {
                 "cart",
                 JSON.stringify(updatedLocalStorageCart)
               );
+
+              console.log("Algo se modifico");
+
               // Devuelve el elemento del carrito con el precio actualizado
               return updatedItem;
             }
+
+            /* console.log("Nada de modifico"); */
 
             return item; // Retorna los datos actualizados del producto
           })

@@ -35,6 +35,8 @@ function ContainerNav({ categorias, products }) {
   if (pathname.startsWith("/purchase")) {
     return null;
   }
+  /* let varCookiesVerific = Cookies.get("OrderPaymentModo"); */
+  /* console.log(varCookiesVerific) */
 
   return (
     <div className="w-full h-16  md:px-8 px-2 shadow-md relative">

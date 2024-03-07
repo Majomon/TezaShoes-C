@@ -19,7 +19,7 @@ export default function Categorias() {
   const { categories } = useStoreProducts();
 
   return (
-    <div>
+    <div className="">
       <Swiper
         modules={[Autoplay, Navigation, Pagination, EffectCube]}
         effect={{ shadow: true }}
@@ -30,7 +30,7 @@ export default function Categorias() {
           nextEl: "#ButtonNext",
           prevEl: "#ButtonPrev",
         }}
-        className=" max-w-[1366px] h-[480px]"
+        className=" max-w-[1366px] w-full h-[480px]"
         breakpoints={{
           slidesPerGroup: 1,
           slidesPerView: 1,

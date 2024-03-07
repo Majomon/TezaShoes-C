@@ -6,11 +6,11 @@ import { v4 as uuidv4 } from "uuid";
 const storage = getStorage(appFirebase);
 
 function ImgFirebase({ setFormData, nameCategory }) {
-  const [imageUrls, setImageUrls] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [imageUrls, setImageUrls] = useState([]);
 
   useEffect(() => {
-    if (imageUrls.length > 0) {
+    if (imageUrls?.length > 0) {
       if (nameCategory) {
         setFormData((prevData) => ({
           ...prevData,
@@ -74,7 +74,7 @@ function ImgFirebase({ setFormData, nameCategory }) {
             <p className="py-2 border-b-2">Subiendo...</p>
           </div>
         )}
-        {imageUrls.length > 0 && nameCategory ? (
+        {imageUrls?.length > 0 && nameCategory ? (
           <div>
             <img
               src={imageUrls[0]}
@@ -85,7 +85,7 @@ function ImgFirebase({ setFormData, nameCategory }) {
         ) : (
           <div>
             <ul className="w-full grid grid-cols-3 gap-3">
-              {imageUrls.map((url, index) => (
+              {imageUrls?.map((url, index) => (
                 <li key={index}>
                   <img
                     src={url}
