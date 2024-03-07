@@ -187,6 +187,7 @@ export default function DetailArticle() {
     Cookies.remove("cartAbandoned");
   };
 
+
   return (
     <div className=" w-full lg:w-[650px] border-b-1 border-colorGoldSecundary-500 min-h-[500px]">
       <InfoTopDetailArticle />

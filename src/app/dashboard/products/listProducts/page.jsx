@@ -2,7 +2,7 @@
 import ContainerAllProducts from "@/components/Dashboard/ProductsList/ContainerAllProducts";
 import SearchTableProducts from "@/components/Dashboard/SearchTable/SearchTableProducts";
 import { useStoreProducts } from "@/zustand/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ListProducts() {
   const {
@@ -13,6 +13,11 @@ function ListProducts() {
     fetchDeleteProductId,
   } = useStoreProducts();
   const [stateList, setStateList] = useState([]);
+  /* const [allProductsState,setAllProdcutsState] = useState();
+
+  useEffect(() => {
+    setAllProdcutsState(allProducts)
+  },allProducts) */
 
   /* console.log(allProducts) */
 

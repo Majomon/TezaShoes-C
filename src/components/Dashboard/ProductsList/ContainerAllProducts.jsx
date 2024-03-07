@@ -8,7 +8,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
   Delete,
@@ -36,9 +36,11 @@ function ContainerAllProducts({
     try {
       const updatedProduct = { isActive: !currentStatus };
       await fetchPutProductId(productId, updatedProduct);
+      /* fetchAllProducts() */
+      /* setProducts(fetchAllProducts()); */
       setTimeout(() => {
-        setProducts(fetchAllProducts());
-      }, 100);
+        fetchAllProducts()
+      }, 500);
       toast.success("Producto modificado con exito");
     } catch (error) {
       /* console.error("Error al cambiar el estado del producto:", error); */
@@ -46,49 +48,57 @@ function ContainerAllProducts({
     }
   };
 
+  /* console.log(allProducts) */
+  
   let dimProduct = stateList?.length === 0 ? allProducts?.length : stateList?.length;
-
+  
   const toggleDelete = async (productId) => {
     try {
       await fetchDeleteProductId(productId);
+      /* fetchAllProducts() */
       setTimeout(() => {
-        setProducts(fetchAllProducts());
-      }, 100);
+        fetchAllProducts()
+      }, 800);
       toast.success("Producto eliminado");
     } catch (error) {
       /* console.error("Error al cambiar el estado del producto:", error); */
       toast.warning("Error al eliminar el producto");
     }
   };
-
+  
+  /* useEffect(() => {
+    fetchAllProducts()
+  },[]) */
+  
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     toast.success("URL Copiado");
   };
 
-  /* console.log(allProducts) */
   const totalStockProduct = (options) => {
     let totalStock = 0;
-    let listSizes = null;
+    /* let listSizes = null; */
     options?.forEach((elem) => {
       elem.sizes.forEach((subElem) => (totalStock += subElem.stock));
     });
-    /* listSizes.forEach(elem => totalStock += elem.stock) */
     return totalStock;
   };
 
   const orderWholesaleAllProducts = () => {
-    if (stateList.length === 0) {
+    if (stateList?.length === 0) {
       const allProductsWithId = allProducts?.map((item, index) => {
         return { id: index, ...item };
       });
       return allProductsWithId?.sort((a, b) => b.id - a.id);
     } else {
-      return stateList;
+      const allStateListWithId = stateList?.map((item,index) => {
+        return { id: index, ...item };
+      })
+      return allStateListWithId?.sort((a, b) => b.id - a.id);
     }
   };
 
-  /* console.log(stateList) */
+  /* console.log(allProducts) */
 
   return (
     <div className="border-1 border-colorGray-100 bg-white rounded-lg p-4">
@@ -106,7 +116,7 @@ function ContainerAllProducts({
         </thead>
         <tbody className="">
           {!orderWholesaleAllProducts() ? (
-            <p className=" text-center w-full">No hay productos</p>
+            <p className=" text-center w-full">Cargando...</p>
           ) : (
             orderWholesaleAllProducts()
               ?.map((product) => (

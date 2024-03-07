@@ -46,8 +46,6 @@ function AddCategory({ setAddCategory, addCategory }) {
       image: data.image,
       sizesGuides: listSizeGuide 
     });
-    console.log(finalyDataCategory)
-
 
     await fetchPostCategory(/* data */ finalyDataCategory);
     setTimeout(() => {

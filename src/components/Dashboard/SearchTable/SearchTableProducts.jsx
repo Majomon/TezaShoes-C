@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from "react";
 
 export default function SearchTableProducts({ allList, setStateList }) {
-  const [valueSearch, setValueSearch] = useState(null);
+  const [valueSearch, setValueSearch] = useState("");
   
   const handleChangeInput = (e) => {
     const { value } = e.target;
     setValueSearch(value);
     filterOrders(value);
 
-    if (!value) {
+    /* if (!value) {
       setStateList(allList);
-    }
+    } */
   };
 
   useEffect(() => {

@@ -131,6 +131,7 @@ const useStoreProducts = create(
       }
     },
     fetchPutProductId: async (id, updateProductData) => {
+      console.log(updateProductData)
       try {
         const response = await axios.put(`/products/${id}`, updateProductData);
         if (response.status === 200) {
@@ -149,7 +150,7 @@ const useStoreProducts = create(
         if (response.status === 200) {
           setState((prevState) => ({
             ...prevState,
-            allProducts: response.data,
+            allProducts: response?.data,
           })); // Actualiza el estado allProducts con la información de todos los productos
         } else {
           throw new Error(
