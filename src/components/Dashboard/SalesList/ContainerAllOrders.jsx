@@ -82,7 +82,7 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
     }
 
     await fetchPutOrderId(item._id, { status: newStatus });
-    
+
     const updatedOrders = allOrders.map((order) => {
       if (order._id === item._id) {
         return { ...order, status: newStatus };
@@ -223,7 +223,8 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
                       selectedOrder._id === item._id && (
                         <ContainerActionsOrders
                           item={item}
-                          openActionsModal={openActionsModal}
+                          setIsOpenModalActions={setIsOpenModalActions}
+                          isOpenModalActions={isOpenModalActions}
                         />
                       )}
                   </div>
