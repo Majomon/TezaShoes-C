@@ -32,7 +32,6 @@ export default function CardOrdersClient({ item, id }) {
         <p className=" text-sm font-bold">${totalCart}</p>
       </div>
       <div className="w-full flex justify-start gap-x-2 items-center">
-        {console.log(status, statusDelivery)}
         <ItemPaymentStatus
           option={
             status === "Pendiente de pago"

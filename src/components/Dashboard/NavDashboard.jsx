@@ -60,7 +60,6 @@ function NavDashboard({ orders, category, allUsers, products }) {
   }, []);
 
   const logOut = () => {
-    console.log("clic");
     if (typeof window !== "undefined") {
       if (Cookies.get("isAdmin")) {
         Cookies.remove("isAdmin");

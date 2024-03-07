@@ -41,7 +41,6 @@ export default function DetailArticle() {
     }
   };
 
-  /* console.log(selectedSize); */
 
   const handleSizeChange = (selectedSize) => {
     setSelectedSize(selectedSize);

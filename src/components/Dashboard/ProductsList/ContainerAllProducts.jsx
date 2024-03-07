@@ -66,14 +66,11 @@ function ContainerAllProducts({
     toast.success("URL Copiado");
   };
 
-  /* console.log(allProducts) */
   const totalStockProduct = (options) => {
     let totalStock = 0;
-    let listSizes = null;
     options?.forEach((elem) => {
       elem.sizes.forEach((subElem) => (totalStock += subElem.stock));
     });
-    /* listSizes.forEach(elem => totalStock += elem.stock) */
     return totalStock;
   };
 
@@ -88,7 +85,6 @@ function ContainerAllProducts({
     }
   };
 
-  /* console.log(stateList) */
 
   return (
     <div className="border-1 border-colorGray-100 bg-white rounded-lg p-4">

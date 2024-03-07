@@ -31,8 +31,6 @@ export default function Carousel() {
       let arrayPush = []
       setFirstImage(detail.images[0]);
       detail.images.forEach((image) => {
-        /* console.log(image) */
-        /* setArrayImg((prevArrayImg) => [...prevArrayImg, image]); */
         arrayPush.push(image);
       });
       setArrayImg([...arrayImg,...arrayPush])

@@ -25,7 +25,6 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
   const orderDataCookies = varCookiesOrderData ? JSON.parse(varCookiesOrderData) : {};
 
   const cookiesParsing = varCookies ? JSON.parse(varCookies) : {};
-  console.log(orderDataCookies)
   const { cart, dataPurchase, totalCart } = cookiesParsing;
 
   const handleClicCancel = async() => {
