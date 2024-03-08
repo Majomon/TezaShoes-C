@@ -1,6 +1,5 @@
 "use client";
 import {
-  useStoreCartLocalStorage,
   useStorePayOrder,
   useStoreProducts,
   useStoreSendEmails,
@@ -19,7 +18,6 @@ import ButtonModo from "../ButtonMODO/ButtonModo";
 
 function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
   const { fetchPostPutProductsRestore } = useStoreProducts();
-  const { cartLocalStorage } = useStoreCartLocalStorage();
   const { fetchPutUserOrderStatus } = useStoreUsers();
   const { fetchPutOrderId } = useStorePayOrder();
   const { fetchPostOrderCancel } = useStoreSendEmails();
@@ -28,23 +26,15 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
   const cookiesParsing = varCookies ? JSON.parse(varCookies) : {};
   const { cart, dataPurchase, totalCart } = cookiesParsing;
 
-
   let varCookiesOrderData = Cookies.get("orderData");
 
   const orderDataCookies = varCookiesOrderData
     ? JSON.parse(varCookiesOrderData)
     : {};
 
-  /* console.log(orderDataCookies,cookiesParsing) */
-
-  const cookiesParsing = varCookies ? JSON.parse(varCookies) : {};
-
-  const { cart, dataPurchase, totalCart } = cookiesParsing;
-
-
   const handleClicCancel = async () => {
     /* Pasarle la información de CART */
-   /*  await fetchPostPutProductsRestore(cart); */
+    /*  await fetchPostPutProductsRestore(cart); */
     await fetchPutOrderId(orderDataCookies._id, { status: "Cancelado" });
     await fetchPostOrderCancel(orderDataCookies);
     if (cookiesParsing.userId.id) {
@@ -56,8 +46,8 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
     fetchPostPutProductsRestore(cart);
     Cookies.remove("OrderPaymentModo");
     Cookies.remove("orderData");
-    Cookies.remove("numberIdOrder")
-    Cookies.remove("number_IdOrder")
+    Cookies.remove("numberIdOrder");
+    Cookies.remove("number_IdOrder");
     setOpenModalPaymentModo(false);
   };
 
