@@ -1,7 +1,7 @@
 "use client";
 import PageRouting from "@/components/PageRouting/PageRouting";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import bgFrequentQuestions from "../../../assets/image/bgFrequentQuestions.png";
 
 const listQuestionsAndTitle = [
