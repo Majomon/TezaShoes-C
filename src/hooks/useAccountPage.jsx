@@ -71,6 +71,10 @@ export const useAccountPage = () => {
   }, [router]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     setDataEditForm(userData);
     setDataShipping(userData?.address || {});
     setHasChanges(false);
