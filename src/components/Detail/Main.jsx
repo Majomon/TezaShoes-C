@@ -20,6 +20,10 @@ export default function Main({ product, allproduct }) {
     };
   }, [product]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const isProductActive = detail && detail.isActive;
 
   return (
