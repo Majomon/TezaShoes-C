@@ -10,11 +10,14 @@ function MainLogin({ url }) {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     /*   const userId = JSON.parse(localStorage.getItem("userId")); */
-
     if (userId) {
       router.push("/");
     }
   }, [router]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className="w-full h-full">

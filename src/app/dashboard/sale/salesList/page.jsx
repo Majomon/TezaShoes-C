@@ -13,8 +13,12 @@ function SalesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [stateOrder, setStateOrder] = useState([]);
 
-  let dimOrders = stateOrder?.length === 0 ? allOrders?.length : stateOrder?.length;
+  let dimOrders =
+    stateOrder?.length === 0 ? allOrders?.length : stateOrder?.length;
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="w-full p-6">
       <h1 className=" font-bold mx-auto w-full max-w-[960px] ">Ventas</h1>

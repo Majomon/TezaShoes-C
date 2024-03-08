@@ -1,20 +1,24 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import DetailSaleAndClient from "./DetailSaleAndClient";
 
 export default function OrderIdMain({ ordersId }) {
-  const [stateOrderId,setStateOrderId] = useState();
+  const [stateOrderId, setStateOrderId] = useState();
 
-  useEffect(()=>{
-    setStateOrderId(ordersId)
+  useEffect(() => {
+    setStateOrderId(ordersId);
     return () => {
-      setStateOrderId({})
-    }
-  },[ordersId])
+      setStateOrderId({});
+    };
+  }, [ordersId]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="w-full max-w-[970px] mx-auto my-3 h-fit flex flex-col gap-4 ">
-      <DetailSaleAndClient ordersId={stateOrderId}/>
+      <DetailSaleAndClient ordersId={stateOrderId} />
     </div>
   );
 }

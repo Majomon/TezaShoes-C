@@ -13,14 +13,16 @@ function ListProducts() {
     fetchDeleteProductId,
   } = useStoreProducts();
   const [stateList, setStateList] = useState([]);
-  /* const [allProductsState,setAllProdcutsState] = useState();
+
+  /* al agregar un producto se fuelve a setear el estado global para que ve vea del lado del front el producto agregado */
+  useEffect(() => {
+    setProducts(allProducts);
+    /* return () => setProducts([]) */
+  }, []);
 
   useEffect(() => {
-    setAllProdcutsState(allProducts)
-  },allProducts) */
-
-  /* console.log(allProducts) */
-
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="w-full p-6">
       <div className=" w-full max-w-[960px] mx-auto">

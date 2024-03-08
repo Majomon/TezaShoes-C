@@ -112,6 +112,10 @@ export default function FrequentQuestions() {
     setState(index);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <div className="w-full min-h-screen flex flex-col gap-y-[40px] mb-[40px] ">
       <section className="w-full h-[200px] relative top-0 left-0  flex flex-col items-center justify-center gap-y-5">

@@ -1,11 +1,14 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ImagePurse from "../../assets/svg/Purse.svg";
 import ImageShoes2 from "../../assets/svg/Shoes2.svg";
 
 function NotFound() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <main className="w-full min-h-screen text-black flex flex-col-reverse gap-y-6 lg:flex-row items-center justify-center gap-x-[133px] overflow-hidden">
       <div className="flex flex-col items-center gap-y-[30px]">

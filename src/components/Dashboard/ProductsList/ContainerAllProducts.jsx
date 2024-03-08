@@ -36,14 +36,10 @@ function ContainerAllProducts({
     try {
       const updatedProduct = { isActive: !currentStatus };
       await fetchPutProductId(productId, updatedProduct);
-      /* fetchAllProducts() */
-      /* setProducts(fetchAllProducts()); */
       setTimeout(() => {
         fetchAllProducts()
       }, 500);
-      toast.success("Producto modificado con exito");
     } catch (error) {
-      /* console.error("Error al cambiar el estado del producto:", error); */
       toast.warning("Error al modificar el producto");
     }
   };
@@ -55,22 +51,16 @@ function ContainerAllProducts({
   const toggleDelete = async (productId) => {
     try {
       await fetchDeleteProductId(productId);
-      /* fetchAllProducts() */
       setTimeout(() => {
         fetchAllProducts()
       }, 800);
-      toast.success("Producto eliminado");
     } catch (error) {
       /* console.error("Error al cambiar el estado del producto:", error); */
       toast.warning("Error al eliminar el producto");
     }
   };
   
-  /* useEffect(() => {
-    fetchAllProducts()
-  },[]) */
-  
-  const copyToClipboard = (text) => {
+   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     toast.success("URL Copiado");
   };

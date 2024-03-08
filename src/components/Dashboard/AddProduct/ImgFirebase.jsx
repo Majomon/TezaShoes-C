@@ -9,6 +9,8 @@ function ImgFirebase({ setFormData, nameCategory }) {
   const [loading, setLoading] = useState(false);
   const [imageUrls, setImageUrls] = useState([]);
 
+  /* console.log(setFormData.url) */
+
   useEffect(() => {
     if (imageUrls?.length > 0) {
       if (nameCategory) {
@@ -38,6 +40,7 @@ function ImgFirebase({ setFormData, nameCategory }) {
 
     Promise.all(uploadTasks)
       .then((urls) => {
+        /* console.log(urls) */
         setImageUrls(urls);
         setLoading(false);
         console.log("URLs de las imágenes subidas:", urls);
@@ -46,6 +49,8 @@ function ImgFirebase({ setFormData, nameCategory }) {
         console.error("Error al subir las imágenes:", error);
       });
   };
+
+  /* console.log(imageUrls) */
 
   return (
     <div>
@@ -71,7 +76,7 @@ function ImgFirebase({ setFormData, nameCategory }) {
 
         {loading && (
           <div className="w-full flex justify-center">
-            <p className="py-2 border-b-2">Subiendo...</p>
+            <p className="py-2 ">Subiendo...</p>
           </div>
         )}
         {imageUrls?.length > 0 && nameCategory ? (
@@ -79,7 +84,7 @@ function ImgFirebase({ setFormData, nameCategory }) {
             <img
               src={imageUrls[0]}
               alt={`Imagen `}
-              className="w-full h-[130px]"
+              className="w-full h-[130px] rounded-md object-cover"
             />
           </div>
         ) : (

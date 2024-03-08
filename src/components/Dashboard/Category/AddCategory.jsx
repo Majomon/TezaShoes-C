@@ -1,5 +1,5 @@
 import { useStoreProducts } from "@/zustand/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImgFirebase from "../AddProduct/ImgFirebase";
 import {
   Modal,
@@ -16,8 +16,14 @@ function AddCategory({ setAddCategory, addCategory }) {
   const [finalyDataCategory, setFinalyDataCategory] = useState({
     name: "",
     image: "",
-    sizesGuides: [],
+    tableSizes: [],
   });
+  const [listSizeGuide, setListSizeGuide] = useState([
+    {
+      size: "",
+      measure: "",
+    },
+  ]);
   const [dataCategory, setDataCategory] = useState({
     name: "",
     image: "",
@@ -25,12 +31,13 @@ function AddCategory({ setAddCategory, addCategory }) {
 
   const [accentMark, setAccentMark] = useState(false);
 
-  const [listSizeGuide, setListSizeGuide] = useState([
-    {
-      size: "",
-      measure: "",
-    },
-  ]);
+  useEffect(() => {
+    setFinalyDataCategory({ ...finalyDataCategory,
+      name: dataCategory.name,
+      image: dataCategory.image,
+      tableSizes: [] 
+    });
+  },[dataCategory])
 
   const handleNameChange = (e) => {
     setDataCategory((prevData) => ({
@@ -41,6 +48,12 @@ function AddCategory({ setAddCategory, addCategory }) {
 
   const handleSubmit = async (data) => {
 
+    await fetchPostCategory({
+        ...finalyDataCategory,
+        tableSizes: listSizeGuide,
+      }
+    );
+
     setFinalyDataCategory({ ...finalyDataCategory,
       name: data.name,
       image: data.image,
@@ -48,9 +61,10 @@ function AddCategory({ setAddCategory, addCategory }) {
     });
 
     await fetchPostCategory(/* data */ finalyDataCategory);
+
     setTimeout(() => {
-      setCategories(fetchAllCategories());
-    }, 100);
+      fetchAllCategories();
+    }, 800);
     setAddCategory(false);
   };
   /* 
@@ -88,6 +102,8 @@ function AddCategory({ setAddCategory, addCategory }) {
     );
     setListSizeGuide(listSizeGuideFilter);
   };
+
+ /*  console.log(listSizeGuide); */
 
   return (
     <Modal

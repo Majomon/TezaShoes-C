@@ -7,6 +7,9 @@ import { useState } from "react";
 function ListClients() {
   const { users, setUsers, fetchAllUsers } = useStoreUsers();
   const [stateList, setStateList] = useState([]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="w-full p-6">
       <div className=" w-full max-w-[960px] mx-auto flex flex-col gap-y-2">

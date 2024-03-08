@@ -28,7 +28,9 @@ function ContainerEditProduct({ productId }) {
     offerPrice: 0,
   });
 
-  /* const { offer } = dataForm; */
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [colorInputs, setColorInputs] = useState([
     {

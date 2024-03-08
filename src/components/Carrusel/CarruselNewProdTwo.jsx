@@ -65,7 +65,7 @@ export default function CarruselNewProdTwo() {
         return (
           <SwiperSlide key={_id} className="">
             <div className="w-[100%] h-[100%] flex flex-col justify-center items-center ">
-              {console.log(newsProducts)}
+              
               <Card
                 key={_id}
                 id={_id}

@@ -24,6 +24,10 @@ export default function MainHome() {
     }
   }, [timePurchase, purchaseCancel]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <Toaster position="top-center" />

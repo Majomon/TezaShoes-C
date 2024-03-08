@@ -24,6 +24,10 @@ export default function FormRegister({ url }) {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const userId = localStorage.getItem("userId");
     /*   const userId = JSON.parse(localStorage.getItem("userId")); */
 

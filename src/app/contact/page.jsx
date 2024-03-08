@@ -85,6 +85,7 @@ const listSocialMediaOptions = [
   },
 ];
 
+
 export default function Contact() {
   return (
     <section className="w-full min-h-screen flex flex-col items-center">

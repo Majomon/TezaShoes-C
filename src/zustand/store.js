@@ -131,7 +131,6 @@ const useStoreProducts = create(
       }
     },
     fetchPutProductId: async (id, updateProductData) => {
-      console.log(updateProductData)
       try {
         const response = await axios.put(`/products/${id}`, updateProductData);
         if (response.status === 200) {
@@ -238,6 +237,7 @@ const useStoreProducts = create(
       }
     },
     fetchPutCategoryId: async (id, updatedCategoryData) => {
+      /* console.log(updatedCategoryData) */
       try {
         const response = await axios.put(
           `/categories/${id}`,

@@ -8,6 +8,10 @@ export default function Purchase() {
   const { userData } = useStoreUsers();
   const [dataForm, setDataForm] = useState([]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handlerChange = (e) => {
     const { name, value } = e.target;
     setDataForm((prevDataForm) => {

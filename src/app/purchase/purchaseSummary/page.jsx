@@ -10,14 +10,18 @@ export default function PurchaseSummary() {
   const { fetchPostOrderCreate } = useStoreSendEmails();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (orderData) {
       fetchPostOrderCreate(orderData);
     }
   }, [orderData]);
 
-  if(orderData.paymentMethod === "MODO"){
+  if (orderData.paymentMethod === "MODO") {
     let convertToString = JSON.stringify(orderData);
-    Cookies.set("orderData",convertToString)
+    Cookies.set("orderData", convertToString);
   }
 
   return (

@@ -57,6 +57,10 @@ function Search({ product }) {
   const searchParamsColor = useSearchParams().get("color");
   const searchParamsSize = useSearchParams().get("size");
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   let listProductColors = filterColorSize?.map((item) =>
     item.options.map((subItem) => subItem.color)
   );
@@ -219,7 +223,9 @@ function Search({ product }) {
                   })}
                 </article>
               </AccordionItem>
-            ) : ""}
+            ) : (
+              ""
+            )}
             <AccordionItem key={3} aria-label="Accordion 3" title="Orden">
               <article className=" flex flex-col gap-y-[5px]">
                 {listOrder.map((item, index) => {

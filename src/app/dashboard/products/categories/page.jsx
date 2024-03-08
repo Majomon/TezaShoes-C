@@ -30,8 +30,12 @@ function Categories() {
 
     setTimeout(() => {
       setCategories(fetchAllCategories());
-    }, 100);
+    }, 1000);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <main className=" w-full max-w-[960px] mx-auto p-6 relative">
@@ -58,7 +62,11 @@ function Categories() {
                   </div>
                 </div>
                 {editCategory === item && (
-                  <EditCategory item={item} editCategory={editCategory} setEditCategory={setEditCategory} />
+                  <EditCategory
+                    item={item}
+                    editCategory={editCategory}
+                    setEditCategory={setEditCategory}
+                  />
                 )}
               </div>
             </li>
@@ -66,7 +74,11 @@ function Categories() {
         </ul>
       </div>
       {addCategory && (
-        <AddCategory setAddCategory={setAddCategory} addCategory={addCategory} category={true} />
+        <AddCategory
+          setAddCategory={setAddCategory}
+          addCategory={addCategory}
+          category={true}
+        />
       )}
     </main>
   );

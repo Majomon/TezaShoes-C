@@ -2,6 +2,11 @@
 import CardOrdersClient from "./CardOrdersClient";
 
 export default function OrdersClient({ orders, id }) {
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className=" bg-white border-1 border-colorGray-100 rounded-lg w-full max-w-[470px]">
       <section className="p-[10px] border-b-1 border-colorGray-100 w-full">

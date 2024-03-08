@@ -49,6 +49,9 @@ function ContainerInputAddProduct() {
     newProduct: true,
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "price") {

@@ -10,7 +10,7 @@ export default function ListSizeGuide({
       <label htmlFor="" className="w-1/2 flex flex-col gap-y-1">
         <p className=" text-sm font-normal">Talle</p>
         <input
-          type="number"
+          type="text"
           className="border-1 border-colorGray-100 rounded-xl p-1 w-full"
           value={size}
           onChange={handleChangeSizeGuide}
@@ -20,7 +20,7 @@ export default function ListSizeGuide({
       <label htmlFor="" className="w-1/2 flex flex-col gap-y-1">
         <p className=" text-sm font-normal">Medida(cm)</p>
         <input
-          type="number"
+          type="text"
           className="border-1 border-colorGray-100 rounded-xl p-1 w-full"
           value={measure}
           onChange={handleChangeSizeGuide}

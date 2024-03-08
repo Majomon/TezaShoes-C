@@ -25,15 +25,22 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
   const { fetchPostOrderCancel } = useStoreSendEmails();
 
   let varCookies = Cookies.get("OrderPaymentModo");
+  const cookiesParsing = varCookies ? JSON.parse(varCookies) : {};
+  const { cart, dataPurchase, totalCart } = cookiesParsing;
+
+
   let varCookiesOrderData = Cookies.get("orderData");
 
   const orderDataCookies = varCookiesOrderData
     ? JSON.parse(varCookiesOrderData)
     : {};
 
+  /* console.log(orderDataCookies,cookiesParsing) */
+
   const cookiesParsing = varCookies ? JSON.parse(varCookies) : {};
 
   const { cart, dataPurchase, totalCart } = cookiesParsing;
+
 
   const handleClicCancel = async () => {
     /* Pasarle la información de CART */
