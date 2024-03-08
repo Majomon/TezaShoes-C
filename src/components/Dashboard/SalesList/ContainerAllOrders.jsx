@@ -121,12 +121,9 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
   return (
     <>
       {!orderWholesaleAllOrders() ? (
-        <tr className=" text-center">Sin ventas</tr>
-
         <tr>
           <p className="w-full text-center">Sin ventas</p>
         </tr>
-
       ) : (
         orderWholesaleAllOrders()
           ?.map((item, index) => [
