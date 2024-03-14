@@ -1,10 +1,25 @@
 "use client";
-import { useStorePayOrder, useStoreSendEmails } from "@/zustand/store";
+import {
+  useStorePayOrder,
+  useStoreSendEmails,
+  useStoreUsers,
+} from "@/zustand/store";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
-  const { fetchPutOrderId, fetchGetOrder } = useStorePayOrder();
+  const { fetchPutOrderId, fetchGetOrder, idOrderData, setOrderId } =
+    useStorePayOrder();
   const { fetchPostStatusPaymentNaty } = useStoreSendEmails();
+  const { fetchPutUserOrderStatus } = useStoreUsers();
+
+  useEffect(() => {
+    fetchGetOrder(dataId);
+    return () => {
+      setOrderId({});
+    };
+  }, []);
+
 
   const createPaymentIntention = async () => {
     const res = await fetch(
@@ -34,15 +49,19 @@ const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
     try {
       Cookies.remove("OrderPaymentModo");
       Cookies.remove("orderData");
-      const response = await fetchPutOrderId(dataId, {
+      if (idOrderData.idUserPurchase) {
+        await fetchPutUserOrderStatus(idOrderData.idUserPurchase, {
+          idOrder: idOrderData.numberOrder,
+          status: "Pago realizado",
+        });
+      }
+      await fetchPutOrderId(dataId, {
         status: "Pago realizado",
       });
-      if (response.status === 200) {
-        const dataOrder = await fetchGetOrder(dataId);
-        fetchPostStatusPaymentNaty(dataOrder);
-      }
+
+      await fetchPostStatusPaymentNaty(idOrderData);
     } catch (error) {
-      console.error("Error al actualizar el estado:", error);
+      console.error("Error en alguna/s de las solicitudes:", error);
     }
   };
 

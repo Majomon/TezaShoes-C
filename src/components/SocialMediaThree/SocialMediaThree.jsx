@@ -4,17 +4,17 @@ import { IconFacebookContact, IconInstgramContact, IconWhatsappContact } from ".
 const listSocialMedia = [
   {
     name: "Facebook",
-    url: "https://www.facebook.com/",
+    url: "https://www.facebook.com/Teza.Shoes",
     icon: <IconFacebookContact />,
   },
   {
     name: "Instagram",
-    url: "https://www.instagram.com/",
+    url: "https://www.instagram.com/teza.shoes",
     icon: <IconInstgramContact />,
   },
   {
     name: "Whatsapp",
-    url: "https://api.whatsapp.com/send/?phone=541159728345",
+    url: "https://api.whatsapp.com/send/?phone=541159728486",
     icon: <IconWhatsappContact />,
   },
 ];

@@ -11,11 +11,10 @@ export default function PurchaseSummary() {
     useStoreSendEmails();
 
   useEffect(() => {
-    /*     if (orderData) {
+    if (orderData.numberOrder) {
       fetchPostOrderCreate(orderData);
-    } */
-    fetchPostOrderCreate(orderData);
-    fetchPostOrderNoticeNaty(orderData);
+      fetchPostOrderNoticeNaty(orderData);
+    }
   }, [orderData]);
 
   if (orderData.paymentMethod === "MODO") {

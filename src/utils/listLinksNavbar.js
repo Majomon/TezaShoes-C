@@ -5,16 +5,16 @@ const listLinkNavbar = [
   },
   {
     name: "Categorias",
-    url:""
+    url: "",
   },
   {
     name: "Preguntas frecuentes",
     url: "/frequentQuestions",
   },
   {
-    name: "Contactos",
+    name: "Contactanos",
     url: "/contact",
   },
 ];
 
-export default listLinkNavbar
+export default listLinkNavbar;

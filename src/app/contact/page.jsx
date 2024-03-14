@@ -25,13 +25,13 @@ const options = [
   {
     name: "Facebook",
     action: "url",
-    to: "https://www.facebook.com/",
+    to: "https://www.facebook.com/Teza.Shoes",
     icon: iconFacebook,
   },
   {
     name: "Instagram",
     action: "url",
-    to: "https://www.instagram.com/",
+    to: "https://www.instagram.com/teza.shoes",
     icon: iconInstagram,
   },
   {
@@ -52,18 +52,18 @@ const options = [
 const listContactSocialMedia = [
   {
     image: <IconMapContact />,
-    title: "Direccion",
-    subTitle: "Calle falsa 123",
+    title: "Dirección",
+    subTitle: "Belgrano 170 - San Isidro",
   },
   {
     image: <IconEmailContact />,
     title: "Correo",
-    subTitle: "zapatillas@gmail.com",
+    subTitle: "infotezashoes@gmail.com",
   },
   {
     image: <IconTelContact />,
-    title: "Telefonos",
-    subTitle: "11223344556",
+    title: "Teléfono",
+    subTitle: "1159728486",
   },
 ];
 
@@ -71,20 +71,19 @@ const listSocialMediaOptions = [
   {
     name: "facebook",
     icon: <IconFacebookContact />,
-    href: "https://www.facebook.com/",
+    href: "https://www.facebook.com/Teza.Shoes",
   },
   {
     name: "instagram",
     icon: <IconInstgramContact />,
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/teza.shoes",
   },
   {
     name: "whatsapp",
     icon: <IconWhatsappContact />,
-    href: "https://api.whatsapp.com/send/?phone=541159728345",
+    href: "https://api.whatsapp.com/send/?phone=541159728486",
   },
 ];
-
 
 export default function Contact() {
   return (
