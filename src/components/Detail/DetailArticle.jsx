@@ -16,6 +16,7 @@ import SizeComponentDetail from "./SizeComponentDetail/SizeComponentDetail";
 
 export default function DetailArticle() {
   const startTime = Cookies.get("timePurchase");
+  const orderPaymentModo = Cookies.get("OrderPaymentModo");
   const { isOpenCart, setIsOpenCart } = useStoreOpenCart();
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
@@ -24,9 +25,13 @@ export default function DetailArticle() {
   const [count, setCount] = useState(0);
   const [maxCount, setMaxCount] = useState(0);
   const [isOpenSizeGuide, setIsOpenSizeGuide] = useState(false);
-  const { detail } = useStoreProducts();
+  const { detail, categories } = useStoreProducts();
   const [showCartReminder, setShowCartReminder] = useState(false);
   const { setCartLocalStorage } = useStoreCartLocalStorage();
+
+  const categoryDetailId = categories.find(
+    (elem) => elem.name === detail.category
+  );
 
   useEffect(() => {
     if (detail && detail.options && detail.options.length > 0) {
@@ -187,9 +192,8 @@ export default function DetailArticle() {
     Cookies.remove("cartAbandoned");
   };
 
-
   return (
-    <div className=" w-full lg:w-[650px] border-b-1 border-colorGoldSecundary-500 min-h-[500px]">
+    <div className=" w-full lg:w-[650px] flex flex-col justify-around border-b-1 border-colorGoldSecundary-500 min-h-[500px]">
       <InfoTopDetailArticle />
       <div className="py-2">
         <h5 className="py-2 text-left text-neutral-950 text-sm font-semibold">
@@ -268,6 +272,7 @@ export default function DetailArticle() {
         <SizeGuideShoes
           isOpenSizeGuide={isOpenSizeGuide}
           setIsOpenSizeGuide={setIsOpenSizeGuide}
+          categoryDetailId={categoryDetailId}
         />
         {detail.offer?.offerActive && detail.offer?.offerActive ? (
           <div className="py-4 flex flex-row items-center justify-between ">
@@ -285,7 +290,7 @@ export default function DetailArticle() {
             </h3>
           </div>
         )}
-        {!startTime && (
+        {!startTime && !orderPaymentModo && (
           <div className="w-full flex justify-between items-center">
             <button
               className="w-full text-base font-normal py-4 px-6 bg-gradient-to-r from-zinc-600 via-zinc-800 to-black text-colorWhite-100 uppercase "
@@ -293,6 +298,20 @@ export default function DetailArticle() {
             >
               Agregar al carrito
             </button>
+          </div>
+        )}
+        {startTime && (
+          <div className="w-full flex justify-center items-center">
+            <h2 className="w-10/12 py-2 px-4 uppercase text-center bg-yellow-100  ">
+              Tenes una compra en proceso
+            </h2>
+          </div>
+        )}
+        {orderPaymentModo && (
+          <div className="w-full flex justify-center items-center">
+            <h2 className="w-10/12 py-2 px-4 uppercase text-center bg-yellow-100  ">
+              Tenes una orden pendiente de pago
+            </h2>
           </div>
         )}
       </div>

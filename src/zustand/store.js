@@ -96,9 +96,15 @@ const useStoreUsers = create(
       try {
         const response = await axios.put(`/users/orderStatus/${id}`, newStatus);
         if (response.status === 200) {
-          toast.success("Orden modificada");
+          toast.success("Orden modificada", {
+            position: "bottom-left",
+          });
         } else {
-          throw new Error(toast.warning(`Error al modificar la orden`));
+          throw new Error(
+            toast.warning(`Error al modificar la orden`, {
+              position: "bottom-left",
+            })
+          );
         }
       } catch (error) {
         console.error(`Error al modificar la orden: ${id}`, error);
@@ -135,8 +141,13 @@ const useStoreProducts = create(
         const response = await axios.put(`/products/${id}`, updateProductData);
         if (response.status === 200) {
           toast.success("Modificado con exito");
-        } else {
-          throw new Error(toast.warning(`Error al realizar la modificacion`));
+
+          const response = await axios.get("products");
+
+          setState((prevState) => ({
+            ...prevState,
+            allProducts: response?.data,
+          }));
         }
       } catch (error) {
         console.error(`No existe el producto de ID: ${id}`, error);
@@ -191,12 +202,16 @@ const useStoreProducts = create(
     fetchDeleteProductId: async (id) => {
       try {
         const response = await axios.delete(`/products/${id}`);
+
         if (response.status === 200) {
           toast.success("Producto eliminado");
-        } else {
-          throw new Error(
-            toast.warning(`Error al eliminar el producto: ${response.status}`)
-          );
+
+          const response = await axios.get("products");
+
+          setState((prevState) => ({
+            ...prevState,
+            allProducts: response?.data,
+          }));
         }
       } catch (error) {
         console.error(`No existe el producto de ID: ${id}`, error);
@@ -224,9 +239,15 @@ const useStoreProducts = create(
     fetchPostCategory: async (requestData) => {
       try {
         const response = await axios.post(`/categories`, requestData);
-
         if (response.status === 200) {
           toast.success("Categoria creada");
+
+          const response = await axios.get("/categories");
+          setState((prevState) => ({
+            ...prevState,
+            categories: response?.data,
+          }));
+
           setState((prevState) => ({ ...prevState, orderData: response.data }));
         } else {
           throw new Error(toast.warning(`Error al crear la categoria`));
@@ -237,7 +258,6 @@ const useStoreProducts = create(
       }
     },
     fetchPutCategoryId: async (id, updatedCategoryData) => {
-      /* console.log(updatedCategoryData) */
       try {
         const response = await axios.put(
           `/categories/${id}`,
@@ -245,6 +265,11 @@ const useStoreProducts = create(
         );
         if (response.status === 200) {
           toast.success("Modificación exitosa");
+          const response = await axios.get("/categories");
+          setState((prevState) => ({
+            ...prevState,
+            categories: response?.data,
+          }));
         } else {
           throw new Error(toast.warning(`Error al realizar la modificacion`));
         }
@@ -257,7 +282,12 @@ const useStoreProducts = create(
       try {
         const response = await axios.delete(`/categories/${id}`);
         if (response.status === 200) {
+          const response = await axios.get("/categories");
           toast.success("Categoria eliminado");
+          setState((prevState) => ({
+            ...prevState,
+            categories: response?.data,
+          }));
         } else {
           throw new Error(
             toast.warning(`Error al eliminar la categoria: ${response.status}`)
@@ -403,8 +433,10 @@ const useStorePayOrder = create(
         const response = await axios.post(`/payOrder`, requestData);
 
         if (response.status === 200) {
-          toast.success("Orden creada");
-          setState((prevState) => ({ ...prevState, orderData: response.data }));
+          /*  toast.success("Orden creada"); */
+          setState({ orderData: response.data });
+          /*         setState((prevState) => ({ ...prevState, orderData: response.data })); */
+          return "Orden creada";
         } else {
           throw new Error(toast.warning(`Error al crear la orden`));
         }
@@ -417,14 +449,25 @@ const useStorePayOrder = create(
       try {
         const response = await axios.put(`/payOrder/${id}`, updateProductData);
         if (response.status === 200) {
-          toast.success("Modificado con exito");
+          /*  toast.success("Modificado con exito"); */
+          return "Orden modificada";
         } else {
-          throw new Error(toast.warning(`Error al realizar la modificacion`));
+          throw new Error(
+            toast.warning(`Error al realizar la modificacion`, {
+              position: "bottom-left",
+            })
+          );
         }
       } catch (error) {
         console.error(`No existe el producto de ID: ${id}`, error);
         return false; // Indica falla en la solicitud
       }
+    },
+    setOrderData: (data) => {
+      setState({ orderData: data });
+    },
+    setOrderId: (state) => {
+      setState({ idOrderData: state });
     },
   }))
 );
@@ -439,9 +482,15 @@ const useStoreSendEmails = create(
         );
 
         if (response.status === 200) {
-          toast.success("Se cambio el estado del pago");
+          toast.success("Se envio notificando el pago", {
+            position: "bottom-left",
+          });
         } else {
-          throw new Error(toast.warning(`Error al cambiar el estado del pago`));
+          throw new Error(
+            toast.warning(`Error al cambiar el estado del pago`, {
+              position: "bottom-left",
+            })
+          );
         }
       } catch (error) {
         console.error(`Error al cambiar el estado del pago`, error);
@@ -456,7 +505,10 @@ const useStoreSendEmails = create(
         );
 
         if (response.status === 200) {
-          toast.success("Orden cancelada");
+          toast.success("Se envio email con información del pedido cancelado", {
+            position: "bottom-left",
+          });
+          /*    return "Se envio email con información del pedido cancelado"; */
         } else {
           throw new Error(toast.warning(`Error al cancelar la orden`));
         }
@@ -473,7 +525,8 @@ const useStoreSendEmails = create(
         );
 
         if (response.status === 200) {
-          toast.success("Orden creada");
+          /*  toast.success("Email enviado por orden creada"); */
+          return "Email enviado";
         } else {
           throw new Error(toast.warning(`Error al crear la orden`));
         }
@@ -490,12 +543,57 @@ const useStoreSendEmails = create(
         });
 
         if (response.status === 200) {
-          toast.success("Email enviado - Notificación de envio");
+          toast.success("Email enviado - Notificación de envio", {
+            position: "bottom-left",
+          });
         } else {
           throw new Error(toast.warning(`Error al enviar el email`));
         }
       } catch (error) {
         console.error(`Error al enviar el email`, error);
+        return false;
+      }
+    },
+    fetchPostOrderNoticeNaty: async (requestData) => {
+      try {
+        const response = await axios.post(
+          `/resendEmail/orderNotice`,
+          requestData
+        );
+
+        if (response.status === 200) {
+          /*  toast.success("Email enviado por orden creada"); */
+          return "Email avisando a naty por la compra del cliente";
+        } else {
+          throw new Error(toast.warning(`Error al avisarle a Naty`));
+        }
+      } catch (error) {
+        console.error(`Error al avisarle a Naty`, error);
+        return false;
+      }
+    },
+    fetchPostStatusPaymentNaty: async (requestData) => {
+      try {
+        const response = await axios.post(
+          `/resendEmail/paymentOrderModo`,
+          requestData
+        );
+
+        if (response.status === 200) {
+          /*  toast.success("Email enviado por orden creada"); */
+          return "Email avisando a naty el estado del pago de la orden";
+        } else {
+          throw new Error(
+            toast.warning(
+              `Error al avisarle a Naty el estado del pago de la orden`
+            )
+          );
+        }
+      } catch (error) {
+        console.error(
+          `Error al avisarle a Naty el estado del pago de la orden`,
+          error
+        );
         return false;
       }
     },

@@ -7,16 +7,15 @@ import { useEffect } from "react";
 
 export default function PurchaseSummary() {
   const { orderData } = useStorePayOrder();
-  const { fetchPostOrderCreate } = useStoreSendEmails();
+  const { fetchPostOrderCreate, fetchPostOrderNoticeNaty } =
+    useStoreSendEmails();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    if (orderData) {
+    /*     if (orderData) {
       fetchPostOrderCreate(orderData);
-    }
+    } */
+    fetchPostOrderCreate(orderData);
+    fetchPostOrderNoticeNaty(orderData);
   }, [orderData]);
 
   if (orderData.paymentMethod === "MODO") {

@@ -1,4 +1,3 @@
-
 import ButtonModo from "@/components/ButtonMODO/ButtonModo";
 import { useStorePayOrder, useStoreCartLocalStorage } from "@/zustand/store";
 import Link from "next/link";
@@ -28,14 +27,20 @@ function MainLeftSumary() {
   }, [countdown]);
 
   useEffect(() => {
-    setCartLocalStorage([])
+    const clearLocalStorage = () => {
+      const dataPurchase = localStorage.getItem("dataPurchase");
+      if (dataPurchase) {
+        localStorage.removeItem("dataPurchase");
+        localStorage.removeItem("TotalCart");
+        localStorage.removeItem("cart");
+      }
+    };
+    clearLocalStorage();
+    setCartLocalStorage([]);
   }, []);
 
   useEffect(() => {
     if (countdown === 0) {
-      localStorage.removeItem("dataPurchase");
-      localStorage.removeItem("TotalCart");
-      localStorage.removeItem("cart");
       redirect("/");
     }
   }, [countdown, orderData]);

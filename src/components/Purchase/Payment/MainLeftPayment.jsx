@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CardOptionPayment from "./CardOptionPayment";
 
 function MainLeftPayment() {
+  const { orderData, setOrderData } = useStorePayOrder();
   const { fetchPostOrder } = useStorePayOrder();
   const [selectedOption, setSelectedOption] = useState(null);
   const [orderInfo, setOrderInfo] = useState({
@@ -65,12 +66,21 @@ function MainLeftPayment() {
   const handleSubmit = async () => {
     await fetchPostOrder(orderInfo);
     Cookies.remove("timePurchase");
-    /* - Cookies - */
-    if(listPayment[selectedOption].name === "MODO"){
-      let convertToString = JSON.stringify(orderInfo);
-      Cookies.set('OrderPaymentModo', convertToString);
+
+    if (listPayment[selectedOption].name === "MODO") {
+      // Convertir el objeto orderInfo a una cadena JSON
+      const orderInfoString = JSON.stringify(orderInfo);
+
+      // Establecer la cadena JSON en la cookie con nombre "OrderPaymentModo"
+      Cookies.set("OrderPaymentModo", orderInfoString);
     }
   };
+
+  useEffect(() => {
+    if (orderData) {
+      setOrderData({});
+    }
+  }, []);
 
   return (
     <div className=" max-w-[460px] w-full h-full">

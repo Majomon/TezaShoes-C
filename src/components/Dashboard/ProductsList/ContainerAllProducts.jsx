@@ -6,6 +6,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Tooltip,
 } from "@nextui-org/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,14 +18,16 @@ import {
   Enabled,
   Share,
 } from "../../../../assets/Dashboard/IconActions";
+import { usePathname } from "next/navigation";
 
 function ContainerAllProducts({
   allProducts,
   fetchPutProductId,
-  fetchAllProducts,
-  setProducts,
   fetchDeleteProductId,
   stateList,
+  /* setProducts, */
+  /* setStateList */
+  fetchAllProducts,
 }) {
   const [productsPerPage, setProductsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,42 +35,38 @@ function ContainerAllProducts({
   const firstIndex = lastIndex - productsPerPage;
   const urlDeploy = "https://www.mongar.tech";
 
+  /* por cada renderizado va a a setear en la allProducts y traera actaulizado la lista desde el esatdo global afectando a todo el componente de la page  */
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, []);
+
   const toggleIsActive = async (productId, currentStatus) => {
     try {
       const updatedProduct = { isActive: !currentStatus };
       await fetchPutProductId(productId, updatedProduct);
-      setTimeout(() => {
-        fetchAllProducts()
-      }, 500);
     } catch (error) {
       toast.warning("Error al modificar el producto");
     }
   };
 
-  /* console.log(allProducts) */
-  
-  let dimProduct = stateList?.length === 0 ? allProducts?.length : stateList?.length;
-  
+  let dimProduct = stateList?.length;
+
   const toggleDelete = async (productId) => {
     try {
       await fetchDeleteProductId(productId);
-      setTimeout(() => {
-        fetchAllProducts()
-      }, 800);
     } catch (error) {
-      /* console.error("Error al cambiar el estado del producto:", error); */
       toast.warning("Error al eliminar el producto");
     }
   };
-  
-   const copyToClipboard = (text) => {
+
+  const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     toast.success("URL Copiado");
   };
 
   const totalStockProduct = (options) => {
     let totalStock = 0;
-    /* let listSizes = null; */
     options?.forEach((elem) => {
       elem.sizes.forEach((subElem) => (totalStock += subElem.stock));
     });
@@ -75,20 +74,25 @@ function ContainerAllProducts({
   };
 
   const orderWholesaleAllProducts = () => {
-    if (stateList?.length === 0) {
+    /* if (stateList?.length === 0) {
       const allProductsWithId = allProducts?.map((item, index) => {
         return { id: index, ...item };
       });
       return allProductsWithId?.sort((a, b) => b.id - a.id);
     } else {
-      const allStateListWithId = stateList?.map((item,index) => {
+      const allStateListWithId = stateList?.map((item, index) => {
         return { id: index, ...item };
-      })
+      });
       return allStateListWithId?.sort((a, b) => b.id - a.id);
-    }
+    } */
+    const allStateListWithId = stateList?.map((item, index) => {
+      return { id: index, ...item };
+    });
+    return allStateListWithId?.sort((a, b) => b.id - a.id);
   };
 
-  /* console.log(allProducts) */
+  /* console.log(orderWholesaleAllProducts()?.map(item => item)) */
+  /* console.log(stateList); */
 
   return (
     <div className="border-1 border-colorGray-100 bg-white rounded-lg p-4">
@@ -188,48 +192,82 @@ function ContainerAllProducts({
                   {/* Acciones */}
                   <td className="w-fit h-full ">
                     <div className="flex justify-start items-start h-full gap-x-2">
-                      <div
-                        className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full"
-                        onClick={() =>
-                          copyToClipboard(
+                      <Tooltip
+                        content="Compartir"
+                        delay={0}
+                        closeDelay={0}
+                        placement={"top-end"}
+                      >
+                        <div
+                          className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full"
+                          onClick={() =>
                             copyToClipboard(
-                              `${urlDeploy}/detail/${product._id}`
+                              copyToClipboard(
+                                `${urlDeploy}/detail/${product._id}`
+                              )
                             )
-                          )
-                        }
-                      >
-                        <Share />
-                      </div>
+                          }
+                        >
+                          <Share />
+                        </div>
+                      </Tooltip>
 
-                      <Link
-                        href={`/dashboard/products/listProducts/${product._id}`}
-                        className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full"
+                      <Tooltip
+                        content="Editar"
+                        delay={0}
+                        closeDelay={0}
+                        placement={"top-end"}
                       >
-                        <Edit />
-                      </Link>
+                        <Link
+                          href={`/dashboard/products/listProducts/${product._id}`}
+                          className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full"
+                        >
+                          <Edit />
+                        </Link>
+                      </Tooltip>
 
                       <div className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full">
                         {product.isActive === true ? (
-                          <div
-                            onClick={() => toggleIsActive(product._id, true)}
+                          <Tooltip
+                            content="Visible"
+                            delay={0}
+                            closeDelay={0}
+                            placement={"top-end"}
                           >
-                            <Enabled />
-                          </div>
+                            <div
+                              onClick={() => toggleIsActive(product._id, true)}
+                            >
+                              <Enabled />
+                            </div>
+                          </Tooltip>
                         ) : (
-                          <div
-                            onClick={() => toggleIsActive(product._id, false)}
+                          <Tooltip
+                            content="No visible"
+                            delay={0}
+                            closeDelay={0}
+                            placement={"top-end"}
                           >
-                            <Disabled />
-                          </div>
+                            <div
+                              onClick={() => toggleIsActive(product._id, false)}
+                            >
+                              <Disabled />
+                            </div>
+                          </Tooltip>
                         )}
                       </div>
-
-                      <div
-                        className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full"
-                        onClick={() => toggleDelete(product._id)}
+                      <Tooltip
+                        content="Eliminar"
+                        delay={0}
+                        closeDelay={0}
+                        placement={"top-end"}
                       >
-                        <Delete />
-                      </div>
+                        <div
+                          className=" h-fit p-1 cursor-pointer border-1 border-gray-300 rounded-full"
+                          onClick={() => toggleDelete(product._id)}
+                        >
+                          <Delete />
+                        </div>
+                      </Tooltip>
                     </div>
                   </td>
                 </tr>

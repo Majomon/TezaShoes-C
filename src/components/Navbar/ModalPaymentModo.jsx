@@ -33,8 +33,7 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
     : {};
 
   const handleClicCancel = async () => {
-    /* Pasarle la información de CART */
-    /*  await fetchPostPutProductsRestore(cart); */
+    await fetchPostPutProductsRestore(cart);
     await fetchPutOrderId(orderDataCookies._id, { status: "Cancelado" });
     await fetchPostOrderCancel(orderDataCookies);
     if (cookiesParsing.userId.id) {
@@ -43,7 +42,6 @@ function ModalPaymentModo({ openModalPaymentModo, setOpenModalPaymentModo }) {
         status: "Cancelado",
       });
     }
-    fetchPostPutProductsRestore(cart);
     Cookies.remove("OrderPaymentModo");
     Cookies.remove("orderData");
     Cookies.remove("numberIdOrder");

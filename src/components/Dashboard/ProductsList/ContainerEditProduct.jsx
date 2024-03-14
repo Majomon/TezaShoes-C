@@ -14,19 +14,17 @@ import ShowColorSizeStock from "../AddProduct/ShowColorSizeStock";
 import SidebarColorSize from "../AddProduct/SidebarColorSize";
 
 function ContainerEditProduct({ productId }) {
-  const { setDetail, categories, detail } = useStoreProducts();
+  const { setDetail, categories, detail, allProducts } = useStoreProducts();
   const [isOpenCart, setIsOpenCart] = useState(false);
-  const { options, offer } = detail;
-  const [oldColorInput, setOldColorInput] = useState([]);
   const [isOn, setIsOn] = useState(false);
   const [dataForm, setDataForm] = useState({});
   const [isNewProduct, setIsNewProduct] = useState(false);
-  const [newImages, setNewImages] = useState([]);
   const [isOpenMeasure, setIsOpenMeasure] = useState(false);
   const [offerInput, setOfferInput] = useState({
     offerActive: false,
     offerPrice: 0,
   });
+  const { options, offer } = detail;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,15 +46,6 @@ function ContainerEditProduct({ productId }) {
     });
   }, [options]);
 
-  /* useEffect(() => {
-    if (offer?.offerActive) {
-      setIsNewProduct(true);
-    } else if (detail?.newProduct) {
-      setIsOn(checked);
-      setOfferInput({ ...offerInput, offerActive: checked });
-    }
-  }, [detail]); */
-
   useEffect(() => {
     if (dataForm.newProduct) {
       setIsNewProduct(true);
@@ -74,8 +63,6 @@ function ContainerEditProduct({ productId }) {
   useEffect(() => {
     setDataForm({ ...dataForm, offer: offerInput });
   }, [offerInput]);
-
-  /* console.log(dataForm) */
 
   useEffect(() => {
     if (dataForm.category === "Carteras") {
@@ -118,17 +105,15 @@ function ContainerEditProduct({ productId }) {
     setDataForm({ ...dataForm, [name]: capitalize(value) });
   };
 
-  const handleFileChange = (e) => {
-    const files = e.target.files;
-    setNewImages([...files]); // Agregar los archivos seleccionados al estado de nuevas imágenes
-  };
-
   const handlerSubmit = async (e) => {
     e.preventDefault();
-    /* console.log(e); */
+
+    window.scrollTo(0, 0);
+
     try {
       const response = await axios.put(`/products/${dataForm._id}`, dataForm);
       if (response.status === 200) {
+        window.scrollTo(0, 0);
         toast.success("Propiedad modificada con éxito");
       }
     } catch (error) {

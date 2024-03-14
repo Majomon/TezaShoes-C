@@ -1,18 +1,13 @@
 "use client";
 import { ListTableHeadClients } from "@/utils/ListsDashboards";
-import { useStoreUsers } from "@/zustand/store";
 import { useEffect } from "react";
 import DataListClients from "./DataListClients";
 
-export default function MainClient({ stateList, users, setUsers, fetchAllUsers }) {
-  /* const { users, setUsers, fetchAllUsers } = useStoreUsers(); */
-
+export default function MainClient({ stateList, users, fetchAllUsers }) {
+  
   useEffect(() => {
-    if (users?.length === 0 || !users) {
-      const allUsers = fetchAllUsers();
-      setUsers(allUsers);
-    }
-  }, [users]);
+    fetchAllUsers()
+  },[])
 
   return (
     <div className="p-4 bg-white border border-colorGray-100 w-full h-fit rounded-md">
@@ -30,9 +25,9 @@ export default function MainClient({ stateList, users, setUsers, fetchAllUsers }
         </thead>
         <tbody>
           {!users ? (
-            <p className="w-full text-center">Sin usuario registrados</p>
+            <p className="w-full text-center">Sin usuarios registrados</p>
           ) : (
-            (stateList.length === 0 ? users : stateList)?.map((user, index) => {
+            (stateList?.length === 0 ? users : stateList)?.map((user, index) => {
               const { name, orders, email, phone, _id } = user;
               /* console.log(user) */
               return (
@@ -43,6 +38,7 @@ export default function MainClient({ stateList, users, setUsers, fetchAllUsers }
                   orders={orders}
                   email={email}
                   phone={phone}
+
                 />
               );
             })

@@ -57,6 +57,8 @@ function Search({ product }) {
   const searchParamsColor = useSearchParams().get("color");
   const searchParamsSize = useSearchParams().get("size");
 
+  /* console.log(product) */
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -153,9 +155,8 @@ function Search({ product }) {
     }
   };
 
-  /* useEffect(() => {
-    console.log(productsFilter);
-  }, [productsFilter]); */
+  /* console.log(productsFilter.filter(item => item.isActive === true)) */
+  let filterIsActiveProdcuts = productsFilter.filter(item => item.isActive === true)
 
   return (
     <div className="w-full h-full flex flex-col gap-y-5">
@@ -203,7 +204,7 @@ function Search({ product }) {
                 })}
               </article>
             </AccordionItem>
-            {searchParamsCategory.toLocaleLowerCase() !== "carteras" ? (
+            {searchParamsCategory?.toLocaleLowerCase() !== "carteras" ? (
               <AccordionItem key={2} aria-label="Accordion 2" title="Talle">
                 <article className="flex flex-row gap-[5px] flex-wrap w-full px-1 pb-2 ">
                   {listNoRepitSize()?.map((elem, index) => {
@@ -269,12 +270,12 @@ function Search({ product }) {
           <Suspense fallback={<p>Loading...</p>}>
             <section
               className={` grid grid-cols-13Cards items-start sm:justify-center justify-start w-[100%] gap-x-3 transition-all ease-in py-3 overflow-auto gap-y-6 place-items-center 
-              ${productsFilter?.length === 0 ? "w-fit mx-auto " : " "} 
+              ${filterIsActiveProdcuts?.length === 0 ? "w-fit mx-auto " : " "} 
               `}
             >
               {isLoading && <CircularProgress aria-label="Loading..." />}
-              {productsFilter &&
-                productsFilter?.map((item) => {
+              {filterIsActiveProdcuts &&
+                filterIsActiveProdcuts?.map((item) => {
                   const {
                     _id,
                     images,
@@ -300,11 +301,11 @@ function Search({ product }) {
                     />
                   );
                 })}
-              {productsFilter?.length === 0 && isLoading === false && (
+              {filterIsActiveProdcuts?.length === 0 && isLoading === false && (
                 <NotProducts
                   searchParamsCategory={searchParamsCategory}
                   searchParamsName={searchParamsName}
-                  productsFilter={productsFilter}
+                  productsFilter={filterIsActiveProdcuts}
                   setSelectOrder={setSelectOrder}
                   setSelectColor={setSelectColor}
                   setSelectSize={setSelectSize}

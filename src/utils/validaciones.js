@@ -1,4 +1,4 @@
-export const validateField = (name, value, inputForm) => {
+export const validateField = (name, value, inputForm, users) => {
   switch (name) {
     case "name":
       if (!value) {
@@ -20,6 +20,11 @@ export const validateField = (name, value, inputForm) => {
         return "Correo electrónico requerido";
       } else if (!emailRegex.test(value)) {
         return "El correo electrónico no es válido";
+      } else {
+        const emailExists = users.some((user) => user.email === value);
+        if (emailExists) {
+          return "Este correo electrónico ya está en uso";
+        }
       }
       break;
     case "password":

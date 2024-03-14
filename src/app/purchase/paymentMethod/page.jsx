@@ -8,6 +8,7 @@ export default function PaymentMethod() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div className="w-full min-h-screen mx-auto flex flex-col items-center gap-5 lg:items-start lg:flex-row justify-between my-4">
       <MainLeftPayment />

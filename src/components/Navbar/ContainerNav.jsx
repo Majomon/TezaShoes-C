@@ -60,7 +60,7 @@ function ContainerNav({ categorias, products }) {
           <NavIcons products={allProducts} />
           {
           varCookiesVerific && (
-            <div className=" absolute left-[50%] translate-x-[-50%] shadow-cardPerfilShadow p-2 bg-white top-12 rounded-xl hover:bg-[#088F5A] hover:text-white transition-all duration-300 flex items-center gapy-y-2">
+            <div className=" absolute left-[50%] translate-x-[-50%] shadow-cardPerfilShadow p-2 bg-white top-12 rounded-xl hover:bg-[#088F5A] hover:text-white transition-all duration-300 flex items-center gapy-y-2 z-50">
               <button
                 onClick={() => setOpenModalPaymentModo(!openModalPaymentModo)}
               >

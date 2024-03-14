@@ -3,20 +3,24 @@ import { useStorePayOrder } from "@/zustand/store";
 import Cookies from "js-cookie";
 
 const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
-  const { fetchPutOrderId } = useStorePayOrder();
+  const { fetchPutOrderId, fetchGetOrder } = useStorePayOrder();
+  const { fetchPostStatusPaymentNaty } = useStoreSendEmails();
 
   const createPaymentIntention = async () => {
-    const res = await fetch("https://teza-shoes-api.vercel.app/modo/modoCheckout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        price: totalCart,
-        quantity: cantProduct,
-        mockOrder,
-      }),
-    });
+    const res = await fetch(
+      "https://teza-shoes-api.vercel.app/modo/modoCheckout",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          price: totalCart,
+          quantity: cantProduct,
+          mockOrder,
+        }),
+      }
+    );
 
     const jsonRes = await res.json();
     return {
@@ -28,10 +32,15 @@ const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {
 
   const handleSuccess = async () => {
     try {
-      /*remover cookies*/
       Cookies.remove("OrderPaymentModo");
       Cookies.remove("orderData");
-      await fetchPutOrderId(dataId, { status: "Pago realizado" });
+      const response = await fetchPutOrderId(dataId, {
+        status: "Pago realizado",
+      });
+      if (response.status === 200) {
+        const dataOrder = await fetchGetOrder(dataId);
+        fetchPostStatusPaymentNaty(dataOrder);
+      }
     } catch (error) {
       console.error("Error al actualizar el estado:", error);
     }

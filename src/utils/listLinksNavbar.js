@@ -4,6 +4,10 @@ const listLinkNavbar = [
     url: "/",
   },
   {
+    name: "Categorias",
+    url:""
+  },
+  {
     name: "Preguntas frecuentes",
     url: "/frequentQuestions",
   },

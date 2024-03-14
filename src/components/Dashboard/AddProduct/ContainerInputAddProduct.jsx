@@ -14,7 +14,7 @@ import ShowColorSizeStock from "./ShowColorSizeStock";
 import SidebarColorSize from "./SidebarColorSize";
 
 function ContainerInputAddProduct() {
-  const { categories } = useStoreProducts();
+  const { categories,allProducts  } = useStoreProducts();
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOn, setIsOn] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -52,6 +52,7 @@ function ContainerInputAddProduct() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "price") {
@@ -159,46 +160,50 @@ function ContainerInputAddProduct() {
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(`/products`, dataForm);
-      if (response.status === 200) {
-        toast.success("Producto creado");
-        setIsOn(false);
-        setOfferInput({
-          offerActive: false,
-          offerPrice: 0,
-        });
-        setDataForm({
-          name: "",
-          category: "",
-          options: [],
-          price: 0,
-          description: "",
-          measures: "",
-          images: [],
-          offer: {},
-          isActive: true,
-          newProduct: true,
-        });
-        setColorInputs([
-          {
-            color: {
-              codHexadecimal: "#000000",
-              nameColor: "",
+    const productNameExists = allProducts.some(
+      (product) => product.name === dataForm.name
+    );
+    if (productNameExists) {
+      window.scrollTo(0, 0);
+      toast.error("Ya existe un producto con este nombre");
+    } else {
+      try {
+        const response = await axios.post(`/products`, dataForm);
+        if (response.status === 200) {
+          toast.success("Producto creado");
+          setIsOn(false);
+          setOfferInput({
+            offerActive: false,
+            offerPrice: 0,
+          });
+          setDataForm({
+            name: "",
+            category: "",
+            options: [],
+            price: 0,
+            description: "",
+            measures: "",
+            images: [],
+            offer: {},
+            isActive: true,
+            newProduct: true,
+          });
+          setColorInputs([
+            {
+              color: {
+                codHexadecimal: "#000000",
+                nameColor: "",
+              },
+              sizes: [{ size: "", stock: "" }],
             },
-            sizes: [{ size: "", stock: "" }],
-          },
-        ]);
-        setImageUrls([]);
-        setIsActive(false);
-        setIsNewProduct(false);
-      } else {
+          ]);
+          setIsActive(false);
+          setIsNewProduct(false);
+        }
+      } catch (error) {
+        console.error(error);
         toast.warning("Error al crear producto");
-        throw new Error(`Error al crear el producto: ${response.status}`);
       }
-    } catch (error) {
-      toast.warning("Error al crear producto");
-      return false;
     }
   };
 

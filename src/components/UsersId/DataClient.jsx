@@ -3,6 +3,7 @@ import { IconWhatsappClient } from "../../../assets/svg/IconsDashboards";
 export default function DataClient({ userId }) {
   const { address } = userId;
   const { name, lastName, email, phone, document } = userId;
+  console.log(userId.document)
   return (
     <div className="bg-white p-[10px] border-1 border-colorGray-100 rounded-lg w-full max-w-[470px] h-fit">
       <div className=" w-full flex justify-between items-center pb-2">
@@ -19,7 +20,7 @@ export default function DataClient({ userId }) {
         <section className="flex flex-col gap-1">
           <p className=" text-sm font-normal">{email}</p>
           <p className=" text-sm font-normal">Tel:{phone}</p>
-          <p className=" text-sm font-normal">DNI:{document}</p>
+          { document && <p className=" text-sm font-normal">DNI:{document}</p> }
           {address?.street !== "" &&
           address?.number !== "" &&
           address?.city !== "" &&

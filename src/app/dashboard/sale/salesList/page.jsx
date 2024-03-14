@@ -4,21 +4,30 @@ import SearchTable from "@/components/Dashboard/SearchTable/SearchTable";
 import PaginationDashboard from "@/components/PaginateDashboard.jsx/PaginateDashboard";
 import listTable from "@/utils/listTabletSaleList";
 import { useStoreDashboard } from "@/zustand/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function SalesList() {
-  const { allOrders, setAllOrders } = useStoreDashboard();
+  const { allOrders, setAllOrders, fetchAllOrders } = useStoreDashboard();
 
   const [productsPerPage, setProductsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const [stateOrder, setStateOrder] = useState([]);
 
-  let dimOrders =
-    stateOrder?.length === 0 ? allOrders?.length : stateOrder?.length;
+  let dimOrders = stateOrder?.length;
+    /* stateOrder?.length === 0 ? allOrders?.length : stateOrder?.length; */
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    setAllOrders(allOrders)
+    setStateOrder(allOrders)
+    /* fetchAllOrders() */
+    return () => setStateOrder([])
+  },[allOrders])
+
+  
   return (
     <div className="w-full p-6">
       <h1 className=" font-bold mx-auto w-full max-w-[960px] ">Ventas</h1>
@@ -46,6 +55,7 @@ function SalesList() {
               currentPage={currentPage}
               productsPerPage={productsPerPage}
               stateOrder={stateOrder}
+              fetchAllOrders={fetchAllOrders}
             />
           </tbody>
         </table>
@@ -54,6 +64,7 @@ function SalesList() {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           productsPerPage={productsPerPage}
+          
         />
       </div>
     </div>

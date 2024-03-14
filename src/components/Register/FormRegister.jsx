@@ -8,9 +8,11 @@ import { validateField, validateForm } from "../../utils/validaciones";
 import ButtonLink from "../ButtonLink/ButtonLink";
 import ButtonNormal from "../ButtonNormal/ButtonNormal";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
+import { useStoreUsers } from "@/zustand/store";
 
 export default function FormRegister({ url }) {
   const router = useRouter();
+  const { fetchAllUsers, users } = useStoreUsers();
   const [error, setError] = useState({});
   const [disabled, setDisabled] = useState(true);
   const [registerOk, setRegisterOk] = useState(false);
@@ -22,6 +24,10 @@ export default function FormRegister({ url }) {
     password: "",
     retryPassword: "",
   });
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -50,7 +56,7 @@ export default function FormRegister({ url }) {
 
     setError((prevError) => ({
       ...prevError,
-      [name]: validateField(name, value, inputForm),
+      [name]: validateField(name, value, inputForm, users),
     }));
   };
 

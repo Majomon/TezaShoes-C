@@ -3,9 +3,10 @@ import AddCategory from "@/components/Dashboard/Category/AddCategory";
 import EditCategory from "@/components/Dashboard/Category/EditCategory";
 import NavbarCategories from "@/components/Dashboard/Category/NavbarCategories";
 import { useStoreProducts } from "@/zustand/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { Delete, Edit } from "../../../../../assets/Dashboard/IconActions";
+import { Tooltip } from "@nextui-org/react";
 
 function Categories() {
   const {
@@ -27,11 +28,12 @@ function Categories() {
 
   const handleDeleteCategory = async (category) => {
     await fetchDeleteCategoryId(category._id);
-
-    setTimeout(() => {
-      setCategories(fetchAllCategories());
-    }, 1000);
   };
+
+  useEffect(() => {
+    setCategories(categories);
+    return () => setCategories([]);
+  }, [categories]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,12 +55,26 @@ function Categories() {
                   <h2>{item.name}</h2>
 
                   <div className=" flex gap-x-2 cursor-pointer">
-                    <button onClick={() => handleEditCategory(item)}>
-                      <Edit />
-                    </button>
-                    <button onClick={() => handleDeleteCategory(item)}>
-                      <Delete />
-                    </button>
+                    <Tooltip
+                      content="Editar"
+                      delay={0}
+                      closeDelay={0}
+                      placement={"top-end"}
+                    >
+                      <button onClick={() => handleEditCategory(item)}>
+                        <Edit />
+                      </button>
+                    </Tooltip>
+                    <Tooltip
+                      content="Eliminar"
+                      delay={0}
+                      closeDelay={0}
+                      placement={"top-end"}
+                    >
+                      <button onClick={() => handleDeleteCategory(item)}>
+                        <Delete />
+                      </button>
+                    </Tooltip>
                   </div>
                 </div>
                 {editCategory === item && (

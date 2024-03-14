@@ -5,19 +5,16 @@ import {
   IconMailListClients,
   IconWhatsappListClients,
 } from "../../../assets/svg/IconsDashboards";
+import { Tooltip } from "@nextui-org/react";
 
 export default function DataListClients({ name, orders, email, phone, _id }) {
   const [idUser, setIdUser] = useState(0);
-  const [idPurchase, setIdPurchase] = useState(0);
-  /* let idPurchase = 0; */
 
   const totalPaymentOrders = () => {
-    /* console.log(orders); */
     let totalPaymentCart = 0;
     let cartList = null;
     orders.forEach((elem) => {
       cartList = elem.cart;
-      /* console.log(elem.cart) */
     });
 
     cartList?.forEach((item) => {
@@ -32,7 +29,6 @@ export default function DataListClients({ name, orders, email, phone, _id }) {
   };
 
   const lastOrderId = () => {
-    /* let numberOrder = 0; */
     let dimOrders = orders.length - 1;
     return orders[dimOrders]?.numberOrder;
   };
@@ -40,19 +36,13 @@ export default function DataListClients({ name, orders, email, phone, _id }) {
   useEffect(() => {
     orders?.forEach((elem) => {
       setIdUser(elem._id);
-      setIdPurchase(elem.idUserPurchase);
     });
   }, []);
-
-  /* console.log(idPurchase) */
 
   return (
     <tr className=" text-left ">
       <th className=" font-normal text-colorGoldSecundary-500">
-        <Link
-          href={`/dashboard/clients/${idPurchase}`}
-          className=" cursor-pointer"
-        >
+        <Link href={`/dashboard/clients/${_id}`} className=" cursor-pointer">
           {name}
         </Link>
       </th>
@@ -81,18 +71,32 @@ export default function DataListClients({ name, orders, email, phone, _id }) {
         </div>
       </th>
       <th className=" flex gap-3">
-        <Link
-          href={`https://wa.me/+549${phone}`}
-          className=" border-1 border-colorGray-100 rounded-full p-1.5"
+        <Tooltip
+          content="Whatsapp"
+          delay={0}
+          closeDelay={0}
+          placement={"top-end"}
         >
-          <IconWhatsappListClients />
-        </Link>
-        <Link
-          href={`mailto:${email}`}
-          className=" border-1 border-colorGray-100 rounded-full p-1.5 flex items-center justify-center"
+          <Link
+            href={`https://wa.me/+549${phone}`}
+            className=" border-1 border-colorGray-100 rounded-full p-1.5"
+          >
+            <IconWhatsappListClients />
+          </Link>
+        </Tooltip>
+        <Tooltip
+          content="Correo"
+          delay={0}
+          closeDelay={0}
+          placement={"top-end"}
         >
-          <IconMailListClients />
-        </Link>
+          <Link
+            href={`mailto:${email}`}
+            className=" border-1 border-colorGray-100 rounded-full p-1.5 flex items-center justify-center"
+          >
+            <IconMailListClients />
+          </Link>
+        </Tooltip>
       </th>
     </tr>
   );

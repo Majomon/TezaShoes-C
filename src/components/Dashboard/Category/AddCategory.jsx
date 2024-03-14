@@ -1,6 +1,4 @@
 import { useStoreProducts } from "@/zustand/store";
-import { useEffect, useState } from "react";
-import ImgFirebase from "../AddProduct/ImgFirebase";
 import {
   Modal,
   ModalBody,
@@ -8,11 +6,15 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import ImgFirebase from "../AddProduct/ImgFirebase";
 import ListSizeGuide from "./ListSizeGuide";
 
 function AddCategory({ setAddCategory, addCategory }) {
-  const { fetchPostCategory, fetchAllCategories, setCategories } =
+  const { fetchPostCategory, fetchAllCategories, categories } =
     useStoreProducts();
+
   const [finalyDataCategory, setFinalyDataCategory] = useState({
     name: "",
     image: "",
@@ -32,12 +34,13 @@ function AddCategory({ setAddCategory, addCategory }) {
   const [accentMark, setAccentMark] = useState(false);
 
   useEffect(() => {
-    setFinalyDataCategory({ ...finalyDataCategory,
+    setFinalyDataCategory({
+      ...finalyDataCategory,
       name: dataCategory.name,
       image: dataCategory.image,
-      tableSizes: [] 
+      tableSizes: listSizeGuide,
     });
-  },[dataCategory])
+  }, [dataCategory, listSizeGuide]);
 
   const handleNameChange = (e) => {
     setDataCategory((prevData) => ({
@@ -46,29 +49,20 @@ function AddCategory({ setAddCategory, addCategory }) {
     }));
   };
 
-  const handleSubmit = async (data) => {
-
-    await fetchPostCategory({
-        ...finalyDataCategory,
-        tableSizes: listSizeGuide,
-      }
+  const handleSubmit = async () => {
+    const categoryNameExists = categories.some(
+      (category) => category.name === finalyDataCategory.name
     );
-
-    setFinalyDataCategory({ ...finalyDataCategory,
-      name: data.name,
-      image: data.image,
-      sizesGuides: listSizeGuide 
-    });
-
-    await fetchPostCategory(/* data */ finalyDataCategory);
-
-    setTimeout(() => {
-      fetchAllCategories();
-    }, 800);
-    setAddCategory(false);
+    if (categoryNameExists) {
+      window.scrollTo(0, 0);
+      toast.error("Ya existe una categoria con este nombre");
+    } else {
+      await fetchPostCategory(finalyDataCategory);
+      /* fetchAllCategories(); */
+      setAddCategory(false);
+    }
   };
-  /* 
-  console.log(finalyDataCategory); */
+
   const handleClicCheckbox = (e) => {
     const { value } = e.target;
     if (value) {
@@ -102,8 +96,6 @@ function AddCategory({ setAddCategory, addCategory }) {
     );
     setListSizeGuide(listSizeGuideFilter);
   };
-
- /*  console.log(listSizeGuide); */
 
   return (
     <Modal

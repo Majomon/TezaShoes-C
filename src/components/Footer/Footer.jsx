@@ -73,6 +73,7 @@ function Footer() {
   }
   
   if(startTime) return null
+  
   return (
     <footer className="w-full h-fit py-3 md:py-0 md:h-[250px] text-colorWhite-100 bg-gradient-to-r from-black via-zinc-800 to-zinc-600 from-65% flex flex-col items-center justify-center gap-y-[30px]">
       <div className="w-11/12 mx-auto justify-center items-center md:gap-[50px] flex flex-col md:flex-row h-fit gap-y-5">

@@ -19,6 +19,7 @@ export default function Carousel() {
   let contItems = 0;
   /* destructuring */
   const { detail } = useStoreProducts();
+  let countImages = detail.images.length;
   /* useEffect */
   useEffect(() => {
     if (imgSelected) {
@@ -31,8 +32,6 @@ export default function Carousel() {
       let arrayPush = []
       setFirstImage(detail.images[0]);
       detail.images.forEach((image) => {
-        /* console.log(image) */
-        /* setArrayImg((prevArrayImg) => [...prevArrayImg, image]); */
         arrayPush.push(image);
       });
       setArrayImg([...arrayImg,...arrayPush])
@@ -139,8 +138,7 @@ export default function Carousel() {
           {/* Imagen del producto principal */}
           <MobileResponsiveCarousel
             imagens={detail.images}
-            handlerImgModal={handlerImgModal}
-            imgSelected={imgSelected}
+            countImages={countImages}
           />
           {imgSelected ? (
             <img

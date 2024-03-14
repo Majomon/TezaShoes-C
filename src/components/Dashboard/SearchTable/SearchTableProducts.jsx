@@ -14,9 +14,9 @@ export default function SearchTableProducts({ allList, setStateList }) {
     } */
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     setStateList(allList);
-  }, []);
+  }, []); */
 
   const filterOrders = (valueParam) => {
     let newAllOrders = allList.filter((order) => {

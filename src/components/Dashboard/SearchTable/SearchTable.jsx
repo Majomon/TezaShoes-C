@@ -1,21 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-export default function SearchTable({ allList, setStateList }) {
+export default function SearchTable({ allList, setStateList, stateList }) {
   const [valueSearch, setValueSearch] = useState("");
 
   const handleChangeInput = (e) => {
     const { value } = e.target;
-
     setValueSearch(value);
     filterOrders(value);
-
   };
 
-
-  useEffect(() => {
-    setStateList(allList);
-  }, []);
 
   const filterOrders = (valueParam) => {
     let newAllOrders = allList.filter((order) => {

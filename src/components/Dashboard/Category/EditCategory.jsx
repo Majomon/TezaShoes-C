@@ -1,6 +1,4 @@
 import { useStoreProducts } from "@/zustand/store";
-import { useEffect, useState } from "react";
-import ImgFirebase from "../AddProduct/ImgFirebase";
 import {
   Modal,
   ModalBody,
@@ -8,10 +6,13 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import ImgFirebase from "../AddProduct/ImgFirebase";
 import ListSizeGuide from "./ListSizeGuide";
 
 function EditCategory({ item, setEditCategory, editCategory }) {
-  const { fetchPutCategoryId, fetchAllCategories, setCategories } =
+  const { fetchPutCategoryId, fetchAllCategories, categories } =
     useStoreProducts();
 
   const [dataCategory, setDataCategory] = useState({
@@ -22,12 +23,12 @@ function EditCategory({ item, setEditCategory, editCategory }) {
   });
 
   const [listSizeGuide, setListSizeGuide] = useState(
-    /* dataCategory.tableSizes */[]
+    /* dataCategory.tableSizes */ []
   );
 
   useEffect(() => {
-    setListSizeGuide([...listSizeGuide,...dataCategory?.tableSizes])
-  },[dataCategory.tableSizes]) 
+    setListSizeGuide([...listSizeGuide, ...dataCategory?.tableSizes]);
+  }, [dataCategory.tableSizes]);
 
   const handleNameChange = (e) => {
     setDataCategory((prevData) => ({
@@ -36,15 +37,14 @@ function EditCategory({ item, setEditCategory, editCategory }) {
     }));
   };
   const handleSubmit = async (data) => {
-    /* console.log(data) */
+    
     await fetchPutCategoryId(data.id, {
       name: data.name,
       image: data.image,
       tableSizes: listSizeGuide,
     });
-    setTimeout(() => {
-      fetchAllCategories();
-    }, 100);
+    window.scrollTo(0, 0);
+    fetchAllCategories();
     setEditCategory(false);
   };
 
@@ -72,9 +72,7 @@ function EditCategory({ item, setEditCategory, editCategory }) {
     newSizeGuide.push({ size: "", measure: "" });
     setListSizeGuide(newSizeGuide);
   };
-
-  /* console.log(listSizeGuide) */
-
+ 
   return (
     <Modal
       isOpen={editCategory}
@@ -106,12 +104,7 @@ function EditCategory({ item, setEditCategory, editCategory }) {
               nameCategory={"nameCategory"}
             />
           </div>
-          <button
-            className=" py-1 px-2 border-1 rounded-full bg-colorGoldSecundary-500 text-white mb-2 w-fit"
-            onClick={handleClicAddSizeMeasure}
-          >
-            + añadir
-          </button>
+
           {listSizeGuide?.length !== 0 ? (
             listSizeGuide?.map((item, index) => {
               return (
@@ -130,6 +123,12 @@ function EditCategory({ item, setEditCategory, editCategory }) {
               Sin talles y medidas
             </p>
           )}
+          <button
+            className=" py-1 px-2 border-1 rounded-full bg-colorGoldSecundary-500 text-white mb-2 w-fit"
+            onClick={handleClicAddSizeMeasure}
+          >
+            + Añadir
+          </button>
         </ModalBody>
         <ModalFooter>
           {dataCategory.name.length > 0 && dataCategory.image.length > 0 && (

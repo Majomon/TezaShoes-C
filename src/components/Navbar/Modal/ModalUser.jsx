@@ -37,7 +37,7 @@ function ModalUser({ isOpenUser, setIsOpenUser }) {
   const isAdmin = Cookies.get("isAdmin") === "true";
 
   return (
-    <div>
+    <div className="">
       <button className="mx-1">
         <CiUser
           size={25}

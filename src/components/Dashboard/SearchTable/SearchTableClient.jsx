@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 
-export default function SearchTableClient({ allList, stateList, setStateList }) {
+export default function SearchTableClient({ allList, setStateList }) {
   const [valueSearch, setValueSearch] = useState("");
   
   const handleChangeInput = (e) => {
@@ -9,14 +9,14 @@ export default function SearchTableClient({ allList, stateList, setStateList }) 
     setValueSearch(value);
     filterOrders(value);
 
-    if (!value) {
+    /* if (!value) {
       setStateList(allList);
-    }
+    } */
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     setStateList(allList);
-  }, []);
+  }, []); */
 
   const filterOrders = (valueParam) => {
     let newAllOrders = allList.filter((order) => {

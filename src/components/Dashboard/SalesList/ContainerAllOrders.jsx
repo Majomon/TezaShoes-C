@@ -7,13 +7,13 @@ import {
   useStoreUsers,
 } from "@/zustand/store";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Notify } from "../../../../assets/Dashboard/IconActions";
 import ContainerActionsOrders from "./ContainerActionsOrders";
 import ContainerDetailsOrders from "./ContainerDetailsOrders";
 import DashboardModalClient from "./DashboardModalClient";
 
-function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
+function ContainerAllOrders({ currentPage, productsPerPage, stateOrder, fetchAllOrders }) {
   const { allOrders, setAllOrders } = useStoreDashboard();
   const { fetchPostStatusPayment, fetchPostOrderCancel } = useStoreSendEmails();
   const { fetchPutUserOrderStatus } = useStoreUsers();
@@ -26,6 +26,10 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
 
   const lastIndex = currentPage * productsPerPage; // 1 * 2 = 2
   const firstIndex = lastIndex - productsPerPage; // 2 - 2 = 0
+
+  useEffect(() => {
+    fetchAllOrders()
+  },[]) 
 
   const openProductModal = (order) => {
     if (
@@ -43,12 +47,12 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
     }
   };
 
-  const openClientModal = () => {
+  /* const openClientModal = () => {
     if (selectedOrder !== null) {
       setSelectedOrder(null);
     }
     setIsOpenModalClient(!isOpenModalClient);
-  };
+  }; */
 
   const openActionsModal = (order) => {
     setIsOpenModalActions(!isOpenModalActions);
@@ -111,18 +115,21 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
   };
 
   const orderWholesaleAllOrders = () => {
-    if (stateOrder.length !== 0) {
+    /* if (stateOrder.length !== 0) {
       return stateOrder?.sort((a, b) => b.numberOrder - a.numberOrder);
     } else {
       return allOrders?.sort((a, b) => b.numberOrder - a.numberOrder);
-    }
+    } */
+    return stateOrder?.sort((a, b) => b.numberOrder - a.numberOrder);
   };
 
   return (
     <>
       {!orderWholesaleAllOrders() ? (
         <tr>
-          <p className="w-full text-center">Sin ventas</p>
+          <td className="w-full text-center">
+            Sin ventas
+          </td>
         </tr>
       ) : (
         orderWholesaleAllOrders()
@@ -226,7 +233,8 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
                       selectedOrder._id === item._id && (
                         <ContainerActionsOrders
                           item={item}
-                          openActionsModal={openActionsModal}
+                          /* openActionsModal={openActionsModal} */
+                          setIsOpenModalActions={setIsOpenModalActions}
                         />
                       )}
                   </div>
@@ -241,7 +249,8 @@ function ContainerAllOrders({ currentPage, productsPerPage, stateOrder }) {
                       selectedOrder._id === item._id && (
                         <ContainerActionsOrders
                           item={item}
-                          openActionsModal={openActionsModal}
+                          /* openActionsModal={openActionsModal} */
+                          setIsOpenModalActions={setIsOpenModalActions}
                         />
                       )}
                   </div>
