@@ -1,5 +1,5 @@
 "use client";
-import { useStorePayOrder } from "@/zustand/store";
+import { useStorePayOrder, useStoreSendEmails } from "@/zustand/store";
 import Cookies from "js-cookie";
 
 const ButtonModo = ({ totalCart, cantProduct, mockOrder, dataId }) => {

@@ -2,7 +2,7 @@ import InputShipping from "./InputShipping";
 
 function ContainerInputShipping({ handleChange, dataShipping }) {
   const address = dataShipping?.address || {};
-  console.log("Data shipping", dataShipping);
+
   return (
     <div className="w-fit flex flex-wrap px-6 py-4 gap-y-4  items-center justify-center">
       {/* Calle */}
