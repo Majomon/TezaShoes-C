@@ -123,24 +123,25 @@ function Footer() {
           })}
         </section>
       </div>
-      <div className="w-11-12 text-center flex flex-col sm:flex-row justify-center gap-2">
+      <div className="w-11/12 mx-auto text-center flex flex-col sm:flex-row justify-center items-center gap-2 py-6 border-t border-white/10">
         <span className="text-white text-[1rem] font-light font-['Martel']">
-          ©2024 todos lo derechos reservados{" "}
+          © {new Date().getFullYear()} Todos los derechos reservados
         </span>
-        <section className="flex flex-row gap-x-2 justify-center items-center">
+
+        <section className="flex flex-row gap-x-2 items-center">
           <span className="text-white text-[1rem] font-bold font-['Martel']">
             TEZA
           </span>
-          <span className="text-white text-[1rem] font-light font-['Martel']"></span>
           <span className="text-white text-[1rem] font-bold font-['Martel']">
             -
           </span>
-          <span className="text-white text-[1rem] font-light font-['Martel']"></span>
           <Link
-            href={"https://www.instagram.com/mongar.developer"}
-            className="text-amber-500 text-[1rem] font-bold font-['Martel']"
+            href="https://www.instagram.com/paltaniok"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-gradient-to-r from-[#4F9654] to-[#2E7B32] bg-clip-text text-transparent text-[1rem] font-bold font-['Martel'] hover:opacity-80 transition-opacity"
           >
-            MONGAR
+            PALTANI
           </Link>
         </section>
       </div>
